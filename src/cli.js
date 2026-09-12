@@ -10,6 +10,7 @@ const {
 } = require('./query');
 const { buildSessionPacket, exportSessionPacket } = require('./sessionPrep');
 const { RELATIONSHIP_TYPES } = require('./data/wordbanks');
+const { HERO_TYPE_KEYS, LIFE_FORM_DISPLAY, buildHeroStatBlock } = require('./statBlock');
 
 const TWO_WORD_COMMANDS = new Set([
   'generate npc', 'generate location',
@@ -65,7 +66,10 @@ Warp Shell ICRPG Campaign Manager
 Usage: node index.js <command> [options]
 
 NPC & Location generation
-  generate npc [--role R] [--faction F] [--location L]
+  generate npc [--role R] [--faction F] [--location L] [--hero-type T] [--life-form F]
+      --hero-type attaches a full Warp Shell mechanical stat block (independent
+      of --role, which is flavor occupation). Valid: ${HERO_TYPE_KEYS.map((k) => k[0].toUpperCase() + k.slice(1)).join(', ')}
+      --life-form applies a species bonus on top of a hero type. Valid: ${Object.values(LIFE_FORM_DISPLAY).join(', ')}
   generate location [--type T] [--faction F] [--danger D] [--resources R]
 
 Consistency
@@ -88,7 +92,7 @@ Session prep
   session end [--notes "recap text"]
 
 Editing
-  edit npc <name-or-id> [--role R] [--faction F] [--location L] [--notes N]
+  edit npc <name-or-id> [--role R] [--faction F] [--location L] [--notes N] [--hero-type T] [--life-form F]
   edit location <name-or-id> [--type T] [--faction F] [--danger D] [--resources R] [--notes N]
   delete npc <name-or-id>
   delete location <name-or-id>
@@ -117,6 +121,19 @@ function printNpc(npc) {
   console.log(`  Role: ${npc.role || 'unset'}`);
   console.log(`  Faction: ${npc.faction || 'unset'}`);
   console.log(`  Location: ${npc.location || 'unset'}`);
+  if (npc.heroType) {
+    const s = npc.stats || {};
+    console.log(`  Hero Type: ${npc.heroType}${npc.lifeForm ? ` (${npc.lifeForm})` : ''}`);
+    console.log(`  Hearts: ${npc.hearts} | Defense: ${npc.defense}`);
+    console.log(`  Stats: STR +${s.STR ?? 0}  DEX +${s.DEX ?? 0}  CON +${s.CON ?? 0}  INT +${s.INT ?? 0}  WIS +${s.WIS ?? 0}  CHA +${s.CHA ?? 0}`);
+    if (npc.effortBonuses) {
+      const parts = Object.entries(npc.effortBonuses).filter(([, v]) => v > 0).map(([k, v]) => `${k} +${v}`);
+      console.log(`  Effort Bonuses: ${parts.length ? parts.join(' | ') : 'none'}`);
+    }
+    if (npc.startingAbility) console.log(`  Ability: ${npc.startingAbility.name} — ${npc.startingAbility.effect}`);
+    if (npc.startingLoot) console.log(`  Starting Loot: ${npc.startingLoot.name} — ${npc.startingLoot.effect}`);
+    if (npc.specialTrait) console.log(`  Special: ${npc.specialTrait}`);
+  }
   if (npc.traits && npc.traits.length) {
     console.log('  Traits:');
     npc.traits.forEach((t) => console.log(`    - ${t}`));
@@ -182,6 +199,8 @@ function run(argv) {
         role: flags.role,
         faction: flags.faction,
         location: flags.location,
+        heroType: flags['hero-type'],
+        lifeForm: flags['life-form'],
       });
       npcs.npcs.push(npc);
       storage.save('npcs', npcs);
@@ -208,8 +227,9 @@ function run(argv) {
     case 'check consistency': {
       const npcs = storage.load('npcs').npcs;
       const locations = storage.load('locations').locations;
-      const { npcIssues, locationIssues } = runConsistencyCheck(npcs, locations);
+      const { npcIssues, mechanicsIssues, locationIssues } = runConsistencyCheck(npcs, locations);
       printIssues('NPC consistency', npcIssues);
+      printIssues('Mechanics rule validation', mechanicsIssues);
       printIssues('Location consistency', locationIssues);
       break;
     }
@@ -348,8 +368,8 @@ function run(argv) {
       storage.save('campaignState', state);
 
       if (flags.export) {
-        const file = exportSessionPacket(packet.text, sessionNumber);
-        console.log(`\nExported to: ${file}`);
+        const { textFile, jsonFile } = exportSessionPacket(packet, sessionNumber);
+        console.log(`\nExported to:\n  ${textFile}\n  ${jsonFile}`);
       }
       break;
     }
@@ -396,6 +416,9 @@ function run(argv) {
       if (flags.faction) npc.faction = flags.faction;
       if (flags.location) npc.location = flags.location;
       if (flags.notes) npc.notes = flags.notes;
+      if (flags['hero-type']) {
+        Object.assign(npc, buildHeroStatBlock({ heroType: flags['hero-type'], lifeForm: flags['life-form'] || npc.lifeForm }));
+      }
       storage.save('npcs', npcsData);
       console.log('Updated:');
       printNpc(npc);

@@ -13,6 +13,20 @@ function formatNpc(npc) {
     `  Faction: ${npc.faction || 'unset'}`,
     `  Location: ${npc.location || 'unset'}`,
   ];
+  if (npc.heroType) {
+    const s = npc.stats || {};
+    lines.push(`  Hero Type: ${npc.heroType}${npc.lifeForm ? ` (${npc.lifeForm})` : ''}`);
+    lines.push(`  Hearts: ${npc.hearts} | Defense: ${npc.defense}`);
+    lines.push(`  Stats: STR +${s.STR ?? 0}  DEX +${s.DEX ?? 0}  CON +${s.CON ?? 0}  INT +${s.INT ?? 0}  WIS +${s.WIS ?? 0}  CHA +${s.CHA ?? 0}`);
+    if (npc.effortBonuses) {
+      const eb = npc.effortBonuses;
+      const parts = Object.entries(eb).filter(([, v]) => v > 0).map(([k, v]) => `${k} +${v}`);
+      lines.push(`  Effort Bonuses: ${parts.length ? parts.join(' | ') : 'none'}`);
+    }
+    if (npc.startingAbility) lines.push(`  Ability: ${npc.startingAbility.name} — ${npc.startingAbility.effect}`);
+    if (npc.startingLoot) lines.push(`  Starting Loot: ${npc.startingLoot.name} — ${npc.startingLoot.effect}`);
+    if (npc.specialTrait) lines.push(`  Special: ${npc.specialTrait}`);
+  }
   if (npc.traits && npc.traits.length) {
     lines.push('  Traits:');
     npc.traits.forEach((t) => lines.push(`    - ${t}`));
@@ -87,12 +101,28 @@ function buildSessionPacket(npcs, locations, { npcRefs = [], locationRefs = [], 
   };
 }
 
-function exportSessionPacket(text, sessionNumber) {
+// Writes both a human-readable .txt (for table printout) and a structured
+// .json (full stat blocks, for tooling) version of a session packet.
+// Returns { textFile, jsonFile }.
+function exportSessionPacket(packet, sessionNumber) {
   if (!fs.existsSync(EXPORT_DIR)) fs.mkdirSync(EXPORT_DIR, { recursive: true });
   const label = sessionNumber ? `session-${sessionNumber}` : `session-${Date.now()}`;
-  const file = path.join(EXPORT_DIR, `${label}-prep.txt`);
-  fs.writeFileSync(file, text, 'utf8');
-  return file;
+
+  const textFile = path.join(EXPORT_DIR, `${label}-prep.txt`);
+  fs.writeFileSync(textFile, packet.text, 'utf8');
+
+  const jsonData = {
+    sessionNumber: sessionNumber || null,
+    timestamp: new Date().toISOString(),
+    npcs: packet.resolvedNpcs,
+    locations: packet.resolvedLocations,
+    missingNpcs: packet.missingNpcs,
+    missingLocations: packet.missingLocations,
+  };
+  const jsonFile = path.join(EXPORT_DIR, `${label}-prep.json`);
+  fs.writeFileSync(jsonFile, JSON.stringify(jsonData, null, 2) + '\n', 'utf8');
+
+  return { textFile, jsonFile };
 }
 
 module.exports = { buildSessionPacket, exportSessionPacket, formatNpc, formatLocation };

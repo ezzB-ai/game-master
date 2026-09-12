@@ -1,6 +1,7 @@
 'use strict';
 
 const { normalize, overlapCount, nameSimilarity } = require('./utils');
+const { validateHeroStatBlock } = require('./statBlock');
 
 const NAME_SIMILARITY_WARN = 0.82; // near-duplicate names, not exact
 const TRAIT_OVERLAP_WARN = 2; // shared traits + same role => flag
@@ -102,6 +103,21 @@ function checkNpcConsistency(npcs) {
   return issues;
 }
 
+// Validates NPCs that carry a mechanical stat block (heroType set) against
+// the rules in mechanics-reference.json: stat ranges/sums, EFFORT bonus
+// totals, HEARTS, DEFENSE math, and that starting ability/loot actually
+// belong to that hero type.
+function checkMechanicsConsistency(npcs) {
+  const issues = [];
+  for (const npc of npcs) {
+    if (!npc.heroType) continue;
+    for (const message of validateHeroStatBlock(npc)) {
+      issues.push({ severity: 'error', type: 'mechanics-violation', message });
+    }
+  }
+  return issues;
+}
+
 function checkLocationConsistency(locations) {
   const issues = [];
 
@@ -175,8 +191,11 @@ function checkLocationConsistency(locations) {
 
 function runConsistencyCheck(npcs, locations) {
   const npcIssues = checkNpcConsistency(npcs);
+  const mechanicsIssues = checkMechanicsConsistency(npcs);
   const locationIssues = checkLocationConsistency(locations);
-  return { npcIssues, locationIssues };
+  return { npcIssues, mechanicsIssues, locationIssues };
 }
 
-module.exports = { checkNpcConsistency, checkLocationConsistency, runConsistencyCheck };
+module.exports = {
+  checkNpcConsistency, checkMechanicsConsistency, checkLocationConsistency, runConsistencyCheck,
+};

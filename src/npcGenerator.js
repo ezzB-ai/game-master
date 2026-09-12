@@ -5,6 +5,7 @@ const {
   NPC_ROLES, NPC_TRAITS, FACTIONS,
 } = require('./data/wordbanks');
 const { pick, pickMany, makeId, normalize } = require('./utils');
+const { buildHeroStatBlock } = require('./statBlock');
 
 const MAX_ATTEMPTS = 100;
 
@@ -23,7 +24,11 @@ function randomName() {
  * duplicates at the table even with different names.
  * @param {object} opts
  * @param {Array} existingNpcs
- * @param {object} [overrides] - force specific fields (role, faction, location)
+ * @param {object} [overrides] - force specific fields (role, faction, location).
+ *   `heroType` (Pilot/Gunner/Mechanic/Navigator/Scientist/Echo) and `lifeForm`
+ *   (Geno/Xill/Reptoid/Kitt/Mecha/Ghost Armor) are independent of `role`: role
+ *   is flavor occupation (Bar Owner, Smuggler, ...), heroType is an optional
+ *   mechanical stat block for NPCs who might actually fight or be played.
  */
 function generateNpc(existingNpcs, overrides = {}) {
   const existingNames = new Set(existingNpcs.map((n) => normalize(n.name)));
@@ -55,6 +60,10 @@ function generateNpc(existingNpcs, overrides = {}) {
       notes: '',
       createdAt: new Date().toISOString(),
     };
+
+    if (overrides.heroType) {
+      Object.assign(npc, buildHeroStatBlock({ heroType: overrides.heroType, lifeForm: overrides.lifeForm }));
+    }
     break;
   }
 
