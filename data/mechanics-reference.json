@@ -29,7 +29,7 @@
       },
       "ultimate": {
         "die": "d12",
-        "use": "Added ON TOP of the base EFFORT die on a natural 20 ATTEMPT roll (critical success)."
+        "use": "In play: added ON TOP of the base EFFORT die on a natural 20 ATTEMPT roll (critical success). It is ALSO one of the trainable categories at character creation (Step 3: Boost Effort Types) — the 4 EFFORT bonus points can give a character affinity for weapons, magic, or \"the risky business of ULTIMATE,\" same as the other 4 categories."
       }
     }
   },
@@ -55,6 +55,7 @@
       "basePointsToAssign": 6,
       "arrayNote": "Freely distributed across the 6 STATS at character creation (e.g. all 6 in one STAT, or 1 in each).",
       "effortBonusPointsToAssign": 4,
+      "effortBonusCategories": ["basic", "weaponsAndTools", "guns", "magicAndEnergy", "ultimate"],
       "maxStatBonus": 10,
       "maxStatBonusNote": "No STAT can ever exceed +10, regardless of source (base points, LIFE FORM, LOOT)."
     }

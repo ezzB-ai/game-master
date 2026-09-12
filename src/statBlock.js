@@ -12,7 +12,12 @@ const LIFE_FORM_DISPLAY = {
   geno: 'Geno', xill: 'Xill', reptoid: 'Reptoid', kitt: 'Kitt', mecha: 'Mecha', ghostArmor: 'Ghost Armor',
 };
 const STAT_LIST = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
-const EFFORT_CATEGORIES = ['basic', 'weaponsAndTools', 'guns', 'magicAndEnergy'];
+// ULTIMATE is a real, trainable EFFORT category alongside the other four —
+// Step 3 of character creation says the 4 bonus points give "affinity for
+// weapons, magic, or the risky business of ULTIMATE." It's not merely an
+// automatic crit-bonus die (that's how it's used in play), it's also
+// something you can invest character-creation points into.
+const EFFORT_CATEGORIES = ['basic', 'weaponsAndTools', 'guns', 'magicAndEnergy', 'ultimate'];
 // Accepts common shorthand (e.g. "WEAPONS", "ENERGY") typed at the CLI and
 // maps it to the real category keys used everywhere else in this file.
 const EFFORT_ALIASES = {
@@ -20,6 +25,7 @@ const EFFORT_ALIASES = {
   weapons: 'weaponsAndTools', tools: 'weaponsAndTools', weaponsandtools: 'weaponsAndTools', weapon: 'weaponsAndTools',
   guns: 'guns', gun: 'guns',
   energy: 'magicAndEnergy', magic: 'magicAndEnergy', magicandenergy: 'magicAndEnergy', magicenergy: 'magicAndEnergy',
+  ultimate: 'ultimate',
 };
 const BASE_STAT_POINTS = 6;
 const BASE_EFFORT_POINTS = 4;
