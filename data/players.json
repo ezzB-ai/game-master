@@ -82,11 +82,11 @@
         "CHA": 1
       },
       "effortBonuses": {
-        "basic": 1,
+        "basic": 0,
         "weaponsAndTools": 1,
         "guns": 1,
-        "magicAndEnergy": 2,
-        "ultimate": 2
+        "magicAndEnergy": 1,
+        "ultimate": 1
       },
       "defense": 3,
       "startingAbility": {
@@ -120,7 +120,7 @@
       "coin": 0,
       "notes": "Reactivated by its Builder, to whom its loyalty is infinite. Time-bending speed; strong intuition with the Warp Shell. DEFENSE computed as CON 1 + Energy Shield 2 = 3 (Mecha's own bonus is +1 HEART, not DEFENSE).",
       "createdAt": "2026-09-12T14:50:29.437Z",
-      "updatedAt": "2026-09-12T15:03:30.356Z"
+      "updatedAt": "2026-09-12T15:04:46.738Z"
     },
     {
       "id": "player-c83f020e",
@@ -197,7 +197,7 @@
       },
       "effortBonuses": {
         "basic": 0,
-        "weaponsAndTools": 0,
+        "weaponsAndTools": 2,
         "guns": 2,
         "magicAndEnergy": 0,
         "ultimate": 0
@@ -232,9 +232,9 @@
       "milestones": [],
       "xp": 0,
       "coin": 0,
-      "notes": "Full name/nickname: Glamour Ghost Gunner (G3). Ghost Armor, Freefaller background (ghost can float freely within FAR of the armor, sucked back in after 1D4 ROUNDS; fully immaterial outside the armor). DEFENSE computed as CON 2 (base) + Ghost Armor life form +2 + Hard Suit +3 + Energy Shield +2 = 9. Stats.CON is the raw base stat (2); an earlier note of 'CON +8' was folding in life-form/loot DEFENSE bonuses that belong on the defense field instead, not the CON stat itself. A WEAPONS & TOOLS effort bonus was mentioned but left unspecified — recorded as 0 here pending confirmation.",
+      "notes": "Full name/nickname: Glamour Ghost Gunner (G3). Ghost Armor, Freefaller background (ghost can float freely within FAR of the armor, sucked back in after 1D4 ROUNDS; fully immaterial outside the armor). DEFENSE computed as CON 2 (base) + Ghost Armor life form +2 + Hard Suit +3 + Energy Shield +2 = 9.",
       "createdAt": "2026-09-12T14:51:07.458Z",
-      "updatedAt": "2026-09-12T15:03:30.504Z"
+      "updatedAt": "2026-09-12T15:04:58.560Z"
     }
   ]
 }
