@@ -1,0 +1,236 @@
+{
+  "players": [
+    {
+      "id": "player-17f29359",
+      "name": "Zharnis",
+      "playerName": "Shane",
+      "pronouns": "none",
+      "heroType": "Echo",
+      "lifeForm": "Reptoid",
+      "specialTrait": "Reptoid: claw weapons, can walk on any surface",
+      "faction": null,
+      "hearts": 5,
+      "stats": {
+        "STR": 0,
+        "DEX": 0,
+        "CON": 3,
+        "INT": 0,
+        "WIS": 3,
+        "CHA": 0
+      },
+      "effortBonuses": {
+        "basic": 0,
+        "weaponsAndTools": 4,
+        "guns": 0,
+        "magicAndEnergy": 0
+      },
+      "defense": 3,
+      "startingAbility": {
+        "name": "Energy Star",
+        "effect": "CON roll to harvest 1D10 ENERGY from a NEAR source, delivered as healing EFFORT or a bonus on your next roll."
+      },
+      "startingLoot": {
+        "name": "Pocket Door",
+        "effect": "Moving creates a tiny wormhole other creatures can use to copy your move for 1 ROUND."
+      },
+      "gear": [
+        {
+          "name": "Warp Shell Move x2",
+          "effect": ""
+        },
+        {
+          "name": "Medical Kit",
+          "effect": "Roll WIS or INT to heal an ally 1 HP. Natural 1 empties the kit (refill on any ship)."
+        },
+        {
+          "name": "Scan Unit",
+          "effect": "Use 1 TURN to run a scan; reduces the current TARGET by 1."
+        },
+        {
+          "name": "Zurin Symbiote",
+          "effect": "primordial organism bound to the spine. Don't Die On Me, Man! rolls are always EASY."
+        },
+        {
+          "name": "Away Team Pack",
+          "effect": "hand lamp, micro cutting torch, reel of cable, leak sealant slap-patch x3, 10-minute air canister x2, emergency locator beacon."
+        }
+      ],
+      "milestones": [],
+      "xp": 0,
+      "coin": 0,
+      "notes": "Hosts a Zurin symbiote (enhances empathy; stabilization rolls are always EASY). Intended to become a Zurin sage; ventured into space seeking answers.",
+      "createdAt": "2026-09-12T14:50:09.983Z",
+      "updatedAt": "2026-09-12T14:50:18.159Z"
+    },
+    {
+      "id": "player-31955f7d",
+      "name": "Megaladon",
+      "playerName": "Ethan",
+      "pronouns": "it/its",
+      "heroType": "Pilot",
+      "lifeForm": "Mecha",
+      "specialTrait": "Mecha: +1 HEART",
+      "faction": null,
+      "hearts": 6,
+      "stats": {
+        "STR": 1,
+        "DEX": 1,
+        "CON": 1,
+        "INT": 1,
+        "WIS": 1,
+        "CHA": 1
+      },
+      "effortBonuses": {
+        "basic": 1,
+        "weaponsAndTools": 1,
+        "guns": 1,
+        "magicAndEnergy": 2
+      },
+      "defense": 3,
+      "startingAbility": {
+        "name": "Cap'n",
+        "effect": "Invent and execute maneuvers with a huge/capital starship, even without crew; with crew, only fail on a natural 1."
+      },
+      "startingLoot": {
+        "name": "Hot Rod",
+        "effect": "A super-compact starship seating up to 6; no weapons or shields, just tiny and fast."
+      },
+      "gear": [
+        {
+          "name": "Vibro Blade",
+          "effect": "Unbreakable by physical means. Critical success on a natural 19 or 20."
+        },
+        {
+          "name": "Pulse Rifle",
+          "effect": "Advanced Reptoid war tech; power cell never runs out. Natural 1: rifle goes wild, hits a random target."
+        },
+        {
+          "name": "Energy Shield",
+          "effect": "+2 DEFENSE. Wrist unit emitting a round force shield; DEFENSE rolls vs energy weapons are EASY."
+        },
+        {
+          "name": "Cybernetics Loadout",
+          "effect": "Nano-fiber/duranium-augmented limbs and skeleton. All blunt impact inflicts no damage."
+        }
+      ],
+      "milestones": [],
+      "xp": 0,
+      "coin": 0,
+      "notes": "Reactivated by its Builder, to whom its loyalty is infinite. Time-bending speed; strong intuition with the Warp Shell. DEFENSE computed as CON 1 + Energy Shield 2 = 3 (Mecha's own bonus is +1 HEART, not DEFENSE).",
+      "createdAt": "2026-09-12T14:50:29.437Z",
+      "updatedAt": "2026-09-12T14:50:29.517Z"
+    },
+    {
+      "id": "player-c83f020e",
+      "name": "Ginger",
+      "playerName": "Simone",
+      "pronouns": null,
+      "heroType": "Navigator",
+      "lifeForm": "Geno",
+      "specialTrait": "Geno: +2 to any 1 STAT",
+      "faction": null,
+      "hearts": 5,
+      "stats": {
+        "STR": 0,
+        "DEX": 0,
+        "CON": 3,
+        "INT": 0,
+        "WIS": 4,
+        "CHA": 4
+      },
+      "effortBonuses": {
+        "basic": 0,
+        "weaponsAndTools": 0,
+        "guns": 0,
+        "magicAndEnergy": 3
+      },
+      "defense": 6,
+      "startingAbility": {
+        "name": "Infiltrator",
+        "effect": "Win a WIS roll vs. detection to become invisible; those who fail cannot detect you for the whole encounter."
+      },
+      "startingLoot": {
+        "name": "Psionic Knives",
+        "effect": "Thought-formed ENERGY melee weapon; can never be lost, detected, or damaged; usable by you or your telekinetic presence."
+      },
+      "gear": [
+        {
+          "name": "Blip Module",
+          "effect": "Phase-movement augment; moving does not pass through the space between locations."
+        },
+        {
+          "name": "Vac Suit",
+          "effect": "+1 DEFENSE. Nanotech-integrated suit for deep space operation."
+        },
+        {
+          "name": "Energy Shield",
+          "effect": "+2 DEFENSE. Wrist unit emitting a round force shield; DEFENSE rolls vs energy weapons are EASY."
+        }
+      ],
+      "milestones": [],
+      "xp": 0,
+      "coin": 0,
+      "notes": "Geno, No Trace subtype (blends in, disappears, goes unnoticed). Meant to become a Zurin sage; ventured into space seeking answers. Ancestors genetically engineered creature-befriending to undo Psyker modifications (a hidden revelation). DEFENSE computed as CON 3 + Vac Suit 1 + Energy Shield 2 = 6. An ULTIMATE EFFORT bonus of +1 was noted at the table but has no home in this tool's schema (ULTIMATE is the automatic crit d12, not a trained category) — tracked here as a note only.",
+      "createdAt": "2026-09-12T14:50:48.669Z",
+      "updatedAt": "2026-09-12T14:50:48.750Z"
+    },
+    {
+      "id": "player-daa879e0",
+      "name": "G3",
+      "playerName": "Lindsay",
+      "pronouns": null,
+      "heroType": "Gunner",
+      "lifeForm": "Ghost Armor",
+      "specialTrait": "Ghost Armor: +2 DEFENSE, 1 Ghost Ability (see warpShellLifeForms.ghostArmor.backgrounds)",
+      "faction": null,
+      "hearts": 5,
+      "stats": {
+        "STR": 4,
+        "DEX": 0,
+        "CON": 2,
+        "INT": 0,
+        "WIS": 0,
+        "CHA": 0
+      },
+      "effortBonuses": {
+        "basic": 0,
+        "weaponsAndTools": 0,
+        "guns": 2,
+        "magicAndEnergy": 0
+      },
+      "defense": 9,
+      "startingAbility": {
+        "name": "Sharpshooter",
+        "effect": "Spend a TURN to aim; your next shot does ULTIMATE."
+      },
+      "startingLoot": {
+        "name": "Burst Module",
+        "effect": "Attack rolls of modified 15+ earn another attack."
+      },
+      "gear": [
+        {
+          "name": "Hard Suit",
+          "effect": "+3 DEFENSE. Armored vac suit for dangerous space work; DEX rolls are never EASY, stealth only succeeds on a natural 20."
+        },
+        {
+          "name": "Vibro Blade",
+          "effect": "Unbreakable by physical means. Critical success on a natural 19 or 20."
+        },
+        {
+          "name": "Pulse Rifle",
+          "effect": "Advanced Reptoid war tech; power cell never runs out. Natural 1: rifle goes wild, hits a random target."
+        },
+        {
+          "name": "Energy Shield",
+          "effect": "+2 DEFENSE. Wrist unit emitting a round force shield; DEFENSE rolls vs energy weapons are EASY."
+        }
+      ],
+      "milestones": [],
+      "xp": 0,
+      "coin": 0,
+      "notes": "Full name/nickname: Glamour Ghost Gunner (G3). Ghost Armor, Freefaller background (ghost can float freely within FAR of the armor, sucked back in after 1D4 ROUNDS; fully immaterial outside the armor). DEFENSE computed as CON 2 (base) + Ghost Armor life form +2 + Hard Suit +3 + Energy Shield +2 = 9. Stats.CON is the raw base stat (2); an earlier note of 'CON +8' was folding in life-form/loot DEFENSE bonuses that belong on the defense field instead, not the CON stat itself. A WEAPONS & TOOLS effort bonus was mentioned but left unspecified — recorded as 0 here pending confirmation.",
+      "createdAt": "2026-09-12T14:51:07.458Z",
+      "updatedAt": "2026-09-12T14:51:07.657Z"
+    }
+  ]
+}

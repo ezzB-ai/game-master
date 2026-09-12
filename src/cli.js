@@ -8,16 +8,20 @@ const {
   searchNpcs, searchLocations, findNpcByNameOrId, findLocationByNameOrId,
   getRelationships, usedSummary,
 } = require('./query');
-const { buildSessionPacket, exportSessionPacket } = require('./sessionPrep');
+const { buildSessionPacket, exportSessionPacket, formatPlayer } = require('./sessionPrep');
 const { RELATIONSHIP_TYPES } = require('./data/wordbanks');
-const { HERO_TYPE_KEYS, LIFE_FORM_DISPLAY, buildHeroStatBlock } = require('./statBlock');
+const { HERO_TYPE_KEYS, LIFE_FORM_DISPLAY, buildHeroStatBlock, validatePlayerStatBlock } = require('./statBlock');
+const { findPlayerByNameOrId, buildPlayer, applyPlayerEdits } = require('./players');
 
 const TWO_WORD_COMMANDS = new Set([
   'generate npc', 'generate location',
   'check consistency',
   'search npc', 'search location',
-  'list npcs', 'list locations',
-  'show npc', 'show location',
+  'list npcs', 'list locations', 'list players',
+  'show npc', 'show location', 'show player',
+  'add player',
+  'edit player', 'update player',
+  'delete player',
   'session prep', 'session status', 'session end',
 ]);
 
@@ -86,8 +90,25 @@ Search & lookup
   relate <npc-a> <relationship-type> <npc-b>   (types: ${RELATIONSHIP_TYPES.join(', ')})
   used                                          (see what roles/factions/elements are used)
 
+Player characters (canonical, persistent — not randomly generated)
+  add player <name> --hero-type T [--life-form F] [--player "Real Name"] [--faction F]
+      --stats "STR=0,DEX=0,CON=3,INT=0,WIS=3,CHA=0" --effort "WEAPONS=4,GUNS=0"
+      [--hearts N] [--defense N] [--ability "Name"] [--loot "Name"] [--notes N]
+      Every mechanical field is typed in explicitly — nothing is rolled, since a
+      player's stats are choices made at the table, not GM flavor.
+  list players
+  show player <name-or-id>
+  edit player <name-or-id> (same flags as add, all optional; also:
+      [--add-hearts N] [--gear "Name: effect"] [--milestone "Name"]
+      [--xp N] [--add-xp N] [--coin N] [--add-coin N])
+  update player <name-or-id>                    (alias for edit player)
+  delete player <name-or-id>
+
 Session prep
-  session prep --npc "Name" [--npc "Name2" ...] --location "Loc" [--location "Loc2" ...] [--session N] [--export]
+  session prep --npc "Name" [--npc "Name2" ...] --location "Loc" [--location "Loc2" ...]
+      [--player "Name" ...] [--session N] [--export]
+      Omitting --player includes the whole crew roster by default; pass one or
+      more --player flags to select only specific players (e.g. someone absent).
   session status
   session end [--notes "recap text"]
 
@@ -175,6 +196,17 @@ function printLocationList(locations) {
   }
 }
 
+function printPlayerList(players) {
+  if (!players.length) {
+    console.log('  (no players in roster)');
+    return;
+  }
+  for (const p of players) {
+    const heroLabel = `${p.heroType}${p.lifeForm ? ` (${p.lifeForm})` : ''}`;
+    console.log(`  ${p.name.padEnd(20)} ${heroLabel.padEnd(22)} Hearts ${String(p.hearts).padEnd(3)} Defense ${String(p.defense).padEnd(3)} ${p.playerName ? `— ${p.playerName}` : ''}`);
+  }
+}
+
 function run(argv) {
   const tokens = argv.slice(2);
   if (tokens.length === 0) {
@@ -227,9 +259,12 @@ function run(argv) {
     case 'check consistency': {
       const npcs = storage.load('npcs').npcs;
       const locations = storage.load('locations').locations;
+      const players = storage.load('players').players;
       const { npcIssues, mechanicsIssues, locationIssues } = runConsistencyCheck(npcs, locations);
       printIssues('NPC consistency', npcIssues);
-      printIssues('Mechanics rule validation', mechanicsIssues);
+      printIssues('NPC mechanics rule validation', mechanicsIssues);
+      const playerIssues = players.flatMap((p) => validatePlayerStatBlock(p).map((message) => ({ severity: 'error', type: 'player-mechanics', message })));
+      printIssues('Player mechanics validation', playerIssues);
       printIssues('Location consistency', locationIssues);
       break;
     }
@@ -348,19 +383,102 @@ function run(argv) {
       break;
     }
 
+    case 'add player': {
+      const playersData = storage.load('players');
+      const player = buildPlayer({
+        name: positional[0],
+        playerName: flags.player,
+        pronouns: flags.pronouns,
+        heroType: flags['hero-type'],
+        lifeForm: flags['life-form'],
+        faction: flags.faction,
+        stats: flags.stats,
+        effort: flags.effort,
+        hearts: flags.hearts,
+        defense: flags.defense,
+        ability: flags.ability,
+        loot: flags.loot,
+        notes: flags.notes,
+      });
+      playersData.players.push(player);
+      storage.save('players', playersData);
+      console.log('Added player:');
+      console.log('\n' + formatPlayer(player));
+      const violations = validatePlayerStatBlock(player);
+      if (violations.length) {
+        console.log('\nWarning — mechanics validation found issues:');
+        violations.forEach((v) => console.log(`  - ${v}`));
+      }
+      break;
+    }
+
+    case 'list players': {
+      const players = storage.load('players').players;
+      console.log(`\n${players.length} player(s):`);
+      printPlayerList(players);
+      break;
+    }
+
+    case 'show player': {
+      const players = storage.load('players').players;
+      const player = findPlayerByNameOrId(players, positional[0]);
+      if (!player) {
+        console.log(`No player found matching "${positional[0]}"`);
+        break;
+      }
+      console.log('\n' + formatPlayer(player));
+      break;
+    }
+
+    case 'edit player':
+    case 'update player': {
+      const playersData = storage.load('players');
+      const player = findPlayerByNameOrId(playersData.players, positional[0]);
+      if (!player) {
+        console.log(`No player found matching "${positional[0]}"`);
+        break;
+      }
+      applyPlayerEdits(player, flags);
+      storage.save('players', playersData);
+      console.log('Updated:');
+      console.log('\n' + formatPlayer(player));
+      const violations = validatePlayerStatBlock(player);
+      if (violations.length) {
+        console.log('\nWarning — mechanics validation found issues:');
+        violations.forEach((v) => console.log(`  - ${v}`));
+      }
+      break;
+    }
+
+    case 'delete player': {
+      const playersData = storage.load('players');
+      const player = findPlayerByNameOrId(playersData.players, positional[0]);
+      if (!player) {
+        console.log(`No player found matching "${positional[0]}"`);
+        break;
+      }
+      playersData.players = playersData.players.filter((p) => p.id !== player.id);
+      storage.save('players', playersData);
+      console.log(`Deleted player "${player.name}"`);
+      break;
+    }
+
     case 'session prep': {
       const npcs = storage.load('npcs').npcs;
       const locations = storage.load('locations').locations;
+      const players = storage.load('players').players;
       const state = storage.load('campaignState');
       const sessionNumber = flags.session ? Number(flags.session) : state.sessionCount + 1;
       const npcRefs = toArray(flags.npc);
       const locationRefs = toArray(flags.location);
+      const playerRefs = flags.player === undefined ? null : toArray(flags.player);
 
-      const packet = buildSessionPacket(npcs, locations, { npcRefs, locationRefs, sessionNumber });
+      const packet = buildSessionPacket(npcs, locations, players, { npcRefs, locationRefs, playerRefs, sessionNumber });
       console.log(packet.text);
 
       state.currentSession = {
         sessionNumber,
+        playerIds: packet.resolvedPlayers.map((p) => p.id),
         npcIds: packet.resolvedNpcs.map((n) => n.id),
         locationIds: packet.resolvedLocations.map((l) => l.id),
         preparedAt: new Date().toISOString(),

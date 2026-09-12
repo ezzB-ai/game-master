@@ -9,6 +9,7 @@ const FILES = {
   npcs: path.join(DATA_DIR, 'npcs.json'),
   locations: path.join(DATA_DIR, 'locations.json'),
   campaignState: path.join(DATA_DIR, 'campaign-state.json'),
+  players: path.join(DATA_DIR, 'players.json'),
 };
 
 const DEFAULTS = {
@@ -19,6 +20,7 @@ const DEFAULTS = {
     currentSession: null,
     sessionLog: [],
   },
+  players: { players: [] },
 };
 
 function ensureDataDir() {

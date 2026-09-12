@@ -13,6 +13,14 @@ const LIFE_FORM_DISPLAY = {
 };
 const STAT_LIST = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
 const EFFORT_CATEGORIES = ['basic', 'weaponsAndTools', 'guns', 'magicAndEnergy'];
+// Accepts common shorthand (e.g. "WEAPONS", "ENERGY") typed at the CLI and
+// maps it to the real category keys used everywhere else in this file.
+const EFFORT_ALIASES = {
+  basic: 'basic',
+  weapons: 'weaponsAndTools', tools: 'weaponsAndTools', weaponsandtools: 'weaponsAndTools', weapon: 'weaponsAndTools',
+  guns: 'guns', gun: 'guns',
+  energy: 'magicAndEnergy', magic: 'magicAndEnergy', magicandenergy: 'magicAndEnergy', magicenergy: 'magicAndEnergy',
+};
 const BASE_STAT_POINTS = 6;
 const BASE_EFFORT_POINTS = 4;
 const BASE_HEARTS = 1;
@@ -54,6 +62,38 @@ function normalizeHeroType(input) {
   return key;
 }
 
+function normalizeEffortCategory(input) {
+  const target = String(input || '').trim().toLowerCase().replace(/[\s_-]+/g, '');
+  if (EFFORT_CATEGORIES.includes(target)) return target;
+  return EFFORT_ALIASES[target];
+}
+
+// Parses "STR=1,DEX=2,CON=3" style CLI input into a plain object with the
+// canonical keys, validating key names and integer values along the way.
+function parseKeyValuePoints(input, { validKeys, normalizeFn, label }) {
+  const result = {};
+  if (input === undefined || input === null || input === '') return result;
+  const pairs = String(input).split(',').map((s) => s.trim()).filter(Boolean);
+  for (const pair of pairs) {
+    const eq = pair.indexOf('=');
+    if (eq === -1) {
+      throw new Error(`Invalid ${label} entry "${pair}" — expected KEY=VALUE (e.g. "CON=3")`);
+    }
+    const rawKey = pair.slice(0, eq).trim();
+    const rawVal = pair.slice(eq + 1).trim();
+    const key = normalizeFn ? normalizeFn(rawKey) : rawKey;
+    if (!key || (validKeys && !validKeys.includes(key))) {
+      throw new Error(`Unknown ${label} "${rawKey}". Valid: ${validKeys.join(', ')}`);
+    }
+    const value = Number(rawVal);
+    if (!Number.isInteger(value)) {
+      throw new Error(`${label} "${rawKey}" must be an integer, got "${rawVal}"`);
+    }
+    result[key] = value;
+  }
+  return result;
+}
+
 function normalizeLifeForm(input) {
   if (input === undefined || input === null) return null;
   const key = normalizeKey(input, LIFE_FORM_KEYS, LIFE_FORM_DISPLAY);
@@ -87,6 +127,19 @@ function parseDefenseBonus(effectText) {
   const match = String(effectText).match(/\+(\d+)\s*DEFENSE/i);
   return match ? Number(match[1]) : 0;
 }
+
+// Static description of each life form's mechanical effect, independent of
+// whether the numeric deltas were auto-rolled (NPCs) or entered by hand
+// (players) — the fact of "Reptoid grants claw weapons" doesn't change either
+// way, only who decided which STAT a Geno's +2 landed on.
+const LIFE_FORM_NOTES = {
+  geno: 'Geno: +2 to any 1 STAT',
+  xill: 'Xill: +1 WIS, innate Create Device ability',
+  reptoid: 'Reptoid: claw weapons, can walk on any surface',
+  kitt: 'Kitt: +2 DEX',
+  mecha: 'Mecha: +1 HEART',
+  ghostArmor: 'Ghost Armor: +2 DEFENSE, 1 Ghost Ability (see warpShellLifeForms.ghostArmor.backgrounds)',
+};
 
 // Applies a LIFE FORM's mechanical effect. The JSON only stores a human-readable
 // "bonus" string (e.g. "+2 DEX"), so the mapping from life form -> concrete
@@ -243,15 +296,86 @@ function validateHeroStatBlock(npc) {
   return errors;
 }
 
+/**
+ * Validate a PLAYER's stat block. Unlike a freshly-rolled NPC, a player
+ * character persists and legitimately grows over a campaign — HEARTS and
+ * STATS can increase via Milestone Rewards (e.g. "Ever Stronger: +1 to any
+ * STAT", or loot that adds a HEART), so this checks absolute rules (the +10
+ * STAT/DEFENSE caps, non-negative values, valid hero type/life form, and that
+ * the recorded starting ability/loot actually belong to that hero type) but
+ * does NOT enforce the day-1 stat/hearts totals the way validateHeroStatBlock
+ * does for NPCs.
+ */
+function validatePlayerStatBlock(player) {
+  const errors = [];
+  const name = player.name || '(unnamed player)';
+
+  const heroKey = normalizeKey(player.heroType, HERO_TYPE_KEYS);
+  if (!heroKey) {
+    errors.push(`Player "${name}": heroType "${player.heroType}" is not one of ${HERO_TYPE_KEYS.join(', ')}`);
+    return errors;
+  }
+  const ref = loadMechanicsRef();
+  const roleData = ref.warpShellRoles[heroKey];
+
+  const lifeFormKey = player.lifeForm ? normalizeKey(player.lifeForm, LIFE_FORM_KEYS, LIFE_FORM_DISPLAY) : null;
+  if (player.lifeForm && !lifeFormKey) {
+    errors.push(`Player "${name}": lifeForm "${player.lifeForm}" is not one of ${LIFE_FORM_KEYS.map((k) => LIFE_FORM_DISPLAY[k]).join(', ')}`);
+  }
+
+  for (const stat of STAT_LIST) {
+    const value = player.stats ? player.stats[stat] : undefined;
+    if (typeof value !== 'number' || !Number.isInteger(value) || value < 0 || value > MAX_STAT) {
+      errors.push(`Player "${name}": stat ${stat} (${value}) is outside the valid [0, ${MAX_STAT}] range`);
+    }
+  }
+
+  for (const cat of EFFORT_CATEGORIES) {
+    const value = player.effortBonuses ? player.effortBonuses[cat] : undefined;
+    if (typeof value !== 'number' || !Number.isInteger(value) || value < 0) {
+      errors.push(`Player "${name}": EFFORT bonus "${cat}" (${value}) must be a non-negative integer`);
+    }
+  }
+
+  if (typeof player.hearts !== 'number' || !Number.isInteger(player.hearts) || player.hearts < 1) {
+    errors.push(`Player "${name}": hearts (${player.hearts}) must be a positive integer`);
+  }
+
+  if (typeof player.defense !== 'number' || !Number.isInteger(player.defense) || player.defense < 0 || player.defense > MAX_DEFENSE) {
+    errors.push(`Player "${name}": defense (${player.defense}) is outside the valid [0, ${MAX_DEFENSE}] range`);
+  }
+
+  if (roleData) {
+    const validAbilities = roleData.startingAbility.map((a) => a.name);
+    if (player.startingAbility && !validAbilities.includes(player.startingAbility.name)) {
+      errors.push(`Player "${name}": startingAbility "${player.startingAbility.name}" is not one of ${heroKey}'s character-creation options (${validAbilities.join(', ')})`);
+    }
+    const validLoot = roleData.startingLoot.map((l) => l.name);
+    if (player.startingLoot && !validLoot.includes(player.startingLoot.name)) {
+      errors.push(`Player "${name}": startingLoot "${player.startingLoot.name}" is not one of ${heroKey}'s character-creation options (${validLoot.join(', ')})`);
+    }
+  }
+
+  return errors;
+}
+
 module.exports = {
   HERO_TYPE_KEYS,
   LIFE_FORM_KEYS,
   LIFE_FORM_DISPLAY,
+  LIFE_FORM_NOTES,
   STAT_LIST,
   EFFORT_CATEGORIES,
+  MAX_STAT,
+  MAX_DEFENSE,
+  clamp,
   loadMechanicsRef,
   normalizeHeroType,
   normalizeLifeForm,
+  normalizeEffortCategory,
+  parseKeyValuePoints,
+  parseDefenseBonus,
   buildHeroStatBlock,
   validateHeroStatBlock,
+  validatePlayerStatBlock,
 };
