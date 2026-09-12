@@ -133,7 +133,7 @@
       "stats": {
         "STR": 0,
         "DEX": 0,
-        "CON": 3,
+        "CON": 0,
         "INT": 0,
         "WIS": 4,
         "CHA": 4
@@ -144,7 +144,7 @@
         "guns": 0,
         "magicAndEnergy": 3
       },
-      "defense": 6,
+      "defense": 3,
       "startingAbility": {
         "name": "Infiltrator",
         "effect": "Win a WIS roll vs. detection to become invisible; those who fail cannot detect you for the whole encounter."
@@ -170,9 +170,9 @@
       "milestones": [],
       "xp": 0,
       "coin": 0,
-      "notes": "Geno, No Trace subtype (blends in, disappears, goes unnoticed). Meant to become a Zurin sage; ventured into space seeking answers. Ancestors genetically engineered creature-befriending to undo Psyker modifications (a hidden revelation). DEFENSE computed as CON 3 + Vac Suit 1 + Energy Shield 2 = 6. An ULTIMATE EFFORT bonus of +1 was noted at the table but has no home in this tool's schema (ULTIMATE is the automatic crit d12, not a trained category) — tracked here as a note only.",
+      "notes": "Geno, No Trace subtype (blends in, disappears, goes unnoticed). Meant to become a Zurin sage; ventured into space seeking answers. Ancestors genetically engineered creature-befriending to undo Psyker modifications (a hidden revelation). No CON stat — DEFENSE is entirely from gear: Vac Suit 1 + Energy Shield 2 = 3. An ULTIMATE EFFORT bonus of +1 was noted at the table but has no home in this tool's schema (ULTIMATE is the automatic crit d12, not a trained category) — tracked here as a note only.",
       "createdAt": "2026-09-12T14:50:48.669Z",
-      "updatedAt": "2026-09-12T14:50:48.750Z"
+      "updatedAt": "2026-09-12T14:57:51.398Z"
     },
     {
       "id": "player-daa879e0",

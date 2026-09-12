@@ -42,6 +42,30 @@ function parseEffortBonuses(input) {
   return bonuses;
 }
 
+// Unlike parseStats/parseEffortBonuses (which fill in 0 for every unspecified
+// key, correct for a fresh `add player`), these return ONLY the keys the
+// caller actually typed — used for `edit player` so an update like
+// --stats "CON=0" doesn't zero out every other stat via Object.assign.
+function parsePartialStats(input) {
+  const parsed = parseKeyValuePoints(input, { validKeys: STAT_LIST, label: 'stat' });
+  for (const [stat, value] of Object.entries(parsed)) {
+    if (value < 0 || value > MAX_STAT) throw new Error(`Stat ${stat} (${value}) must be within [0, ${MAX_STAT}]`);
+  }
+  return parsed;
+}
+
+function parsePartialEffortBonuses(input) {
+  const parsed = parseKeyValuePoints(input, {
+    validKeys: EFFORT_CATEGORIES,
+    normalizeFn: normalizeEffortCategory,
+    label: 'EFFORT category',
+  });
+  for (const [cat, value] of Object.entries(parsed)) {
+    if (value < 0) throw new Error(`EFFORT bonus "${cat}" (${value}) cannot be negative`);
+  }
+  return parsed;
+}
+
 // Matches a free-typed ability/loot name against a hero type's real
 // character-creation options (case-insensitive), so "energy star" resolves
 // to the exact { name, effect } entry from mechanics-reference.json.
@@ -124,8 +148,8 @@ function buildPlayer({ name, playerName, pronouns, heroType, lifeForm, faction, 
  * can move these numbers in ways this tool doesn't try to model for you.
  */
 function applyPlayerEdits(player, flags) {
-  if (flags.stats !== undefined) Object.assign(player.stats, parseStats(flags.stats));
-  if (flags.effort !== undefined) Object.assign(player.effortBonuses, parseEffortBonuses(flags.effort));
+  if (flags.stats !== undefined) Object.assign(player.stats, parsePartialStats(flags.stats));
+  if (flags.effort !== undefined) Object.assign(player.effortBonuses, parsePartialEffortBonuses(flags.effort));
   if (flags.hearts !== undefined) {
     const v = Number(flags.hearts);
     if (!Number.isInteger(v) || v < 1) throw new Error(`--hearts must be a positive integer, got "${flags.hearts}"`);
