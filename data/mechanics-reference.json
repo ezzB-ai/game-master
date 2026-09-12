@@ -1,0 +1,1814 @@
+{
+  "meta": {
+    "title": "ICRPG Master Edition — Mechanics Reference",
+    "source": "Runehammer Games, Index Card RPG (ICRPG) Master Edition, PDF 1.6/1.7",
+    "license": "The rulebook states it is released under the Creative Commons License 4.0.",
+    "scope": "Core system rules, the Warp Shell player/loot content, and the universal monster/loot frameworks, extracted for the Warp Shell campaign tool's generation, encounter-building, and stat block export logic. Flavor/lore text has been paraphrased into short descriptors; mechanical text (dice, numbers, item one-liners) is kept close to source since it is functional game data rather than narrative prose.",
+    "note": "Page numbers below are approximate, from the book's own printed page numbers (not PDF page index)."
+  },
+  "effort": {
+    "description": "Roll EFFORT after a successful ATTEMPT to resolve how much damage/progress it produces. Also used to gauge how much is needed to overcome a task or foe.",
+    "heartValue": 10,
+    "sourcePage": 12,
+    "tiers": {
+      "basic": {
+        "die": "d4",
+        "use": "Bare hands or wits — punches, brute-force breaks, deciphering, etc."
+      },
+      "weaponsAndTools": {
+        "die": "d6",
+        "use": "Standard melee/ranged weapons, or tools used to accomplish a task (pry bar, bandages, torch)."
+      },
+      "guns": {
+        "die": "d8",
+        "use": "Firearms."
+      },
+      "magicAndEnergy": {
+        "die": "d10",
+        "use": "Explosive magic, arcane/energy effects (particle beams, lasers, plasma), and magical healing."
+      },
+      "ultimate": {
+        "die": "d12",
+        "use": "Added ON TOP of the base EFFORT die on a natural 20 ATTEMPT roll (critical success)."
+      }
+    }
+  },
+  "stats": {
+    "sourcePage": 25,
+    "list": [
+      "STR",
+      "DEX",
+      "CON",
+      "INT",
+      "WIS",
+      "CHA"
+    ],
+    "descriptions": {
+      "STR": "Melee power, breaking, lifting, shoving.",
+      "DEX": "Ranged attacks, agility, stealth, acrobatics.",
+      "CON": "Toughness, HP recovery, resisting poison/cold/impact.",
+      "INT": "Spellcasting, investigation, technical/machine operation, recall.",
+      "WIS": "Intuition, perception, nature sense, danger sense.",
+      "CHA": "Persuasion, force of will, resisting fear, intimidation."
+    },
+    "characterCreation": {
+      "basePointsToAssign": 6,
+      "arrayNote": "Freely distributed across the 6 STATS at character creation (e.g. all 6 in one STAT, or 1 in each).",
+      "effortBonusPointsToAssign": 4,
+      "maxStatBonus": 10,
+      "maxStatBonusNote": "No STAT can ever exceed +10, regardless of source (base points, LIFE FORM, LOOT)."
+    }
+  },
+  "defense": {
+    "sourcePage": 26,
+    "formula": "DEFENSE = your CON STAT bonus + all DEFENSE bonuses granted by LOOT (armor, shields, etc.)",
+    "maxDefense": 10,
+    "maxDefenseNote": "No character can exceed +10 DEFENSE no matter the total of CON and LOOT bonuses.",
+    "playerDefenseRoll": "When the GM calls for a DEFENSE roll (a danger/enemy ability affecting you), roll d20 + DEFENSE and meet or beat the current TARGET.",
+    "enemyAttackTarget": "When an enemy makes an ATTEMPT against a player, it does NOT roll against the scene TARGET — it rolls its STR or DEX bonus vs. 10 + the player's DEFENSE instead."
+  },
+  "target": {
+    "sourcePage": 10,
+    "description": "A single number in play for the current scene. All CHECK/ATTEMPT rolls (d20 + a relevant STAT) must meet or beat it to succeed.",
+    "typicalRange": [
+      10,
+      18
+    ],
+    "easy": {
+      "modifier": -3,
+      "sourcePage": 11,
+      "conditions": [
+        "Character already tried and failed the same action last TURN",
+        "Character has specific training",
+        "Character is being helped by another character",
+        "Obstacle is rickety or barely intact",
+        "The task is very simple or obvious",
+        "Character is far larger than the obstacle",
+        "Character has time to be careful",
+        "Character has had repeated successes with similar tasks",
+        "Character has special LOOT or a temporary effect that helps"
+      ]
+    },
+    "hard": {
+      "modifier": 3,
+      "sourcePage": 11,
+      "conditions": [
+        "Character unfamiliar with the task",
+        "Success would be superhuman or extraordinary",
+        "Chaotic surroundings distract the character",
+        "Character is badly injured or stunned",
+        "Character is using improvised tools/implements",
+        "Character is in a big hurry",
+        "Darkness or visibility is limited",
+        "Extreme environmental conditions (cold, heat, rain, wind)",
+        "Character is currently being attacked"
+      ]
+    },
+    "escalation": {
+      "sourcePage": 103,
+      "rule": "The GM raises the TARGET when a scene should feel more dangerous (new encounter phase, weather turning, a big enemy effect), typically stepping it up (or down, as hazards ease) by small increments such as 1 per ROUND in a dynamic hazard.",
+      "distantMinimum": 10,
+      "note": "This escalation applies to the scene TARGET used for player rolls. Enemy attacks against players always target 10 + player DEFENSE instead (see defense.enemyAttackTarget)."
+    }
+  },
+  "deathAndRecovery": {
+    "sourcePage": 16,
+    "zeroHP": "At 0 HP a character falls unconscious. Any SPELLS/effects they were sustaining end immediately.",
+    "dyingRoll": "On the character's NEXT TURN after reaching 0 HP, roll 1d4. That is how many ROUNDS remain before death, absent aid or a MIRACLE.",
+    "miracle": "On each TURN while DYING, the character may roll a d20. A natural 20 revives them at 1 HP.",
+    "deathFinal": "If all DYING ROUNDS pass with no help and no MIRACLE rolled, the character dies — no further rolls or saves.",
+    "blownToBits": "Taking damage down to -20 HP in a single instant destroys the character outright: no body, no recovery.",
+    "recoverAction": {
+      "description": "Spend a TURN to catch your breath and bind wounds.",
+      "roll": "d20 + CON STAT vs. current TARGET",
+      "onSuccess": "Instantly regain (CON STAT bonus + 1) HP."
+    },
+    "stabilizeAlly": {
+      "description": "\"Don't Die On Me, Man!\" — an ally who can reach the DYING character attempts to stabilize them.",
+      "roll": "INT or WIS STAT vs. current TARGET",
+      "onSuccess": "The DYING timer stops. The character remains unconscious but stable."
+    }
+  },
+  "monsters": {
+    "statBlockFormat": {
+      "sourcePage": 119,
+      "fields": {
+        "hearts": "1 HEART = 10 HP. A suggestion only — tune to the table.",
+        "rolls": "STAT bonuses simplified to one or two values, covering CHECKS, ATTEMPTS, and EFFORT.",
+        "actionsAndTraits": "Combat actions or special/unique aspects of the creature.",
+        "lore": "A one-line summary of concept and motivation."
+      }
+    },
+    "tiers": {
+      "sourcePage": 144,
+      "I": {
+        "label": "Tier I — Mooks/minions/wimps/chumps",
+        "statBonus": "+2 to all rolls",
+        "effortBonus": "None",
+        "actionsPerTurn": 1,
+        "hearts": 1,
+        "notes": "A \"super mook\" variant has only 1 HP and no STAT bonus at all."
+      },
+      "II": {
+        "label": "Tier II — Standard enemy",
+        "statBonus": "+4 to all rolls",
+        "effortBonus": "None",
+        "actionsPerTurn": 1,
+        "hearts": 2,
+        "notes": "Give it one interesting piece of gear or a unique attack ability."
+      },
+      "III": {
+        "label": "Tier III — Sub-boss / \"wimp gate\"",
+        "statBonus": "+6 to all rolls",
+        "effortBonus": "+2 to all EFFORT",
+        "actionsPerTurn": 2,
+        "hearts": 4,
+        "notes": "Often has damage immunity. At least 1 special ability: area blast, HP drain, or insta-kill without a roll."
+      },
+      "IV": {
+        "label": "Tier IV — Apex / world-ending",
+        "statBonus": "+8 to all rolls",
+        "effortBonus": "+4 to all EFFORT",
+        "actionsPerTurn": 3,
+        "hearts": 4,
+        "notes": "Damage immunity plus a self-healing action. At least 1 special ability: area blast, escape-and-heal, summon reinforcements, destroy gear, or alter environment/target/timer. Even when \"defeated,\" it is rarely gone for good."
+      }
+    },
+    "designToolkit": {
+      "sourcePage": 146,
+      "description": "Suggested special-ability hooks for hand-built monsters, beyond raw STAT/HEART totals.",
+      "options": [
+        "Trap them (grapple/immobilize, countered by STR)",
+        "Repel them (shove away, dangerous combined with ranged barrage)",
+        "Hit all targets (area attack)",
+        "Destroy gear (corrosion, acid, crushing)",
+        "Vanish/reappear (move without moving)",
+        "Force them to move (jump/fly/must-flee effects)",
+        "Negate their attacks (cost them a turn)",
+        "Bolster defenses (double HEARTS or make attacks HARD for a turn)",
+        "Paralyze (with a CON check to break free)",
+        "Lots of actions (2-3+ for boss quality)",
+        "Destroy terrain",
+        "Behave in cycles (learnable attack patterns)",
+        "Regenerate (auto or via action)",
+        "Banish foes (mini-dimension escape)",
+        "Control them (mind control)",
+        "Frighten them (time-limited fear)",
+        "Steal their gear",
+        "Move twice",
+        "Create terrain (barriers, pinnacles)",
+        "Poison (damage over time)",
+        "Go enraged at a threshold (ULTIMATE or higher STATS)",
+        "Immune to (a sensible damage type)",
+        "Multiply (splits or spawns)",
+        "An unlikely foe (animate an object/place as the monster)"
+      ]
+    },
+    "exampleStatBlocks": [
+      {
+        "name": "Agnar",
+        "sourcePage": 119,
+        "statBonus": "+5 STR, +3 all others",
+        "actions": [
+          "LIE IN WAIT: disguised, gets a free surprise CHOMP on CLOSE passers-by",
+          "CHOMP: weapon EFFORT vs. all CLOSE enemies",
+          "FLYING LEAP: leaps FAR, then ULTIMATE EFFORT against enemies CLOSE to the landing impact",
+          "SPIN-THRASH: weapon EFFORT vs. all NEAR enemies (DEX check halves damage); Agnar recovers 5 HP"
+        ],
+        "concept": "A ravenous, spherical jungle predator (\"the all-eater\"), terrified and enraged by fire."
+      },
+      {
+        "name": "Ant Men",
+        "sourcePage": 120,
+        "statBonus": "+2 to all rolls, 2 actions per turn",
+        "actions": [
+          "SLASH: sword attack (rarely uses ranged weapons)",
+          "DISMEMBERING BITE: weapon EFFORT; 6+ damage severs a limb",
+          "ACID MIST: NEAR enemies roll CON or take weapon damage and lose 1 piece of equipment to corrosion"
+        ],
+        "concept": "Insectoid raiders with a corrosive exoskeleton."
+      }
+    ],
+    "warpShellNote": "The core book's alphabetical Monster Listings (Agnar, Angel, Avenger, Ant Men, Demon, Ogre, etc.) are fantasy-flavored, not sci-fi. There is no literal \"Mutant Reptoid\" stat block in the source. For Warp Shell antagonists (Reptoid commandos, Xevosian troops, Xill constructs, rogue MECHA), build from the Tier framework above and flavor with warpShellLifeForms traits below — that combination is the intended Warp Shell monster-building method."
+  },
+  "lootEconomy": {
+    "sourcePage": 73,
+    "description": "Reference pricing in COIN, useful for the purchase method of progression and for sanity-checking generated loot against a rarity/value tier.",
+    "coinValue": "1 COIN is fair pay for 1 day's work.",
+    "pricing": [
+      {
+        "item": "Meal and bed for a night",
+        "priceCoins": "1"
+      },
+      {
+        "item": "Starting equipment items",
+        "priceCoins": "5"
+      },
+      {
+        "item": "Basic weapons",
+        "priceCoins": "5"
+      },
+      {
+        "item": "Large weapons",
+        "priceCoins": "10"
+      },
+      {
+        "item": "Military / mechanical weapons",
+        "priceCoins": "15"
+      },
+      {
+        "item": "Armor",
+        "priceCoins": "5 per point"
+      },
+      {
+        "item": "Advanced armor (+3 or higher)",
+        "priceCoins": "15 per point"
+      },
+      {
+        "item": "Supplies for voyage or ship",
+        "priceCoins": "10"
+      },
+      {
+        "item": "6 bullets",
+        "priceCoins": "1"
+      },
+      {
+        "item": "Starter LOOT items",
+        "priceCoins": "50"
+      },
+      {
+        "item": "Shabby LOOT items",
+        "priceCoins": "10-50"
+      },
+      {
+        "item": "Basic LOOT items",
+        "priceCoins": "25-75"
+      },
+      {
+        "item": "Epic LOOT items",
+        "priceCoins": "200"
+      },
+      {
+        "item": "Tier 1 rewards",
+        "priceCoins": "250"
+      },
+      {
+        "item": "Tier 2 rewards",
+        "priceCoins": "1,000"
+      },
+      {
+        "item": "Tier 3 rewards",
+        "priceCoins": "5,000"
+      },
+      {
+        "item": "Tier 4 rewards",
+        "priceCoins": "50,000"
+      },
+      {
+        "item": "House",
+        "priceCoins": "500"
+      },
+      {
+        "item": "Retainer / thug / porter",
+        "priceCoins": "1 per day"
+      }
+    ]
+  },
+  "lootTables": {
+    "sciFi": {
+      "sourcePage": 390,
+      "diceType": "d100",
+      "note": "The primary loot table for Warp Shell-flavored generation.",
+      "items": [
+        {
+          "roll": 1,
+          "name": "Heart Stone",
+          "effect": "Add 1 HEART to your max"
+        },
+        {
+          "roll": 2,
+          "name": "Shield Projector",
+          "effect": "Item, Drop to emit a NEAR energy wall with 14 DEFENSE and 2 HEARTS"
+        },
+        {
+          "roll": 3,
+          "name": "Sentry Turret",
+          "effect": "Item, Build with Effort, Fires twice per round within FAR, 12 DEFENSE, 1 HEART"
+        },
+        {
+          "roll": 4,
+          "name": "Fusion Cell",
+          "effect": "Food, MECHA only, Heal 1D12, DEX and STR checks are EASY for 1D4 ROUNDS"
+        },
+        {
+          "roll": 5,
+          "name": "Plasma Rifle",
+          "effect": "Weapon, Magical, Never reload, Always does ULTIMATE when used in vacuum"
+        },
+        {
+          "roll": 6,
+          "name": "Incinerator",
+          "effect": "Weapon, High-pressure flame unit, Can't use in vacuum, Ignites targets NEAR"
+        },
+        {
+          "roll": 7,
+          "name": "Grav Anchor",
+          "effect": "Item, A gravity spike that scks with immense power, +10 STR on any surface"
+        },
+        {
+          "roll": 8,
+          "name": "Nano-Winch",
+          "effect": "Item, 100' cable, Free slack or wind-in, +10 STR when pulling, Cable has 1 HEART"
+        },
+        {
+          "roll": 9,
+          "name": "Imperium Power Armor",
+          "effect": "Armor, +2 DEFENSE, +2 STR, Use 1 of 3 fuel to 2X stats 1D4 ROUNDS"
+        },
+        {
+          "roll": 10,
+          "name": "Xill Armor",
+          "effect": "Armor, +3 DEFENSE, +1 DEFENSE per failed attack against you, null once hit"
+        },
+        {
+          "roll": 11,
+          "name": "Zurin Robes",
+          "effect": "Item, +2 WIS, Command moves robe to any NEAR ally and absorbs next attack"
+        },
+        {
+          "roll": 12,
+          "name": "Cyber Lenses",
+          "effect": "Item, Eye replacements, +1 WIS, Only fail scoung or spotting on a 1"
+        },
+        {
+          "roll": 13,
+          "name": "Zurin Flute",
+          "effect": "Item, Play for a turn to heal all who can hear for 1D8 OR make recovery EASY"
+        },
+        {
+          "roll": 14,
+          "name": "Plasteel Helmet",
+          "effect": "Armor, +2 DEFENSE, Ignore any effect that would blind or deafen you"
+        },
+        {
+          "roll": 15,
+          "name": "Rip Saw",
+          "effect": "Weapon, Magical, Fusion-powered chainsaw, ULTIMATE against structures / objects"
+        },
+        {
+          "roll": 16,
+          "name": "Ion Sword",
+          "effect": "Weapon, Magical, Does not occupy a slot, Highly concealable, ULTIMATE on 18+"
+        },
+        {
+          "roll": 17,
+          "name": "Duranium Hammer",
+          "effect": "Weapon, Indestrucble, Magnecs do MAGIC when thrown, returns"
+        },
+        {
+          "roll": 18,
+          "name": "Micro-Jet",
+          "effect": "Item, a ny, super powered thruster that can move up to 50 tons"
+        },
+        {
+          "roll": 19,
+          "name": "Rask Omnitool",
+          "effect": "Item, Useful and versale, any Attempt or Check that could use tools EASY"
+        },
+        {
+          "roll": 20,
+          "name": "Remote Unit",
+          "effect": "Item, Attach to any Weapon or Item to trigger or use from up to 1 mile away"
+        },
+        {
+          "roll": 21,
+          "name": "Hack Bug",
+          "effect": "Item, Tiny sck-on module that decodes passwords or locked doors in 1 round"
+        },
+        {
+          "roll": 22,
+          "name": "Parcle Grenade",
+          "effect": "Weapon, 3 count, Instant or 1 round fuse, Explodes for ULTIMATE, NEAR"
+        },
+        {
+          "roll": 23,
+          "name": "Mono Filament",
+          "effect": "Item, Micro-thin cable for snares, Invisible, Does ULTIMATE used as garrote"
+        },
+        {
+          "roll": 24,
+          "name": "Wood Beast Gel",
+          "effect": "Food, A small blob of goo, Heal 1D12 for 3 ROUNDS, Causes searing pain"
+        },
+        {
+          "roll": 25,
+          "name": "Power Pill",
+          "effect": "Food, 3 count, Move FAR twice in one turn AND take an acon"
+        },
+        {
+          "roll": 26,
+          "name": "Smoke Armor",
+          "effect": "Item, +2 DEFENSE, Be detected by others ONLY with a HARD scoung check"
+        },
+        {
+          "roll": 27,
+          "name": "Laser Cutter",
+          "effect": "Item, Do ULTIMATE effort against structures and objects within FAR range"
+        },
+        {
+          "roll": 28,
+          "name": "Arc Cannon",
+          "effect": "Weapon, Arcing energy leaps to a target, Magical, DOUBLE if target is metal clad"
+        },
+        {
+          "roll": 29,
+          "name": "Nano-Swarm",
+          "effect": "Item, 10,000 ny machines penetrate small spaces, doing a ny task"
+        },
+        {
+          "roll": 30,
+          "name": "Nitro Putty",
+          "effect": "Item, Scky, Explodes when ignited or fired on, DOUBLE ULTIMATE / NEAR"
+        },
+        {
+          "roll": 31,
+          "name": "Medi Foam",
+          "effect": "Food, 2 uses, Heal to full HP, Regenerate 3 HP per round for 1D4 ROUNDS"
+        },
+        {
+          "roll": 32,
+          "name": "Grav Chute",
+          "effect": "Item, Cradle of dense blue energy, Slow the fall of all NEAR objects or ALLIES"
+        },
+        {
+          "roll": 33,
+          "name": "AI Module",
+          "effect": "Item, A portable personality that can perform INT, WIS, CHA checks at a locaon"
+        },
+        {
+          "roll": 34,
+          "name": "Imperium Uniform",
+          "effect": "Armor, +1 DEFENSE, Captain rank with sidearm and full ouit"
+        },
+        {
+          "roll": 35,
+          "name": "Mark of the Devourer",
+          "effect": "Item, A sign of the evil, +1 INT, Intuit imminent danger with INT roll"
+        },
+        {
+          "roll": 36,
+          "name": "Gauss Piercer",
+          "effect": "Weapon, Magnec needle, If you hit, do ULTIMATE on shots done aerward"
+        },
+        {
+          "roll": 37,
+          "name": "Energy Bow",
+          "effect": "Weapon, Magical, No ammo needed, choose Ice or Fire bolt properes"
+        },
+        {
+          "roll": 38,
+          "name": "Rapid Fire Module",
+          "effect": "Item, Attach to any ranged weapon, If you score a hit, fire again"
+        },
+        {
+          "roll": 39,
+          "name": "Plasma Mortar",
+          "effect": "Weapon, Lobs a round high up, Impact in 1D4 ROUNDS, ULTIMATE to target"
+        },
+        {
+          "roll": 40,
+          "name": "Soul Harness",
+          "effect": "Item, If you roll a 6 when DYING, instantly pop up with 1 HP"
+        },
+        {
+          "roll": 41,
+          "name": "Nano Gar",
+          "effect": "Food, Nanite-infused beer, Heal to full HP, only fail your next check with a 1"
+        },
+        {
+          "roll": 42,
+          "name": "Titan Blade",
+          "effect": "Weapon, only CARRY other weapons when equipped, Huge, ULTIMATE on 15+"
+        },
+        {
+          "roll": 43,
+          "name": "Stun Gun",
+          "effect": "Weapon, Target can roll CON to resist, otherwise STUNNED for 2 ROUNDS"
+        },
+        {
+          "roll": 44,
+          "name": "Mutate",
+          "effect": "INT SPELL, Grant 1 minor biological modificaon such as gills, fins, claws, or fur"
+        },
+        {
+          "roll": 45,
+          "name": "Drain",
+          "effect": "INT SPELL, Drain MAGICAL EFFORT from a target, and convert into HP"
+        },
+        {
+          "roll": 46,
+          "name": "Mind Link",
+          "effect": "INT SPELL, Gain a target's thought contents OR roll ULTIMATE when convincing"
+        },
+        {
+          "roll": 47,
+          "name": "Spike",
+          "effect": "INT SPELL, Hurl a bolt of impaling energy, Hits all targets in a straight line up to FAR"
+        },
+        {
+          "roll": 48,
+          "name": "Hack",
+          "effect": "INT SPELL, Enter any computer system for 2 ROUNDS, +5 INT and ULTIMATE inside"
+        },
+        {
+          "roll": 49,
+          "name": "Smoke",
+          "effect": "INT SPELL, Take the form of smoke for a number of ROUNDS equal to your INT"
+        },
+        {
+          "roll": 50,
+          "name": "Blessing of the Void",
+          "effect": "WIS Spell, Grant one ally a guaranteed success on next roll"
+        },
+        {
+          "roll": 51,
+          "name": "Lifegiver",
+          "effect": "WIS Spell, Give your life for another, Drop to 0 HP, Raise DYING ally to full HP"
+        },
+        {
+          "roll": 52,
+          "name": "Freeze",
+          "effect": "WIS Spell, Emit cloud of freezing cold to NEAR, Immobilize enemies 1D4 ROUNDS"
+        },
+        {
+          "roll": 53,
+          "name": "Elemental Air",
+          "effect": "WIS Spell, Emit a blast of air, Push objects and targets with +5 STR"
+        },
+        {
+          "roll": 54,
+          "name": "Iron Palm",
+          "effect": "WIS Spell, Your next 1D4 unarmed attacks are +3 ATTEMPT and ULTIMATE"
+        },
+        {
+          "roll": 55,
+          "name": "Crystal Talisman",
+          "effect": "Item, Mark 1 enemy, attacks against that target add MAGIC EFFORT"
+        },
+        {
+          "roll": 56,
+          "name": "Mag Boots",
+          "effect": "Armor, +1 DEFENSE, Walk on any surface if metallic with no DEX checks"
+        },
+        {
+          "roll": 57,
+          "name": "Duranium Hauberk",
+          "effect": "Armor, +3 DEFENSE, Ignore all ranged attacks that use projecles"
+        },
+        {
+          "roll": 58,
+          "name": "Telekinec Module",
+          "effect": "Item, Move objects up to 5 pounds FAR range"
+        },
+        {
+          "roll": 59,
+          "name": "Astro Chip",
+          "effect": "Item, All pilong, starship navigaon, or maneuver checks are EASY"
+        },
+        {
+          "roll": 60,
+          "name": "Sharpshooter's Goggles",
+          "effect": "Armor, +1 DEFENSE, +5 to attacks when at FAR range"
+        },
+        {
+          "roll": 61,
+          "name": "Teleport Pads (pair of 2)",
+          "effect": "Item, Place the pads, blip between them, Acve for 1D4 ROUNDS"
+        },
+        {
+          "roll": 62,
+          "name": "Book of Stars",
+          "effect": "Item, +1 INT, Locate yourself anywhere in the cosmos with an EASY INT check"
+        },
+        {
+          "roll": 63,
+          "name": "Book of Moons",
+          "effect": "Item, EASY INT check to know the history of any Moon in the cosmos"
+        },
+        {
+          "roll": 64,
+          "name": "Book of Beasts",
+          "effect": "Item, Make an EASY WIS check to know details about any creature you see"
+        },
+        {
+          "roll": 65,
+          "name": "Hagro Biscuit",
+          "effect": "Food, Heal all allies NEAR you for 1D12"
+        },
+        {
+          "roll": 66,
+          "name": "Tentacle Pod",
+          "effect": "Item, Acvate to summon a GIANT TENTACLE for 1D4 ROUNDS"
+        },
+        {
+          "roll": 67,
+          "name": "Vogon Poetry, Volume 3",
+          "effect": "Item, If read aloud, creatures who hear make a CON or 1D4 damage"
+        },
+        {
+          "roll": 68,
+          "name": "Ulity Arm",
+          "effect": "Armor, +2 DEFENSE, A compact hydraulic arm, STR checks EASY, EQUIP 12 slots"
+        },
+        {
+          "roll": 69,
+          "name": "Moon Tracker",
+          "effect": "Item, Huge, Takes 3 Equip slots, Detect ALL movement within DOUBLE FAR"
+        },
+        {
+          "roll": 70,
+          "name": "Grav Bike",
+          "effect": "Item/Vehicle, A hyperspeed micro bike, Seats 2, Subsonic, Foldable to 3 Carry slots"
+        },
+        {
+          "roll": 71,
+          "name": "Superspark",
+          "effect": "Item, Jump-start any engine, hyperdrive, stardrive, or other motor"
+        },
+        {
+          "roll": 72,
+          "name": "EM Spool",
+          "effect": "Item, Acvate in 4 ROUNDS, electronics within FAR disabled 4 ROUNDS"
+        },
+        {
+          "roll": 73,
+          "name": "Mag Snare",
+          "effect": "Item, Place to set magnec trap, NEAR Metals pinned for 4 ROUNDS"
+        },
+        {
+          "roll": 74,
+          "name": "Immunity Pill",
+          "effect": "Food, +5 CON unl your next meal"
+        },
+        {
+          "roll": 75,
+          "name": "Flash Virus",
+          "effect": "Item, Implant one infecous, indomitable COMMAND into a computer system"
+        },
+        {
+          "roll": 76,
+          "name": "Runaway",
+          "effect": "Item, A fast-moving robot drone that can retrieve or recon within a half mile"
+        },
+        {
+          "roll": 77,
+          "name": "Repair Spider",
+          "effect": "Item, Regenerate 1 HP per round, Repair any damaged LOOT in 1D4 ROUNDS"
+        },
+        {
+          "roll": 78,
+          "name": "Collapse-Pole",
+          "effect": "Weapon, Magical, A metal staff, shrink to 1 inch or extend up to FAR length"
+        },
+        {
+          "roll": 79,
+          "name": "Illumidrone",
+          "effect": "Item, a small hovering orb that casts a beam of white light to FAR range"
+        },
+        {
+          "roll": 80,
+          "name": "Suppressor Foam",
+          "effect": "Item, 3 uses, Instantly suppress any fire within FAR range"
+        },
+        {
+          "roll": 81,
+          "name": "Ammo Brick",
+          "effect": "Ammo, Micronized ammo, 50 count, for any weapon, takes NO CARRY SLOT"
+        },
+        {
+          "roll": 82,
+          "name": "Sonic Nullifier",
+          "effect": "Item, Nullify ALL SOUND within FAR range upon acvaon, lasts 1D4 ROUNDS"
+        },
+        {
+          "roll": 83,
+          "name": "Reptoid Pheromone",
+          "effect": "Food, Repel or attract biological life form with +10 CHA, lasts 4 ROUNDS"
+        },
+        {
+          "roll": 84,
+          "name": "Duranium Chain Gun",
+          "effect": "Weapon, Magical, Use 1D4 ROUNDS to spin up, fire 6 Attacks in 1 turn"
+        },
+        {
+          "roll": 85,
+          "name": "G Card",
+          "effect": "Item, 1,000 Coin of credit"
+        },
+        {
+          "roll": 86,
+          "name": "Stubing's Ace",
+          "effect": "Item, A worn out Ace of Spades, redeemed for a junk starship...somewhere..."
+        },
+        {
+          "roll": 87,
+          "name": "Reptoid Symbiote",
+          "effect": "Item, Cannot be removed, gain the BONUSES and quirks of a Reptoid"
+        },
+        {
+          "roll": 88,
+          "name": "Xevosian Crown",
+          "effect": "Item, +2 CHA, includes rank and tle of a Xevos elder"
+        },
+        {
+          "roll": 89,
+          "name": "Crystal Pill",
+          "effect": "Food, All MAGICAL EFFECTS are ULTIMATE for 4 ROUNDS"
+        },
+        {
+          "roll": 90,
+          "name": "Friendly Heart Stone",
+          "effect": "Add 1 HEART to any ally's max"
+        },
+        {
+          "roll": 91,
+          "name": "Hydraulic Barricade",
+          "effect": "Item, Install on any physical door, Becomes a 3 HEART challenge to open"
+        },
+        {
+          "roll": 92,
+          "name": "Energy Grapple",
+          "effect": "Item, Attach to any object within 2 miles, Tethered for 1D4 ROUNDS"
+        },
+        {
+          "roll": 93,
+          "name": "EVA Suit",
+          "effect": "Armor, +3 DEFENSE, Breathe, Immune to fire, radiaon, cold, and bio-agents"
+        },
+        {
+          "roll": 94,
+          "name": "Ring of Sol",
+          "effect": "Item, When worn, any fire damage HEALS you for that amount instead"
+        },
+        {
+          "roll": 95,
+          "name": "Whiskey Gar",
+          "effect": "Food, Heal to full HP, become invulnerable for 1D4 ROUNDS"
+        },
+        {
+          "roll": 96,
+          "name": "Heart Stone",
+          "effect": "Add 1 HEART to your max"
+        },
+        {
+          "roll": 97,
+          "name": "Prophecy",
+          "effect": "INT SPELL, If a TIMER is rolled, glean its meaning"
+        },
+        {
+          "roll": 98,
+          "name": "Dominate Machine",
+          "effect": "WIS Spell, Utterly control any 1 machine for 1D4 ROUNDS"
+        },
+        {
+          "roll": 99,
+          "name": "Pocket Dimension Unit",
+          "effect": "Item, A doorway to a ny realm, holds 50 LOOT and up to 10 people"
+        },
+        {
+          "roll": 100,
+          "name": "Polarity Inverter",
+          "effect": "Item, Feasibly reverse ANY energy-based effect with an INT roll"
+        }
+      ]
+    },
+    "epic": {
+      "sourcePage": 392,
+      "diceType": "d100",
+      "note": "Universal high-tier rewards (roughly the 200-coin+ rarity band), usable in any setting including Warp Shell.",
+      "items": [
+        {
+          "roll": 1,
+          "name": "Heart Stone",
+          "effect": "Add 1 HEART to your max"
+        },
+        {
+          "roll": 2,
+          "name": "Fighter's Girdle",
+          "effect": "Armor, +1 DEFENSE, When DYING, add 2 to your roll"
+        },
+        {
+          "roll": 3,
+          "name": "King's Coins",
+          "effect": "Gain 3 HERO COINS that can be given to OTHER PLAYERS for heroic deeds"
+        },
+        {
+          "roll": 4,
+          "name": "Chain Energy Gem",
+          "effect": "Item, Attach to a weapon, Make Magical, Effort hits all CLOSE enemies"
+        },
+        {
+          "roll": 5,
+          "name": "Gemini Jewel",
+          "effect": "Item, Attune to any INT SPELL, That spell casts twice when used"
+        },
+        {
+          "roll": 6,
+          "name": "Salamander Wristlet",
+          "effect": "Item, Regenerate 1 HP each round, unless DYING"
+        },
+        {
+          "roll": 7,
+          "name": "Frost Bracers",
+          "effect": "Armor, +3 DEFENSE, Become immune to any damage done or ill effects of cold"
+        },
+        {
+          "roll": 8,
+          "name": "Acid Whetstone",
+          "effect": "Item, Sharpen a bladed weapon, attacks with that weapon destroy 1 gear"
+        },
+        {
+          "roll": 9,
+          "name": "Helmet of Udin",
+          "effect": "Armor, +4 DEFENSE, +3 CHA, Allies NEAR you gain +1 DEFENSE"
+        },
+        {
+          "roll": 10,
+          "name": "Ring of Invisibility",
+          "effect": "Item, Make a WIS check to acvate, remain invisible for 1D4 ROUNDS"
+        },
+        {
+          "roll": 11,
+          "name": "Crown of Goblins",
+          "effect": "Item, Command all Goblins with absolute authority, even if they hate you"
+        },
+        {
+          "roll": 12,
+          "name": "Illusory Self",
+          "effect": "INT SPELL, Conjure a very realisc mirror-clone of yourself"
+        },
+        {
+          "roll": 13,
+          "name": "Dimension Jump",
+          "effect": "INT SPELL, Warp to any locaon you can see or can accurately remember"
+        },
+        {
+          "roll": 14,
+          "name": "Antlers of the Storm",
+          "effect": "Armor, +3 DEFENSE, WIS check command weather when outdoors"
+        },
+        {
+          "roll": 15,
+          "name": "Hand of Resurrecon",
+          "effect": "Item, Raise 1 dead back to full HP, roll 1D4, if a 1 / 2 item is destroyed"
+        },
+        {
+          "roll": 16,
+          "name": "Dire Bear",
+          "effect": "WIS Spell, Become a huge bear for 1D4 ROUNDS, Add 1 HEART, Double bonuses"
+        },
+        {
+          "roll": 17,
+          "name": "Iron Skin",
+          "effect": "WIS Spell, Your DEFENSE is 20 for 1D4 ROUNDS"
+        },
+        {
+          "roll": 18,
+          "name": "Hoppy Gar",
+          "effect": "Food, Heal to Full HP, All checks are EASY for 1D4 ROUNDS"
+        },
+        {
+          "roll": 19,
+          "name": "Dwarven Bomb",
+          "effect": "Weapon, Fuse burns for 1D4 ROUNDS, Explodes doing 4D12 to NEAR"
+        },
+        {
+          "roll": 20,
+          "name": "Hood of Fear",
+          "effect": "Armor, +3 DEFENSE, enemies who see you WIS check or flee on their turn"
+        },
+        {
+          "roll": 21,
+          "name": "Diamond Tiara",
+          "effect": "Item, A crown worth more than a small city"
+        },
+        {
+          "roll": 22,
+          "name": "Ivory Rose",
+          "effect": "Item, Bestow this on one person, that person will guard you with their life"
+        },
+        {
+          "roll": 23,
+          "name": "Tooth of the Agnar",
+          "effect": "Item, Attach to 1 Weapon, weapon does ULTIMATE on any roll of 15+"
+        },
+        {
+          "roll": 24,
+          "name": "Magma Coil",
+          "effect": "Item, Give off smoke and fire to make STR check EASY or STR EFFORT Ulmate"
+        },
+        {
+          "roll": 25,
+          "name": "Frog Boots",
+          "effect": "Armor, +2 DEFENSE, When moving FAR, leap with ease"
+        },
+        {
+          "roll": 26,
+          "name": "Heroic Tabard",
+          "effect": "Item, When you cry \"Huzzah!\" those who cry \"Huzzah!\" roll EASY next turn"
+        },
+        {
+          "roll": 27,
+          "name": "Song of the Mountain",
+          "effect": "INT SPELL, Sing! Enemies within FAR are -5 CHA to resist persuasion"
+        },
+        {
+          "roll": 28,
+          "name": "Harpoon Gun",
+          "effect": "Weapon, Magical, Attack to grapple a foe with a +5 STR if they try to escape"
+        },
+        {
+          "roll": 29,
+          "name": "Bow of Seeking",
+          "effect": "Weapon, Magical, If know a target's name, you never miss"
+        },
+        {
+          "roll": 30,
+          "name": "Pet Slime Cube",
+          "effect": "Item, This ny Slime Cube has imprinted on you as parent, 3\" on a side"
+        },
+        {
+          "roll": 31,
+          "name": "Pet Goblin",
+          "effect": "Item, This hapless, gearless runt has sworn never to leave your side"
+        },
+        {
+          "roll": 32,
+          "name": "Fire Blade",
+          "effect": "Weapon, Magical, +3 Attempts/Effort, Ignites flammables, 1D4 for 1D4 ROUNDS"
+        },
+        {
+          "roll": 33,
+          "name": "Wave of Fury",
+          "effect": "WIS Spell, If NEAR ocean, call forth a massive wave, impacts in 1D4 ROUNDS"
+        },
+        {
+          "roll": 34,
+          "name": "Gravity Inversion",
+          "effect": "INT SPELL, Invert gravity within FAR range for 1D4 ROUNDS"
+        },
+        {
+          "roll": 35,
+          "name": "Brain Horror Helm",
+          "effect": "Armor, +3 DEFENSE, Gain `It shows you things' property of a Brain Horror"
+        },
+        {
+          "roll": 36,
+          "name": "Gunner's Tripod",
+          "effect": "Item, Gain +5 Attempts/Effort when firing at targets beyond FAR"
+        },
+        {
+          "roll": 37,
+          "name": "Watcher",
+          "effect": "Item, A small glass eye, place anywhere and see through it within 1 mile"
+        },
+        {
+          "roll": 38,
+          "name": "Dobbs' Cheddar",
+          "effect": "Food, 3 Count, Add to any FOOD to double that FOOD's effects"
+        },
+        {
+          "roll": 39,
+          "name": "Yalfonso's Disc",
+          "effect": "Item, A friconless, levitang disc of energy that holds up to 200 pounds"
+        },
+        {
+          "roll": 40,
+          "name": "Ramthas Battle Harness",
+          "effect": "Armor, +1 DEFENSE, Gain 3 more slots in EQUIPPED gear"
+        },
+        {
+          "roll": 41,
+          "name": "Ronaldo's Backwagon",
+          "effect": "Item, Gain 10 more slots in CARRIED gear"
+        },
+        {
+          "roll": 42,
+          "name": "Call of Aram",
+          "effect": "Item, A mighty war horn, Sound a call heard for 5 miles, with a +3 CHA"
+        },
+        {
+          "roll": 43,
+          "name": "Genec Soup",
+          "effect": "Food, changes the eater into a random new BIO-FORM instantly"
+        },
+        {
+          "roll": 44,
+          "name": "Runic Rope",
+          "effect": "Item, ANY roll using this rope is EASY, 50'"
+        },
+        {
+          "roll": 45,
+          "name": "Thoor's Stone",
+          "effect": "Item, Only the looter is able to li or move it, a baseball-sized cube"
+        },
+        {
+          "roll": 46,
+          "name": "Gnomish Beam Goggles",
+          "effect": "Armor, +2 DEFENSE, Fires a ray of ULTIMATE damage"
+        },
+        {
+          "roll": 47,
+          "name": "Feral Claws",
+          "effect": "Weapon, Magical, +3 Attempts, Retractable blades, Roll EFFORT TWICE on a hit"
+        },
+        {
+          "roll": 48,
+          "name": "Belt of Guzzling",
+          "effect": "Armor, +4 DEFENSE, Never fail another CON check"
+        },
+        {
+          "roll": 49,
+          "name": "Book of Infinity",
+          "effect": "Item, You have perfect recall of every fact you have ever encountered"
+        },
+        {
+          "roll": 50,
+          "name": "Amulet of Thunder",
+          "effect": "Item, When rolling ULTIMATE, re-roll anything less than a 6"
+        },
+        {
+          "roll": 51,
+          "name": "Lemninkainen's Wondrous Sack",
+          "effect": "Item, Increase your CARRIED gear slots to 20"
+        },
+        {
+          "roll": 52,
+          "name": "Akintu",
+          "effect": "Item, An odd ki statue that brings good luck, When you roll a 19, treat it as a 20"
+        },
+        {
+          "roll": 53,
+          "name": "Enchanted Sandwich",
+          "effect": "Food, Never spoils, 5 bites, 1 Bite = 1D8 HP, When finished gain +1 CON"
+        },
+        {
+          "roll": 54,
+          "name": "Cloud Buffalo",
+          "effect": "A steed that descends from the sky, carries 8 people and 10 LOOT"
+        },
+        {
+          "roll": 55,
+          "name": "Red Fang",
+          "effect": "Weapon, Magical Great Sword, damage you do with Red Fang, heal half that"
+        },
+        {
+          "roll": 56,
+          "name": "Crystal Darts",
+          "effect": "Ammo, 3 Count, Magical, Immobilize target, in 1D4 ROUNDS explode for 2D12"
+        },
+        {
+          "roll": 57,
+          "name": "Earth's Heart",
+          "effect": "Item, A massive ruby, the biggest, most rare jewel in all the world"
+        },
+        {
+          "roll": 58,
+          "name": "Gnomish Metal Melter",
+          "effect": "Item, 1D4 ROUNDS reach full power, vaporizes NEAR metal objects"
+        },
+        {
+          "roll": 59,
+          "name": "Ghost Trap",
+          "effect": "Item, Holds 5 non-corporeal beings: place, wait, trigger, Target gets DEX check"
+        },
+        {
+          "roll": 60,
+          "name": "Adamanum Armor",
+          "effect": "Armor, +8 DEFENSE, Ignore any Damage below 3, Occupies 5 slots"
+        },
+        {
+          "roll": 61,
+          "name": "Clockwork Arm",
+          "effect": "Item, Prosthec, +3 STR, all STR checks are EASY, -1 CHA"
+        },
+        {
+          "roll": 62,
+          "name": "Juice of Sapho",
+          "effect": "Food, +8 INT, Triple the EFFORT of your next SPELL"
+        },
+        {
+          "roll": 63,
+          "name": "Styll Suit",
+          "effect": "Armor, +4 DEFENSE, Wear no other armor, Breathe anywhere, heal 1 HP / ROUND"
+        },
+        {
+          "roll": 64,
+          "name": "Bracelet of Thoor",
+          "effect": "Item, +2 STR"
+        },
+        {
+          "roll": 65,
+          "name": "Ring of Quickness",
+          "effect": "Item, +2 DEX"
+        },
+        {
+          "roll": 66,
+          "name": "Drunken Hauberk",
+          "effect": "Armor, +2 DEFENSE, +2 CON, Never fail a test involving Gar"
+        },
+        {
+          "roll": 67,
+          "name": "Sage's Crystal",
+          "effect": "Item, +2 INT"
+        },
+        {
+          "roll": 68,
+          "name": "Effigy of Osric",
+          "effect": "Item, +2 WIS"
+        },
+        {
+          "roll": 69,
+          "name": "Gleaming Gorget",
+          "effect": "Armor, +1 DEFENSE, +2 CHA"
+        },
+        {
+          "roll": 70,
+          "name": "Dagger of the Unseen",
+          "effect": "Weapon, Magical, If attack undetected, human-sized vicm to 0 HP"
+        },
+        {
+          "roll": 71,
+          "name": "Headsman's Shovel",
+          "effect": "Weapon, Magical, On a 20, behead any human-sized target"
+        },
+        {
+          "roll": 72,
+          "name": "The Hidden",
+          "effect": "INT SPELL, Allies NEAR are invisible for 1D4 ROUNDS, visible if move away"
+        },
+        {
+          "roll": 73,
+          "name": "Slayer's Helm",
+          "effect": "Armor, +2 DEFENSE, +6 Weapon Effort"
+        },
+        {
+          "roll": 74,
+          "name": "Eye of Idimmu",
+          "effect": "Item, Amulet, +6 Magical Effort"
+        },
+        {
+          "roll": 75,
+          "name": "Boon of the Gods",
+          "effect": "Item, Grant one OTHER PLAYER Milestone Reward of their choice, one use"
+        },
+        {
+          "roll": 76,
+          "name": "Timecap Mushroom",
+          "effect": "FOOD, SKIP the next DM's turn"
+        },
+        {
+          "roll": 77,
+          "name": "Roll Twice on the ANCIENT LOOT table",
+          "effect": ""
+        },
+        {
+          "roll": 78,
+          "name": "Shrink Ray",
+          "effect": "INT SPELL, Reduce one target to 1/100th its size for 1D4 ROUNDS"
+        },
+        {
+          "roll": 79,
+          "name": "Giant Growth",
+          "effect": "WIS Spell, Grow one target to 5x its size for 1D4 ROUNDS"
+        },
+        {
+          "roll": 80,
+          "name": "Osric's Bulwark Wall",
+          "effect": "WIS Spell, Form a massive castle wall from boulders or cobbles"
+        },
+        {
+          "roll": 81,
+          "name": "Destroy the Dead",
+          "effect": "INT SPELL, Annihilate 1 Undead per 1 HP burned, FAR range"
+        },
+        {
+          "roll": 82,
+          "name": "Ghost Ship",
+          "effect": "Item, Conjure a black galleon, no crew, that will last 1D4 weeks before dissipang"
+        },
+        {
+          "roll": 83,
+          "name": "Dragon's Blood",
+          "effect": "Food, Grow wings and breathe fire for 1D4 ROUNDS"
+        },
+        {
+          "roll": 84,
+          "name": "Gungnir",
+          "effect": "Weapon, Magical, Spear, Pass final judgment, +10 CHA for 1 mile"
+        },
+        {
+          "roll": 85,
+          "name": "Cosmic Gateway",
+          "effect": "Item, Open a door, access ANY world in the cosmos, 8 HP to walk through"
+        },
+        {
+          "roll": 86,
+          "name": "Invulnerability",
+          "effect": "WIS Spell, Anoint target with touch, cannot be harmed for 1D8 ROUNDS"
+        },
+        {
+          "roll": 87,
+          "name": "Sherherezazahd",
+          "effect": "Item, A ghostly sword, add Magical Weapon effort to all attacks"
+        },
+        {
+          "roll": 88,
+          "name": "Time Doorway",
+          "effect": "Item, Access ANY me at current locaon, age 10 years to go through"
+        },
+        {
+          "roll": 89,
+          "name": "Stench Gar",
+          "effect": "Food, Release a poisonous belch, Reduce one NEAR creature to 1 HEART"
+        },
+        {
+          "roll": 90,
+          "name": "Lifewalker",
+          "effect": "Item, Leave a trail of flowers wherever you go, those within heal 2 HP per round"
+        },
+        {
+          "roll": 91,
+          "name": "Hammer of Hell",
+          "effect": "Weapon, Magical, All EFFORT with this weapon affects all NEAR enemies"
+        },
+        {
+          "roll": 92,
+          "name": "Wings of Gabriel",
+          "effect": "Armor, +5 DEFENSE, Foldable, Fly at will, 2X your maximum move range"
+        },
+        {
+          "roll": 93,
+          "name": "Wishing Well",
+          "effect": "Item, Immovable once used, Make 1 WISH per YEAR, comes true in 1D4 days"
+        },
+        {
+          "roll": 94,
+          "name": "Book of Mastery",
+          "effect": "Item, 3 pages, Learn 1 Milestone Reward per page"
+        },
+        {
+          "roll": 95,
+          "name": "Star of Unadai",
+          "effect": "Food, Gain +1 to all STATS"
+        },
+        {
+          "roll": 96,
+          "name": "Vision of Perfecon",
+          "effect": "Trap, Reveal to one EVIL being, HARD CHA check or it becomes GOOD"
+        },
+        {
+          "roll": 97,
+          "name": "Water of Life",
+          "effect": "Food, Die, Return to life 1D4 ROUNDS later with 2 addional HEARTS"
+        },
+        {
+          "roll": 98,
+          "name": "Mead of Udin",
+          "effect": "Food, All who drink awake the next day with an addional HEART"
+        },
+        {
+          "roll": 99,
+          "name": "Shield of Angels",
+          "effect": "Armor, +6 DEFENSE, You and all NEAR allies ignore any damage of 5 or less"
+        },
+        {
+          "roll": 100,
+          "name": "Necronomicon",
+          "effect": "Item, Create 1 INT SPELL / WIS Spell with HARD INT"
+        }
+      ]
+    },
+    "warpShellBasicLoot": {
+      "sourcePage": 64,
+      "chooseAny4": {
+        "description": "Every Warp Shell character picks any 4 of these at creation.",
+        "items": [
+          {
+            "name": "Scan Unit",
+            "effect": "Compact scanner/electronics unit. Use 1 TURN to \"run a scan\"; reduces the current TARGET by 1."
+          },
+          {
+            "name": "Away Team Pack",
+            "effect": "Belt pouch: hand lamp, micro cutting torch, cable reel, leak-sealant patch, 10-minute air canister, emergency locator beacon."
+          },
+          {
+            "name": "Salvage Kit",
+            "effect": "Backpack for deep space retrieval: heavy winch grappler, heavy cutting torch, 2 magnet anchors, pick hammer, 2 magnetic floodlights."
+          },
+          {
+            "name": "Xeno Response Pack",
+            "effect": "Tools for collecting/analyzing biological specimens: collapsible clear tube, respirator, dissection kit, sample vials."
+          },
+          {
+            "name": "Medical Kit",
+            "effect": "Emergency first aid. Roll WIS or INT to heal an ally 1 HP. Natural 1 empties the kit (refill on any ship)."
+          },
+          {
+            "name": "Vac Suit",
+            "effect": "+1 DEFENSE. Nanotech-integrated suit for deep space operation, incl. energy helmet, gloves, x-wave radio."
+          },
+          {
+            "name": "Hard Suit",
+            "effect": "+3 DEFENSE. Armored vac suit for dangerous space work. DEX rolls are never EASY; stealth only succeeds on a natural 20."
+          },
+          {
+            "name": "Link Armor",
+            "effect": "+1 DEFENSE. Light reinforcement from tiny nonmetallic ceramic links."
+          },
+          {
+            "name": "Plasteel Armor",
+            "effect": "+3 DEFENSE. Heavy plating ignores any attack of 2 or less damage; bulk makes DEX rolls always HARD."
+          },
+          {
+            "name": "Energy Shield",
+            "effect": "Wrist unit emitting a round force shield. +2 DEFENSE. DEFENSE rolls vs. energy weapons are EASY."
+          },
+          {
+            "name": "Vibro Blade",
+            "effect": "Duranium blade with vibrating nano-edge. Critical success on natural 19 or 20. Unbreakable by physical means."
+          },
+          {
+            "name": "Energy Blade",
+            "effect": "Elegant weapon dealing ENERGY damage. On a natural 1, the weightless blade cuts its user for 1 HP."
+          }
+        ]
+      },
+      "eachOccupiesOneInventorySlot": {
+        "description": "Additional Warp Shell gear; each item independently occupies inventory space as noted.",
+        "items": [
+          {
+            "name": "Pulse Rifle",
+            "effect": "Advanced Reptoid war tech; power cell never runs out. Natural 1: rifle goes wild, hits a random target."
+          },
+          {
+            "name": "Particle Cannon",
+            "effect": "3 inventory slots. Sprays hit 1D4 enemy targets on a successful attack, each taking the rolled damage."
+          },
+          {
+            "name": "Blast Rifle",
+            "effect": "Spend 1 TURN aiming to either hit with no roll, or inflict maximum damage on a rolled hit."
+          },
+          {
+            "name": "Blaster",
+            "effect": "Sturdy basic sidearm; easily concealed; occupies NO inventory space."
+          },
+          {
+            "name": "Chem Rail",
+            "effect": "Charged ion rail gun. Add another GUN damage die for each TURN spent powering up a single shot."
+          },
+          {
+            "name": "Ripsaw",
+            "effect": "Carbon-toothed chainsaw. For every 5 damage inflicted, remove 1 DEFENSE or destroy 1 item."
+          },
+          {
+            "name": "Ion Grenade Sling",
+            "effect": "Bandolier of 6 explosives; D4-round fuse or impact-detonate. ULTIMATE damage in a NEAR radius."
+          },
+          {
+            "name": "Karambit Blades",
+            "effect": "Small concealable talon knives; occupy no inventory space. Natural 20 inflicts maximum + ULTIMATE."
+          },
+          {
+            "name": "Blip Module",
+            "effect": "Phase-movement augment: moving does not pass through the space between locations."
+          },
+          {
+            "name": "Cybernetics Loadout",
+            "effect": "Nano-fiber/duranium-augmented limbs and skeleton. All blunt impact inflicts no damage."
+          },
+          {
+            "name": "Zurin Symbiote",
+            "effect": "Zurin primordial organism bound to the spine. \"Don't Die On Me, Man!\" rolls are always EASY."
+          },
+          {
+            "name": "Jump Pack",
+            "effect": "Miniaturized ion thruster backpack. Move twice on your TURN, even when taking an action or attacking."
+          }
+        ]
+      }
+    },
+    "otherReferenceTables": {
+      "note": "Present in the core book for its other ICRPG world settings (Alfheim, Ghost Mountain, general magic). Not used directly by Warp Shell generation, so full item lists are omitted here to keep this file focused — see the noted source pages if broader cross-setting loot is ever needed.",
+      "ancientLoot": {
+        "sourcePage": 384,
+        "diceType": "d100",
+        "theme": "Fantasy ruins/dungeon treasure (Alfheim)."
+      },
+      "shabbyLoot": {
+        "sourcePage": 386,
+        "diceType": "d100",
+        "theme": "Low-value, junky finds (10-50 coin band)."
+      },
+      "cursedLoot": {
+        "sourcePage": 388,
+        "diceType": "d100",
+        "theme": "Items with a drawback or hidden cost."
+      },
+      "bizarreLoot": {
+        "sourcePage": 394,
+        "diceType": "d100",
+        "theme": "Oddball / anomalous / joke items."
+      },
+      "ghostMountainLoot": {
+        "sourcePage": 396,
+        "diceType": "d100",
+        "theme": "Horror-setting-specific gear (Ghost Mountain)."
+      },
+      "magicLoot": {
+        "sourcePage": 398,
+        "diceType": "d100",
+        "theme": "Spellcaster-focused magic items."
+      }
+    }
+  },
+  "warpShellRoles": {
+    "sourcePageRange": [
+      57,
+      63
+    ],
+    "description": "The 6 playable \"Character Types\" in Warp Shell. Each has a Starting Ability (choose 1 of 3), Starting Loot (choose 1 of 3), a Milestone Ability pool (earned over play), and a Mastery upgrade tied to the chosen Starting Ability.",
+    "pilot": {
+      "concept": "A headstrong daredevil with rare skill.",
+      "startingAbility": [
+        {
+          "name": "Ace",
+          "effect": "Only crash a small or medium ship on a natural 1 piloting roll."
+        },
+        {
+          "name": "Smuggler",
+          "effect": "Your carried LOOT is undetectable and cannot be lost or stolen."
+        },
+        {
+          "name": "Cap'n",
+          "effect": "Invent and execute maneuvers with a huge/capital starship, even without crew; with crew, only fail on a natural 1."
+        }
+      ],
+      "startingLoot": [
+        {
+          "name": "Hot Rod",
+          "effect": "A super-compact starship seating up to 6; no weapons or shields, just tiny and fast."
+        },
+        {
+          "name": "Speed Holster",
+          "effect": "If an enemy attacks you for the first time, roll 1 free pistol attack against them first."
+        },
+        {
+          "name": "HUD Goggles",
+          "effect": "Hypertech optics track a designated target across vast distance, even across time, until redesignated."
+        }
+      ],
+      "milestoneAbilities": [
+        "Ever Stronger: +1 to any STAT, or gain 1 loyal friend who owes you a favor",
+        "Lose 'Em: DEX roll to spin-maneuver and lose all pursuers",
+        "Everything Is Fine: lying only fails on a natural 1",
+        "Rally: CHA roll so allies' next roll only fails on a natural 1",
+        "Leaf on the Wind: a successful DEX piloting roll means total disaster for enemies/pursuers",
+        "The Nose: WIS roll to find 1 more LOOT whenever you find LOOT"
+      ],
+      "mastery": {
+        "Ace": "Instantly know every detail of any starship encountered (by lucky guess).",
+        "Smuggler": "Erase your record from all databases, replaced with glowing references, rank, and praise.",
+        "Cap'n": "Use CHA for piloting/maneuver rolls; success treats the next round as if Rally was used."
+      }
+    },
+    "gunner": {
+      "concept": "The one you call to blow things up.",
+      "startingAbility": [
+        {
+          "name": "MG Specialist",
+          "effect": "Attacks unleash 1D4 shots, but guns empty on a rolled 5 or less."
+        },
+        {
+          "name": "Sharpshooter",
+          "effect": "Spend a TURN to aim; your next shot does ULTIMATE."
+        },
+        {
+          "name": "Demolitions",
+          "effect": "Double all damage against vehicles, objects, or structures."
+        }
+      ],
+      "startingLoot": [
+        {
+          "name": "Burst Module",
+          "effect": "Attack rolls of modified 15+ earn another attack."
+        },
+        {
+          "name": "Reflex Bipod",
+          "effect": "Aimed shots only miss on a natural 1."
+        },
+        {
+          "name": "Explosives Kit",
+          "effect": "Modify a gun so its shots explode on contact, damaging a NEAR radius; re-modify a new gun (1 ROUND) if the old one is lost."
+        }
+      ],
+      "milestoneAbilities": [
+        "Ever Stronger: +1 to any STAT or gain 1 new Warp Shell Basic Loot item",
+        "Duck & Cover: remain unlocated while in stealth and attacking",
+        "Take This: empty guns can be used as melee weapons",
+        "Gun-nade: empty guns can be treated as grenades",
+        "Weapon Tracker: WIS roll to locate any guns nearby",
+        "Drone Module: attach a gun to a remote drone that fights autonomously (1 HP)",
+        "Seeker Kit: attack rolls of modified 13+ hit no matter the TARGET"
+      ],
+      "mastery": {
+        "MG Specialist": "On attacks that unleash 4 shots, choose to inflict 8 shots and empty the weapon instantly.",
+        "Sharpshooter": "Gain the benefits of aiming without taking any extra time.",
+        "Demolitions": "When damaging vehicles, objects, or structures, your weapon never runs empty and does maximum damage."
+      }
+    },
+    "mechanic": {
+      "concept": "An expert on every nut and bolt in space.",
+      "startingAbility": [
+        {
+          "name": "Repairman",
+          "effect": "Any roll involving repair is always EASY."
+        },
+        {
+          "name": "Jerry Rigger",
+          "effect": "Combine two machines into a hybrid function (INT roll); functions for 1D6 ROUNDS."
+        },
+        {
+          "name": "Tuner",
+          "effect": "Adjust a machine to perform 1 EFFORT category better (once per machine, INT roll)."
+        }
+      ],
+      "startingLoot": [
+        {
+          "name": "Omnitool",
+          "effect": "Arc-welder that repairs any machine using ENERGY EFFORT."
+        },
+        {
+          "name": "Lil Bob",
+          "effect": "Twin-stick controller + camera drone; use its location as yours for repair/tune/jerry-rig actions."
+        },
+        {
+          "name": "Diagnostic Computer",
+          "effect": "INT roll to access lock codes, camera footage, computer files, magstripe codes, etc."
+        }
+      ],
+      "milestoneAbilities": [
+        "Ever Stronger: +1 to any STAT",
+        "Jaws of Life: cut through any known material",
+        "Nanobreathers: 4 reusable air canisters, 6 ROUNDS each, for use in space",
+        "Zip Grapple: STR roll to shoot a cable and retrieve up to 1 ton",
+        "Ammo Press: 1 ROUND to fully reload a spent gun",
+        "Hard Suit: +4 DEFENSE, immune to gas and temperature",
+        "Mag Boots: walk on any surface as normal"
+      ],
+      "mastery": {
+        "Repairman": "Omnitool is wet-wired: does ULTIMATE EFFORT and heals you 1 HP when used.",
+        "Jerry Rigger": "Mechanical creations have 1 HEART and no set lifespan.",
+        "Tuner": "Tuning a machine jumps it straight to ULTIMATE EFFORT."
+      }
+    },
+    "navigator": {
+      "concept": "A psychic link to the cosmos.",
+      "startingAbility": [
+        {
+          "name": "Farseer",
+          "effect": "WIS roll to locate any critical destination."
+        },
+        {
+          "name": "Telekinetic",
+          "effect": "INT roll to extend your STR up to FAR range."
+        },
+        {
+          "name": "Infiltrator",
+          "effect": "Win a WIS roll vs. detection to become invisible; those who fail cannot detect you for the whole encounter."
+        }
+      ],
+      "startingLoot": [
+        {
+          "name": "Xevosian Starmap",
+          "effect": "Wrist megacomputer; cuts all deep-space travel time in half, even at dogfight scale."
+        },
+        {
+          "name": "Boost Helmet",
+          "effect": "Focus your will to use any STAT as STR."
+        },
+        {
+          "name": "Psionic Knives",
+          "effect": "Thought-formed ENERGY melee weapon; can never be lost, detected, or damaged; usable by you or your telekinetic presence."
+        }
+      ],
+      "milestoneAbilities": [
+        "Ever Stronger: +1 to any STAT or create 1 new psionic item",
+        "Sense Evil: WIS roll to detect enemies, even through walls",
+        "Psi-Heal: WIS roll to heal ENERGY EFFORT within FAR range",
+        "Invisible: if one enemy fails to detect you, they all do",
+        "Soulsense: WIS roll to pinpoint anyone, anywhere",
+        "Wave Force: WIS roll to psi-blast all NEAR enemies",
+        "Siphon: any psionic attack you make also heals you the same amount"
+      ],
+      "mastery": {
+        "Farseer": "Farseer ability is always EASY.",
+        "Telekinetic": "Use any STAT in place of DEFENSE.",
+        "Infiltrator": "Psionic weapons upgrade to ULTIMATE damage when not invisible."
+      }
+    },
+    "scientist": {
+      "concept": "A disciplined mind set on answers.",
+      "startingAbility": [
+        {
+          "name": "Analysis",
+          "effect": "Using a Scan Unit for an investigate action takes no time."
+        },
+        {
+          "name": "Engineering",
+          "effect": "Any roll working on machines is EASY."
+        },
+        {
+          "name": "Xenobiology",
+          "effect": "INT roll to identify the properties of any creature."
+        }
+      ],
+      "startingLoot": [
+        {
+          "name": "Advanced Scan Unit",
+          "effect": "1 TURN to \"run a scan,\" reducing the current TARGET by 1D4 for you and allies."
+        },
+        {
+          "name": "Extra Limb",
+          "effect": "A third arm; non-damage EFFORT on machinery/repairs/building always rolls ULTIMATE."
+        },
+        {
+          "name": "Genome Taser",
+          "effect": "NEAR electrical weapon, biological targets only; always ULTIMATE, but at 0 HP the target is stunned, not dead."
+        }
+      ],
+      "milestoneAbilities": [
+        "Ever Stronger: +1 to any STAT",
+        "Awareness: use INT in place of WIS for any roll",
+        "Logic: use INT in place of CHA for any roll",
+        "Shield Modulator: INT roll to boost an ally's DEFENSE with TOOL EFFORT",
+        "Beam Module: INT roll to modify an energy weapon for ULTIMATE damage",
+        "Nanobattery: regenerate 1 HP each ROUND while at 1+ HP",
+        "Genome Module: gain 1 ability from an analyzed creature (1 at a time)"
+      ],
+      "mastery": {
+        "Analysis": "Scans offer a 1D6 bonus to TARGET or DEFENSE.",
+        "Engineering": "Gain the Create Device SPELL, executed with no roll and ULTIMATE output.",
+        "Xenobiology": "Hold 3 analyzed creature abilities at a time instead of 1."
+      }
+    },
+    "echo": {
+      "concept": "The quantum results of time distortion.",
+      "startingAbility": [
+        {
+          "name": "Changer",
+          "effect": "CON roll to change your form into any solid, liquid, or gas shape."
+        },
+        {
+          "name": "Blip",
+          "effect": "When you move, you do not pass through the space between locations."
+        },
+        {
+          "name": "Energy Star",
+          "effect": "CON roll to harvest 1D10 ENERGY from a NEAR source, delivered as healing EFFORT or a bonus on your next roll."
+        }
+      ],
+      "startingLoot": [
+        {
+          "name": "Divider Unit",
+          "effect": "When changing forms, split in half; both halves can move and act (1 main action shared per turn)."
+        },
+        {
+          "name": "Pocket Door",
+          "effect": "Moving creates a tiny wormhole other creatures can use to copy your move for 1 ROUND."
+        },
+        {
+          "name": "Relay Ray",
+          "effect": "Using a starting ability stores 1D8 ENERGY."
+        }
+      ],
+      "milestoneAbilities": [
+        "Ever Stronger: +1 to any STAT or +1D10 to your Energy Star ability",
+        "Bend Space: INT roll to treat FAR as NEAR",
+        "Warp Cell: INT roll to create Pocket Doors to places not yet visited",
+        "Emitter Core: direct healing ENERGY as a NEAR-radius area effect",
+        "Reaction Circuit: DEX roll to evade a hit completely",
+        "Armor Form: allies gain +5 DEFENSE while CLOSE to you",
+        "Ion Bond: ENERGY weapons/gear always do ULTIMATE EFFORT"
+      ],
+      "mastery": {
+        "Changer": "No roll needed to execute or revert your Changer ability.",
+        "Blip": "Using Blip heals 1D4 HP instantly.",
+        "Energy Star": "Can draw energy from simpler sources: plants, animals, open flames, crashing water."
+      }
+    }
+  },
+  "warpShellLifeForms": {
+    "sourcePageRange": [
+      52,
+      57
+    ],
+    "description": "The playable species (\"LIFE FORMS\") of Warp Shell. Each grants a stat/mechanical bonus plus a choice of background flavor.",
+    "geno": {
+      "bonus": "+2 to any 1 STAT",
+      "concept": "Formerly called \"Human.\" An adaptable, widespread engineered species found mixed into every crew and culture.",
+      "backgrounds": [
+        "Opportunist",
+        "Specialist",
+        "No Trace"
+      ]
+    },
+    "xill": {
+      "bonus": "+1 WIS, innate Create Device ability",
+      "concept": "A rare, enigmatic silicate species with variable-state (liquid/solid) bodies and alien motivations.",
+      "backgrounds": [
+        "Researcher",
+        "Storm Crow",
+        "Outcast"
+      ]
+    },
+    "reptoid": {
+      "bonus": "Claw weapons, walk on any surface",
+      "concept": "A species in civil war over their military's use of a corrupting Dark Star weapon.",
+      "backgrounds": [
+        "Last Hope",
+        "Saboteur",
+        "Diplomat",
+        "Veteran"
+      ]
+    },
+    "kitt": {
+      "bonus": "+2 DEX",
+      "concept": "A resourceful, newly-expanding species famed for unmatched quickness; strong pilots and gunfighters.",
+      "backgrounds": [
+        "Blade Monk",
+        "Spacer",
+        "Good Timer"
+      ],
+      "optionalRule": "\"Lil' Guys\": start with 5 HP but can fit tiny spaces, equip a micro jetpack, or have heightened senses."
+    },
+    "mecha": {
+      "bonus": "+1 HEART",
+      "concept": "Advanced, fully sentient living-machine species in widely varied forms.",
+      "backgrounds": [
+        "Directive (3 unavoidable damage/round if defying core programming)",
+        "The Builder",
+        "Rebel"
+      ]
+    },
+    "ghostArmor": {
+      "bonus": "+2 DEFENSE, 1 Ghost Ability",
+      "concept": "Former slave-warrior suits of the defeated Imperium, inhabited by a supernatural \"ghost\" entity.",
+      "backgrounds": [
+        "Machine Jumper",
+        "Hibernate",
+        "Freefaller"
+      ]
+    }
+  }
+}
