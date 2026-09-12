@@ -139,6 +139,7 @@ function printIssues(label, issues) {
 
 function printNpc(npc) {
   console.log(`\n${npc.name}  [${npc.id}]`);
+  console.log(`  Species: ${npc.species || 'unset'}`);
   console.log(`  Role: ${npc.role || 'unset'}`);
   console.log(`  Faction: ${npc.faction || 'unset'}`);
   console.log(`  Location: ${npc.location || 'unset'}`);
@@ -182,7 +183,7 @@ function printNpcList(npcs) {
     return;
   }
   for (const n of npcs) {
-    console.log(`  ${n.name.padEnd(24)} ${(n.role || '').padEnd(22)} ${(n.location || '-').padEnd(18)} ${n.faction || ''}`);
+    console.log(`  ${n.name.padEnd(24)} ${(n.species || '').padEnd(16)} ${(n.role || '').padEnd(22)} ${(n.location || '-').padEnd(18)} ${n.faction || ''}`);
   }
 }
 

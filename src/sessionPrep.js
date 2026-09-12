@@ -27,6 +27,7 @@ function statBlockLines(entity) {
 function formatNpc(npc) {
   const lines = [
     `NPC: ${npc.name}  [${npc.id}]`,
+    `  Species: ${npc.species || 'unset'}`,
     `  Role: ${npc.role || 'unset'}`,
     `  Faction: ${npc.faction || 'unset'}`,
     `  Location: ${npc.location || 'unset'}`,
