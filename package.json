@@ -1,0 +1,17 @@
+{
+  "name": "warp-shell-icrpg",
+  "version": "1.0.0",
+  "description": "Campaign management CLI for the Warp Shell ICRPG campaign",
+  "main": "index.js",
+  "type": "commonjs",
+  "bin": {
+    "warp-shell": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "UNLICENSED"
+}
