@@ -6,6 +6,17 @@ function pick(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
+// Weighted random pick from a list of { weight, ... } entries.
+function pickWeighted(list) {
+  const total = list.reduce((sum, item) => sum + (item.weight || 0), 0);
+  let roll = Math.random() * total;
+  for (const item of list) {
+    if (roll < (item.weight || 0)) return item;
+    roll -= (item.weight || 0);
+  }
+  return list[list.length - 1];
+}
+
 function pickMany(list, count) {
   const pool = [...list];
   const result = [];
@@ -61,4 +72,4 @@ function nameSimilarity(a, b) {
   return 1 - dist / maxLen;
 }
 
-module.exports = { pick, pickMany, makeId, normalize, overlapCount, levenshtein, nameSimilarity };
+module.exports = { pick, pickMany, pickWeighted, makeId, normalize, overlapCount, levenshtein, nameSimilarity };

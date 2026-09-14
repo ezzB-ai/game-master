@@ -74,10 +74,14 @@ Warp Shell ICRPG Campaign Manager
 Usage: node index.js <command> [options]
 
 NPC & Location generation
-  generate npc [--role R] [--faction F] [--location L] [--hero-type T] [--life-form F]
+  generate npc [--role R] [--faction F] [--location L] [--species S] [--hero-type T] [--life-form F]
+      --species forces a background species (see the 25-entry pool in wordbanks.js);
+      omit to pick one at random, weighted by rarity. Ignored if --life-form is set,
+      since the life form IS the NPC's species in that case.
       --hero-type attaches a full Warp Shell mechanical stat block (independent
       of --role, which is flavor occupation). Valid: ${HERO_TYPE_KEYS.map((k) => k[0].toUpperCase() + k.slice(1)).join(', ')}
       --life-form applies a species bonus on top of a hero type. Valid: ${Object.values(LIFE_FORM_DISPLAY).join(', ')}
+      Each species/life form has its own gender & pronoun system, picked at random.
   generate location [--type T] [--faction F] [--danger D] [--resources R]
 
 Consistency
@@ -158,7 +162,7 @@ function printIssues(label, issues) {
 
 function printNpc(npc) {
   console.log(`\n${npc.name}  [${npc.id}]`);
-  console.log(`  Species: ${npc.species || 'unset'}`);
+  console.log(`  Species: ${npc.species || 'unset'}${npc.gender ? ` — ${npc.gender} (${npc.pronouns})` : ''}`);
   console.log(`  Role: ${npc.role || 'unset'}`);
   console.log(`  Faction: ${npc.faction || 'unset'}`);
   console.log(`  Location: ${npc.location || 'unset'}`);
@@ -251,6 +255,7 @@ function run(argv) {
         role: flags.role,
         faction: flags.faction,
         location: flags.location,
+        species: flags.species,
         heroType: flags['hero-type'],
         lifeForm: flags['life-form'],
       });

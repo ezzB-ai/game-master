@@ -4,7 +4,8 @@ const {
   NPC_FIRST_NAMES, NPC_SURNAMES, NPC_CALLSIGNS, NPC_CALLSIGN_STYLE_CHANCE,
   NPC_ROLES, NPC_TRAITS, NPC_SPECIES, FACTIONS,
 } = require('./data/wordbanks');
-const { pick, pickMany, makeId, normalize } = require('./utils');
+const { LIFE_FORM_GENDERS, NPC_SPECIES_GENDERS } = require('./data/genders');
+const { pick, pickMany, pickWeighted, makeId, normalize } = require('./utils');
 const { buildHeroStatBlock } = require('./statBlock');
 
 const MAX_ATTEMPTS = 100;
@@ -34,6 +35,23 @@ function randomName() {
   return `${first} ${pick(NPC_SURNAMES)}`;
 }
 
+// Picks a gender/pronoun for a species/life-form name. Handles The Unbound
+// Choir's special case: its "Host's Own" option means the drone-host is an
+// ordinary individual of some OTHER species, so its pronoun is borrowed from
+// a random different species' own gender table rather than being fixed.
+function randomGender(kindName, table) {
+  const entry = table[kindName];
+  if (!entry) return null;
+  const choice = pickWeighted(entry.genders);
+  if (choice.label === "Host's Own") {
+    const otherNames = Object.keys(NPC_SPECIES_GENDERS).filter((n) => n !== kindName);
+    const hostSpecies = pick(otherNames);
+    const hostChoice = randomGender(hostSpecies, NPC_SPECIES_GENDERS);
+    return hostChoice ? { ...hostChoice, label: `Host's Own (${hostChoice.label}, ${hostSpecies})` } : null;
+  }
+  return { label: choice.label, pronouns: choice.pronouns };
+}
+
 /**
  * Generate a new NPC that doesn't collide with existing registry entries.
  * Uniqueness is enforced on: exact name match, and (role + faction + location)
@@ -46,6 +64,9 @@ function randomName() {
  *   (Geno/Xill/Reptoid/Kitt/Mecha/Ghost Armor) are independent of `role`: role
  *   is flavor occupation (Bar Owner, Smuggler, ...), heroType is an optional
  *   mechanical stat block for NPCs who might actually fight or be played.
+ *   When a lifeForm is present, it IS the NPC's species — the background
+ *   NPC_SPECIES pool is not also layered on top (a Gunner/Reptoid isn't also
+ *   randomly a Corvane).
  */
 function generateNpc(existingNpcs, overrides = {}) {
   const existingNames = new Set(existingNpcs.map((n) => normalize(n.name)));
@@ -65,15 +86,31 @@ function generateNpc(existingNpcs, overrides = {}) {
     if (existingCombos.has(combo)) continue;
 
     const traits = pickMany(NPC_TRAITS, 2);
-    const species = overrides.species
-      ? (NPC_SPECIES.find((s) => normalize(s.name) === normalize(overrides.species)) || { name: overrides.species })
-      : randomSpecies();
+
+    const heroBlock = overrides.heroType
+      ? buildHeroStatBlock({ heroType: overrides.heroType, lifeForm: overrides.lifeForm })
+      : null;
+
+    let speciesName;
+    let genderChoice;
+    if (heroBlock && heroBlock.lifeForm) {
+      speciesName = heroBlock.lifeForm;
+      genderChoice = randomGender(heroBlock.lifeForm, LIFE_FORM_GENDERS);
+    } else {
+      const species = overrides.species
+        ? (NPC_SPECIES.find((s) => normalize(s.name) === normalize(overrides.species)) || { name: overrides.species })
+        : randomSpecies();
+      speciesName = species.name;
+      genderChoice = randomGender(species.name, NPC_SPECIES_GENDERS);
+    }
 
     npc = {
       id: makeId('npc'),
       name,
       role,
-      species: species.name,
+      species: speciesName,
+      gender: genderChoice ? genderChoice.label : null,
+      pronouns: genderChoice ? genderChoice.pronouns : null,
       traits,
       location,
       faction,
@@ -82,9 +119,7 @@ function generateNpc(existingNpcs, overrides = {}) {
       createdAt: new Date().toISOString(),
     };
 
-    if (overrides.heroType) {
-      Object.assign(npc, buildHeroStatBlock({ heroType: overrides.heroType, lifeForm: overrides.lifeForm }));
-    }
+    if (heroBlock) Object.assign(npc, heroBlock);
     break;
   }
 
@@ -98,4 +133,4 @@ function generateNpc(existingNpcs, overrides = {}) {
   return npc;
 }
 
-module.exports = { generateNpc, randomName, randomSpecies };
+module.exports = { generateNpc, randomName, randomSpecies, randomGender };
