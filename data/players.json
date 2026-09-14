@@ -181,7 +181,7 @@
       "id": "player-daa879e0",
       "name": "G3",
       "playerName": "Lindsay",
-      "pronouns": null,
+      "pronouns": "she/her/hers",
       "heroType": "Gunner",
       "lifeForm": "Ghost Armor",
       "specialTrait": "Ghost Armor: +2 DEFENSE, 1 Ghost Ability (see warpShellLifeForms.ghostArmor.backgrounds)",
@@ -234,7 +234,7 @@
       "coin": 0,
       "notes": "Full name/nickname: Glamour Ghost Gunner (G3). Ghost Armor, Freefaller background (ghost can float freely within FAR of the armor, sucked back in after 1D4 ROUNDS; fully immaterial outside the armor). DEFENSE computed as CON 2 (base) + Ghost Armor life form +2 + Hard Suit +3 + Energy Shield +2 = 9.",
       "createdAt": "2026-09-12T14:51:07.458Z",
-      "updatedAt": "2026-09-14T11:00:19.123Z",
+      "updatedAt": "2026-09-14T18:54:47.391Z",
       "heroCoin": false
     }
   ]
