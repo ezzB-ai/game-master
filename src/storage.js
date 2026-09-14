@@ -10,17 +10,22 @@ const FILES = {
   locations: path.join(DATA_DIR, 'locations.json'),
   campaignState: path.join(DATA_DIR, 'campaign-state.json'),
   players: path.join(DATA_DIR, 'players.json'),
+  factionStates: path.join(DATA_DIR, 'faction-states.json'),
 };
 
 const DEFAULTS = {
   npcs: { npcs: [] },
   locations: { locations: [] },
   campaignState: {
+    campaignName: 'Warp Shell',
     sessionCount: 0,
     currentSession: null,
     sessionLog: [],
+    currentHooks: [],
+    unresolvedThreads: [],
   },
   players: { players: [] },
+  factionStates: { factions: [] },
 };
 
 function ensureDataDir() {

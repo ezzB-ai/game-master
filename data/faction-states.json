@@ -1,0 +1,64 @@
+{
+  "factions": [
+    {
+      "name": "Xevos",
+      "description": "Military biotech empire that crushed the old Imperium; pursuing advanced tech and genetic material across the sector.",
+      "goals": [
+        "Acquire bio-samples from Salvax Prime",
+        "Eliminate Ghost Armour threats",
+        "Expand influence via proxies rather than direct confrontation"
+      ],
+      "reputation": -1,
+      "recentActions": [
+        { "session": 1, "action": "Sent proxies to Salvax Prime", "reputationDelta": null },
+        { "session": 1, "action": "Sent Orrax + Shift to retrieve a cache from Salvax Prime", "reputationDelta": null }
+      ],
+      "nextActions": [
+        { "trigger": "If the crew escaped with the cache", "action": "Send a higher-tier recovery team" },
+        { "trigger": "If the crew destroyed the cache", "action": "Investigate, reassess resources" }
+      ]
+    },
+    {
+      "name": "Zurin",
+      "description": "An ideological movement, open to any species, led by the prophet Reph. Actively organizing against Xevos.",
+      "goals": [
+        "Oppose Xevos expansion",
+        "Recruit allies",
+        "Gather intelligence on Xevos technology"
+      ],
+      "reputation": 0,
+      "recentActions": [],
+      "nextActions": [
+        { "trigger": "If the crew opposed Xevos", "action": "Send an emissary to recruit the party" }
+      ]
+    },
+    {
+      "name": "Ghost Armours",
+      "description": "Consciousness-transfer victims seeking vengeance on their Rax creators, and liberation from a form of immortal torture.",
+      "goals": [
+        "Hunt remaining Rax survivors",
+        "Destroy consciousness-transfer technology",
+        "Free other Ghosts still bound to armor"
+      ],
+      "reputation": 0,
+      "recentActions": [],
+      "nextActions": []
+    },
+    {
+      "name": "Free Traders",
+      "description": "Independent merchant network; Maye operates the local node from Outpost Kess.",
+      "goals": [
+        "Maintain trade routes",
+        "Broker between factions",
+        "Maximize profit"
+      ],
+      "reputation": 1,
+      "recentActions": [
+        { "session": 1, "action": "Maye contacted the party with the Salvax Prime cache opportunity", "reputationDelta": null }
+      ],
+      "nextActions": [
+        { "trigger": "Session end", "action": "Maye pays the party's share, offers the next contract" }
+      ]
+    }
+  ]
+}

@@ -10,8 +10,11 @@ const {
 } = require('./query');
 const { buildSessionPacket, exportSessionPacket, formatPlayer } = require('./sessionPrep');
 const { RELATIONSHIP_TYPES } = require('./data/wordbanks');
-const { HERO_TYPE_KEYS, LIFE_FORM_DISPLAY, buildHeroStatBlock, validatePlayerStatBlock } = require('./statBlock');
+const { HERO_TYPE_KEYS, LIFE_FORM_DISPLAY, buildHeroStatBlock, validatePlayerStatBlock, loadMechanicsRef } = require('./statBlock');
 const { findPlayerByNameOrId, buildPlayer, applyPlayerEdits } = require('./players');
+const { findFaction, applyFactionChange } = require('./factions');
+const { computePartyPowerLevel } = require('./powerLevel');
+const { buildSessionKit } = require('./sessionKit');
 
 const TWO_WORD_COMMANDS = new Set([
   'generate npc', 'generate location',
@@ -22,7 +25,8 @@ const TWO_WORD_COMMANDS = new Set([
   'add player',
   'edit player', 'update player',
   'delete player',
-  'session prep', 'session status', 'session end',
+  'session prep', 'session status', 'session end', 'session kit',
+  'check progression', 'faction status', 'campaign status',
 ]);
 
 function parseArgs(tokens) {
@@ -105,13 +109,27 @@ Player characters (canonical, persistent — not randomly generated)
   update player <name-or-id>                    (alias for edit player)
   delete player <name-or-id>
 
-Session prep
+Session prep (manual — pick specific NPCs/locations into a packet)
   session prep --npc "Name" [--npc "Name2" ...] --location "Loc" [--location "Loc2" ...]
       [--player "Name" ...] [--session N] [--export]
       Omitting --player includes the whole crew roster by default; pass one or
       more --player flags to select only specific players (e.g. someone absent).
   session status
-  session end [--notes "recap text"]
+  session end [--notes "recap text"] [--milestone "PlayerName=Milestone Name" ...]
+      [--faction-change "FactionName=+1" ...] (or "FactionName=+1|what they did")
+      Milestones are GM-awarded by feel (no XP tracked) and validated against
+      that player's real ability pool by "check progression".
+
+Session Engine (automated — full kit generation from live campaign state)
+  session kit [--session N] [--faction-focus FactionName] [--difficulty EASY|MEDIUM|HARD]
+      Generates 5 locations, 15 NPCs, 8 enemies (Tier I-IV, weighted to party
+      power level), 15 loot items (cited from Sci-Fi/Epic Loot tables), current
+      faction state, a party snapshot, and campaign hooks — written to
+      session-prep/session-N-kit.json. New NPCs/locations are saved to the
+      normal registries, same as running "generate npc"/"generate location".
+  check progression                              (milestones earned per player, what's left to claim)
+  faction status [FactionName]                   (reputation, goals, recent + planned actions)
+  campaign status                                 (full overview: power level, crew, factions, hooks)
 
 Editing
   edit npc <name-or-id> [--role R] [--faction F] [--location L] [--notes N] [--hero-type T] [--life-form F]
@@ -512,16 +530,168 @@ function run(argv) {
         console.log('No active session to end. Run "session prep" first.');
         break;
       }
+
+      // --milestone "PlayerName=Milestone Name" — GM-awarded, no XP/threshold
+      // involved (the rulebook awards these by feel, "roughly every other
+      // session"), validated against that player's real milestone pool.
+      const milestoneAwards = [];
+      for (const entry of toArray(flags.milestone)) {
+        const eq = entry.indexOf('=');
+        if (eq === -1) {
+          console.log(`Skipping malformed --milestone "${entry}" — expected "PlayerName=Milestone Name"`);
+          continue;
+        }
+        const playerRef = entry.slice(0, eq).trim();
+        const milestoneName = entry.slice(eq + 1).trim();
+        const playersData = storage.load('players');
+        const player = findPlayerByNameOrId(playersData.players, playerRef);
+        if (!player) {
+          console.log(`Could not resolve player "${playerRef}" for milestone award`);
+          continue;
+        }
+        player.milestones = player.milestones || [];
+        player.milestones.push(milestoneName);
+        player.updatedAt = new Date().toISOString();
+        storage.save('players', playersData);
+        milestoneAwards.push({ player: player.name, milestone: milestoneName });
+      }
+
+      // --faction-change "FactionName=+1" or "FactionName=+1|what they did"
+      // (the action text is per-change, not a single flag shared across all
+      // of them — each faction can have its own reason logged).
+      const factionChanges = [];
+      for (const entry of toArray(flags['faction-change'])) {
+        const eq = entry.indexOf('=');
+        if (eq === -1) {
+          console.log(`Skipping malformed --faction-change "${entry}" — expected "FactionName=+1" or "FactionName=+1|action text"`);
+          continue;
+        }
+        const factionRef = entry.slice(0, eq).trim();
+        const rest = entry.slice(eq + 1);
+        const pipeIdx = rest.indexOf('|');
+        const deltaText = pipeIdx === -1 ? rest : rest.slice(0, pipeIdx);
+        const action = pipeIdx === -1 ? null : rest.slice(pipeIdx + 1).trim();
+        const delta = Number(deltaText.trim());
+        if (!Number.isInteger(delta)) {
+          console.log(`Skipping --faction-change "${entry}" — delta must be an integer`);
+          continue;
+        }
+        const factionData = storage.load('factionStates');
+        const faction = findFaction(factionData.factions, factionRef);
+        if (!faction) {
+          console.log(`Could not resolve faction "${factionRef}"`);
+          continue;
+        }
+        applyFactionChange(faction, delta, { session: state.currentSession.sessionNumber, action });
+        storage.save('factionStates', factionData);
+        factionChanges.push({ faction: faction.name, delta, newReputation: faction.reputation });
+      }
+
       const finished = {
         ...state.currentSession,
         endedAt: new Date().toISOString(),
         notes: flags.notes || '',
+        milestoneAwards,
+        factionChanges,
       };
       state.sessionLog.push(finished);
       state.sessionCount += 1;
       state.currentSession = null;
       storage.save('campaignState', state);
+
       console.log(`Session ${finished.sessionNumber} closed out. Total sessions logged: ${state.sessionCount}`);
+      if (milestoneAwards.length) {
+        console.log('\nMilestones awarded:');
+        milestoneAwards.forEach((m) => console.log(`  - ${m.player}: ${m.milestone}`));
+      }
+      if (factionChanges.length) {
+        console.log('\nFaction changes:');
+        factionChanges.forEach((f) => console.log(`  - ${f.faction}: ${f.delta > 0 ? '+' : ''}${f.delta} (now ${f.newReputation})`));
+      }
+      break;
+    }
+
+    case 'session kit': {
+      const { kit, file } = buildSessionKit({
+        sessionNumber: flags.session ? Number(flags.session) : undefined,
+        factionFocus: flags['faction-focus'],
+        difficulty: flags.difficulty,
+      });
+      console.log(`\nSession ${kit.sessionNumber} kit generated.`);
+      console.log(`Party power level: ${kit.partyPowerLevel.effectivePowerId} (score ${kit.partyPowerLevel.powerScore.toFixed(1)}, ${kit.partyPowerLevel.totalHearts} total HEARTS)${kit.partyPowerLevel.difficultyOverride ? ` — difficulty override: ${kit.partyPowerLevel.difficultyOverride}` : ''}`);
+      console.log(`Locations: ${kit.locations.length} | NPCs: ${kit.npcs.length} (${kit.npcs.filter((n) => n.recurring).length} recurring) | Enemies: ${kit.enemies.lowLevel.length} low + ${kit.enemies.mediumHigh.length} medium-high | Loot: ${kit.loot.lowLevel.length} low + ${kit.loot.midHigh.length} mid-high`);
+      console.log('\nFaction updates:');
+      Object.entries(kit.factionUpdates).forEach(([name, f]) => console.log(`  - ${name}: reputation ${f.reputation}${f.lastAction ? `, last action: "${f.lastAction}"` : ''}`));
+      console.log('\nCampaign hooks:');
+      kit.campaignHooks.forEach((h) => console.log(`  - ${h}`));
+      console.log(`\n${kit.storyNotes}`);
+      console.log(`\nFull kit written to: ${file}`);
+      break;
+    }
+
+    case 'check progression': {
+      const players = storage.load('players').players;
+      const ref = loadMechanicsRef();
+      players.forEach((p) => {
+        const heroKey = p.heroType ? p.heroType.toLowerCase() : null;
+        const roleData = heroKey && ref.warpShellRoles[heroKey];
+        console.log(`\n${p.name} (${p.heroType || 'unset'}${p.lifeForm ? `, ${p.lifeForm}` : ''})`);
+        console.log(`  Hearts: ${p.hearts} | Defense: ${p.defense} | Hero Coin: ${p.heroCoin ? 'YES' : 'no'}`);
+        console.log(`  Milestones earned (${(p.milestones || []).length}): ${(p.milestones || []).join(', ') || 'none yet'}`);
+        if (roleData) {
+          const earnedNames = (p.milestones || []).map((m) => m.toLowerCase());
+          const available = roleData.milestoneAbilities.filter((entry) => {
+            const name = entry.split(':')[0].trim().toLowerCase();
+            return !earnedNames.some((e) => e.includes(name) || name.includes(e));
+          });
+          console.log(`  Not yet claimed from ${p.heroType}'s pool: ${available.length ? available.join(' | ') : 'all claimed'}`);
+        }
+      });
+      console.log('\nReminder: Milestone Rewards are GM-awarded by feel (roughly every other session) — there is no XP threshold to track.');
+      break;
+    }
+
+    case 'faction status': {
+      const factionData = storage.load('factionStates');
+      const target = positional[0] || flags.faction;
+      const factions = target ? [findFaction(factionData.factions, target)].filter(Boolean) : factionData.factions;
+      if (target && !factions.length) {
+        console.log(`No faction found matching "${target}"`);
+        break;
+      }
+      factions.forEach((f) => {
+        console.log(`\n${f.name}  (reputation: ${f.reputation})`);
+        console.log(`  ${f.description}`);
+        console.log(`  Goals: ${f.goals.join(', ')}`);
+        if (f.recentActions && f.recentActions.length) {
+          console.log('  Recent actions:');
+          f.recentActions.slice(-5).forEach((a) => console.log(`    - [session ${a.session ?? '?'}] ${a.action}`));
+        }
+        if (f.nextActions && f.nextActions.length) {
+          console.log('  Planned next actions:');
+          f.nextActions.forEach((n) => console.log(`    - if "${n.trigger}": ${n.action}`));
+        }
+      });
+      break;
+    }
+
+    case 'campaign status': {
+      const state = storage.load('campaignState');
+      const players = storage.load('players').players;
+      const factionData = storage.load('factionStates');
+      const power = computePartyPowerLevel(players);
+      console.log(`\n${state.campaignName || 'Campaign'} — Session ${state.sessionCount} completed, ${state.currentSession ? `session ${state.currentSession.sessionNumber} currently prepped` : 'no session currently prepped'}`);
+      console.log(`\nParty power level: ${power.powerId} (score ${power.powerScore.toFixed(1)}, ${power.totalHearts} total HEARTS across ${power.playerCount} players)`);
+      console.log('\nCrew:');
+      players.forEach((p) => console.log(`  - ${p.name}: ${p.heroType}${p.lifeForm ? ` (${p.lifeForm})` : ''}, ${p.hearts} HEARTS, ${(p.milestones || []).length} milestones, ${p.heroCoin ? 'holding a Hero Coin' : 'no Hero Coin'}`));
+      console.log('\nFaction standings:');
+      factionData.factions.forEach((f) => console.log(`  - ${f.name}: ${f.reputation}`));
+      console.log('\nCurrent hooks:');
+      (state.currentHooks || []).forEach((h) => console.log(`  - ${h}`));
+      if (state.unresolvedThreads && state.unresolvedThreads.length) {
+        console.log('\nUnresolved threads:');
+        state.unresolvedThreads.forEach((t) => console.log(`  - ${t}`));
+      }
       break;
     }
 

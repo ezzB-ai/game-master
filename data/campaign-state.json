@@ -1,5 +1,12 @@
 {
+  "campaignName": "Warp Shell",
   "sessionCount": 0,
   "currentSession": null,
-  "sessionLog": []
+  "sessionLog": [],
+  "currentHooks": [
+    "Xevos will retaliate if the party took their cache from Salvax Prime",
+    "Zurin may contact the party if they opposed Xevos",
+    "Maye/Outpost Kess may return with allies or complications"
+  ],
+  "unresolvedThreads": []
 }
