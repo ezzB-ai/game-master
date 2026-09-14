@@ -7,6 +7,7 @@ const { generateNpc } = require('./npcGenerator');
 const { generateLocation } = require('./locationGenerator');
 const { computePartyPowerLevel } = require('./powerLevel');
 const { generateEnemies, rollLoot } = require('./encounterEngine');
+const { findPlayerByNameOrId } = require('./players');
 const { pick } = require('./utils');
 
 const KIT_DIR = path.join(__dirname, '..', 'session-prep');
@@ -19,13 +20,41 @@ const DIFFICULTY_OVERRIDE = { EASY: 'Early', MEDIUM: 'Mid', HARD: 'Late' };
  * from real, persistent campaign state rather than invented fresh each time.
  * Newly generated NPCs/locations are persisted to the normal registries
  * (same as running `generate npc`/`generate location` directly).
+ *
+ * `playerRefs` defaults to `null`, meaning "the whole roster" — same
+ * convention as `session prep`. Pass an explicit array of names/ids (even a
+ * single one) to run with only some players present — a partial-attendance
+ * session, or a solo test run. Party power level, enemy/loot scaling, and
+ * the party snapshot all reflect only the selected subset.
  */
-function buildSessionKit({ sessionNumber, factionFocus, difficulty } = {}) {
+function buildSessionKit({ sessionNumber, factionFocus, difficulty, playerRefs = null } = {}) {
   const npcsData = storage.load('npcs');
   const locationsData = storage.load('locations');
-  const players = storage.load('players').players;
+  const allPlayers = storage.load('players').players;
   const campaignState = storage.load('campaignState');
   const factionStates = storage.load('factionStates');
+
+  let players;
+  if (playerRefs === null) {
+    players = allPlayers;
+  } else {
+    players = [];
+    const missing = [];
+    for (const ref of playerRefs) {
+      const player = findPlayerByNameOrId(allPlayers, ref);
+      if (player) players.push(player);
+      else missing.push(ref);
+    }
+    if (missing.length) {
+      throw new Error(
+        `Could not resolve player reference(s): ${missing.join(', ')}. ` +
+        `Known players: ${allPlayers.map((p) => p.name).join(', ')}`
+      );
+    }
+    if (!players.length) {
+      throw new Error('No players selected for this session kit — pass at least one --player, or omit --player for the whole roster.');
+    }
+  }
 
   const computedPower = computePartyPowerLevel(players);
   const powerId = difficulty && DIFFICULTY_OVERRIDE[difficulty.toUpperCase()]
@@ -104,9 +133,18 @@ function buildSessionKit({ sessionNumber, factionFocus, difficulty } = {}) {
   };
   storage.save('campaignState', campaignState);
 
+  const absentPlayers = allPlayers.filter((p) => !players.some((sel) => sel.id === p.id)).map((p) => p.name);
+
   const kit = {
     sessionNumber: resolvedSessionNumber,
     generatedAt: new Date().toISOString(),
+    roster: {
+      present: players.map((p) => p.name),
+      absent: absentPlayers,
+      note: playerRefs === null
+        ? 'Whole roster included (no --player filter given).'
+        : `Filtered to ${players.length} of ${allPlayers.length} players via --player.`,
+    },
     partyPowerLevel: { ...computedPower, effectivePowerId: powerId, difficultyOverride: difficulty || null },
     locations,
     npcs,

@@ -126,11 +126,15 @@ Session prep (manual — pick specific NPCs/locations into a packet)
 
 Session Engine (automated — full kit generation from live campaign state)
   session kit [--session N] [--faction-focus FactionName] [--difficulty EASY|MEDIUM|HARD]
+      [--player "Name" ...]
       Generates 5 locations, 15 NPCs, 8 enemies (Tier I-IV, weighted to party
       power level), 15 loot items (cited from Sci-Fi/Epic Loot tables), current
       faction state, a party snapshot, and campaign hooks — written to
       session-prep/session-N-kit.json. New NPCs/locations are saved to the
       normal registries, same as running "generate npc"/"generate location".
+      Omitting --player includes the whole roster; pass one or more --player
+      flags for a partial-attendance session or a solo test run — party power
+      level and enemy/loot scaling adjust to match who's actually included.
   check progression                              (milestones earned per player, what's left to claim)
   faction status [FactionName]                   (reputation, goals, recent + planned actions)
   campaign status                                 (full overview: power level, crew, factions, hooks)
@@ -617,12 +621,15 @@ function run(argv) {
     }
 
     case 'session kit': {
+      const playerRefs = flags.player === undefined ? null : toArray(flags.player);
       const { kit, file } = buildSessionKit({
         sessionNumber: flags.session ? Number(flags.session) : undefined,
         factionFocus: flags['faction-focus'],
         difficulty: flags.difficulty,
+        playerRefs,
       });
       console.log(`\nSession ${kit.sessionNumber} kit generated.`);
+      console.log(`Roster: ${kit.roster.present.join(', ')}${kit.roster.absent.length ? ` (absent: ${kit.roster.absent.join(', ')})` : ''}`);
       console.log(`Party power level: ${kit.partyPowerLevel.effectivePowerId} (score ${kit.partyPowerLevel.powerScore.toFixed(1)}, ${kit.partyPowerLevel.totalHearts} total HEARTS)${kit.partyPowerLevel.difficultyOverride ? ` — difficulty override: ${kit.partyPowerLevel.difficultyOverride}` : ''}`);
       console.log(`Locations: ${kit.locations.length} | NPCs: ${kit.npcs.length} (${kit.npcs.filter((n) => n.recurring).length} recurring) | Enemies: ${kit.enemies.lowLevel.length} low + ${kit.enemies.mediumHigh.length} medium-high | Loot: ${kit.loot.lowLevel.length} low + ${kit.loot.midHigh.length} mid-high`);
       console.log('\nFaction updates:');
