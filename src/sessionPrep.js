@@ -60,7 +60,7 @@ function formatPlayer(player) {
     lines.push('  Milestones:');
     player.milestones.forEach((m) => lines.push(`    - ${m}`));
   }
-  lines.push(`  XP: ${player.xp ?? 0} | Coin: ${player.coin ?? 0}`);
+  lines.push(`  XP: ${player.xp ?? 0} | Coin: ${player.coin ?? 0} | Hero Coin: ${player.heroCoin ? 'YES' : 'no'}`);
   if (player.notes) lines.push(`  Notes: ${player.notes}`);
   return lines.join('\n');
 }

@@ -66,7 +66,25 @@
     "maxDefense": 10,
     "maxDefenseNote": "No character can exceed +10 DEFENSE no matter the total of CON and LOOT bonuses.",
     "playerDefenseRoll": "When the GM calls for a DEFENSE roll (a danger/enemy ability affecting you), roll d20 + DEFENSE and meet or beat the current TARGET.",
-    "enemyAttackTarget": "When an enemy makes an ATTEMPT against a player, it does NOT roll against the scene TARGET — it rolls its STR or DEX bonus vs. 10 + the player's DEFENSE instead."
+    "enemyAttackTarget": "When an enemy makes an ATTEMPT against a player, it does NOT roll against the scene TARGET — it rolls its STR or DEX bonus vs. 10 + the player's DEFENSE instead.",
+    "gmCallingGuidance": {
+      "sourcePage": 108,
+      "whenToCallForDefense": [
+        "Shrapnel: any effect that sprays damage everywhere/in all directions — DEFENSE reduces or avoids it.",
+        "Falling: DEFENSE doesn't nullify fall damage, just reduces it.",
+        "All or Nothing: if an effect would drop a character to 0 HP or cause instant death, a final DEFENSE roll may decide if they're merely knocked out vs. destroyed.",
+        "Immovable: resisting being shoved/slid/toppled by sheer force rewards heavily-armored characters.",
+        "Shared Defenses: characters fighting shoulder-to-shoulder can add/share DEFENSE bonuses or allow re-rolls on failure.",
+        "No Defense (auto-hit): bigger/badder attacks (e.g. a dragon's tail swipe) don't roll to attack at all — they simply hit, and the target absorbs the impact as best they can. Useful for keeping boss fights fast."
+      ],
+      "damagingDefenses": [
+        "Sunder attacks: monster abilities specifically built to strip armor LOOT (e.g. \"you take 12 damage and lose 1D4 DEFENSE\").",
+        "Corrosion: acid, rust, extreme temperature crack/dissolve equipment, lowering DEFENSE.",
+        "Massive damage: a hit over 20 damage plausibly damages armor too.",
+        "Overclocker: a shield used constantly loses 1 DEFENSE per session from wear.",
+        "The Yanking: grabby/tentacled/thieving enemies steal armor pieces on a successful attack."
+      ]
+    }
   },
   "target": {
     "sourcePage": 10,
@@ -110,6 +128,21 @@
       "rule": "The GM raises the TARGET when a scene should feel more dangerous (new encounter phase, weather turning, a big enemy effect), typically stepping it up (or down, as hazards ease) by small increments such as 1 per ROUND in a dynamic hazard.",
       "distantMinimum": 10,
       "note": "This escalation applies to the scene TARGET used for player rolls. Enemy attacks against players always target 10 + player DEFENSE instead (see defense.enemyAttackTarget)."
+    },
+    "chosenTargets": {
+      "sourcePage": 104,
+      "description": "\"All encounters start with a TARGET of 10, 12, 15, or 18\" — a GM shortcut that narrows the \"what should the TARGET be\" question down to 4 values instead of picking anywhere in 10-18.",
+      "values": {
+        "10": "Beginner encounters, easy conditions, home base, clear weather or high ground. Players will dominate.",
+        "12": "The supreme average TARGET — used in almost all encounters. A level playing field that just always feels right.",
+        "15": "For a group with experience or good gear, rough conditions, low light, smoke, cramped spaces, or frightening situations — enough challenge to demand creative thinking.",
+        "18": "Brutal. Almost impossible for players; forces them to find a way to lower the number immediately. Reserve for the most difficult/confusing/obscured conditions, including magically-induced obstacles."
+      }
+    },
+    "targetDamage": {
+      "sourcePage": 104,
+      "description": "Players reducing the current TARGET through clever play, LOOT, or abilities (e.g. a torch reducing a dark-catacomb TARGET of 15 to 14). The environment/enemies can likewise increase or randomize the TARGET.",
+      "targetMinimum": "As a rule, players can never reduce a TARGET by more than 3 points below where the GM set it (a 15 can never go below 12)."
     }
   },
   "deathAndRecovery": {
@@ -1809,6 +1842,121 @@
         "Machine Jumper",
         "Hibernate",
         "Freefaller"
+      ]
+    }
+  },
+  "gmToolkit": {
+    "sourceNote": "GM's Guide material extracted separately from the character-creation/monster/loot content above — covers rewards, pacing, and encounter/vehicle design tools.",
+    "rewards": {
+      "sourcePage": 86,
+      "heroCoin": {
+        "description": "Awarded when a player does something that makes the game more fun for everyone. A shiny token that can be redeemed by that player OR handed to a worthy ally to redeem instead, at any time.",
+        "redeemEffect": "Re-roll any roll, OR add ULTIMATE EFFORT on an EFFORT roll.",
+        "limit": "A player can only hold 1 HERO COIN at a time."
+      },
+      "milestoneReward": {
+        "description": "Each hero type has its own pool of LOOT-based upgrades (see warpShellRoles[type].milestoneAbilities). Awarded when a player turns a corner, discovers their destiny, or completes a lifelong quest — the GM can assign one directly or let the player choose from their pool, whichever fits the moment.",
+        "cadence": "A player should be earning one of these roughly every other session — not a hard rule, a pacing guideline."
+      }
+    },
+    "sessionPacing": {
+      "sourcePage": 81,
+      "sessionEndRoll": {
+        "description": "When something big happens (a supreme villain falls, a character dies, or the group is visibly tired), roll it out: roll 1d4, re-roll a 1. That many ROUNDS from now, the session ends — win or lose, wherever the action lands.",
+        "finalFrame": "Go around the table one last time and have each player describe how their character ends the episode, like the final frame of a comic panel.",
+        "cliffhanger": "The most exciting version: call for the session-end roll right at the climax of a battle, ending the night mid-peril."
+      },
+      "planOneSessionAtATime": "Put full prep energy into a single night of play rather than a sprawling campaign outline — the session is the unit of GM planning in ICRPG."
+    },
+    "encounterDesign": {
+      "sourcePage": 90,
+      "dew": {
+        "description": "Every encounter needs Danger (real consequences if the group fails, not just damage/death), Energy (keep the table's pace brisk — call character names, not player names, cut anything that causes a lull), and Wonder (make one element of the scene huge, ancient, or awe-inspiring instead of a generic threat)."
+      },
+      "threeTs": {
+        "sourcePage": 92,
+        "description": "Every room/encounter should include a Timer (a ticking d4 \"suspense die,\" counted down each GM turn, that triggers something when it hits 0), a Threat (the monster/trap/hazard itself), and a Treat (at least one discoverable advantage — a lever, a weak point, stashed gear — that rewards players who investigate instead of brute-forcing it)."
+      },
+      "threeDs": {
+        "sourcePage": 94,
+        "description": "Dials for tuning encounter difficulty: Damage (upgrade a weapon's die, e.g. d6 to 2d6, or scale an enemy's damage dice to its HEART count), Disruption (the environment itself as a weapon — mild/normal/extreme tiers of hazards like wind, falling debris, or reality-breaking cataclysms), and Duration (constrain how long the fight can last with a TIMER — the tighter the clock, the harder the fight)."
+      },
+      "roomArchetypes": {
+        "sourcePage": 97,
+        "note": "TARGET values are loose suggestions based on complexity, meant to be adjusted, not fixed.",
+        "archetypes": [
+          { "name": "Barrier", "target": 10, "description": "A wall/chasm/barricade stands between the party and the exit. Can be as simple as jumping a crack, or as involved as a combination-locked energy field with pursuers closing in." },
+          { "name": "Tangle", "target": 12, "description": "Grabby/grappling hazards sit at the corners of the room with a safe zone in the middle; doors are offset to increase the risk of getting caught." },
+          { "name": "Lock", "target": 10, "description": "Players must search off-path for a key or release mechanism to a locked door, rather than simply smashing through." },
+          { "name": "Kite", "target": 16, "description": "An enemy is flanked by healers that make brute-force damage useless — players must lure the healers out of their healing zone." },
+          { "name": "Pinch", "target": 14, "description": "A narrow space (canyon, rift) where a few players must hold off a large enemy force — a funneling chokepoint fight." },
+          { "name": "Ambush", "target": 12, "description": "A visible first enemy draws players in while a larger hidden force waits to pounce from behind cover." },
+          { "name": "Siege", "target": 12, "description": "Attackers face a dug-in, higher-ground fortification; direct assault is near-impossible, forcing diversions or trickery." },
+          { "name": "Tightrope", "target": 14, "description": "Crossing a narrow elevated walkway above a pit of monsters — failure means a fall into danger, not just a miss." },
+          { "name": "Duel", "target": 18, "description": "The prime enemy hides behind stalwart guardians/healers who can't be talked down, only physically cleared — then a final concealed threat is revealed. Kite and Ambush combined." },
+          { "name": "Ally Kite", "target": 10, "description": "A bare one-way room with straightforward enemies — best used as a change of pace, a story beat, or a rest between more complex encounters, not the centerpiece." }
+        ]
+      }
+    },
+    "timers": {
+      "sourcePage": 92,
+      "description": "A d4 \"suspense die\" placed in view and reduced by 1 each GM turn; when it hits 0, the telegraphed thing happens. Ticking it down early on a failed roll is a valid way to accelerate tension.",
+      "variants": {
+        "sourcePage": 106,
+        "worldTimer": "A big, campaign/session-opening TIMER at its max value (e.g. a d12) for a large-scale ticking threat (\"in 12 ROUNDS, the reactor overloads and vaporizes the planet\").",
+        "turnTimer": "Counts TURNS instead of ROUNDS for a much faster, more brutal pace — even a 4 can resolve in under a full ROUND.",
+        "staticDeathTimer": "Replaces the DYING d4 roll with a flat 3 ROUNDS to stabilize a downed character — evens out the swinginess of the random DYING roll.",
+        "reloadRecharge": "A d4 reload/recharge TIMER on a specific weapon or spell to force gear/spell variety instead of one attack spammed every turn.",
+        "effortSubstitute": "For a long task after an initial success, just announce a flat TIMER (\"D4 ROUNDS to decode the password\") instead of tracking EFFORT point-by-point.",
+        "timerDamage": "Players can delay or hasten a TIMER with actions/LOOT, same idea as TARGET DAMAGE — e.g. fighting a fire delays a burn-timer by 1 ROUND per TURN spent, or pulling power cables on a charging mech delays its activation."
+      }
+    },
+    "vehiclesAndChunks": {
+      "sourcePage": 110,
+      "description": "Vehicles (up to full starships) are built from CHUNKS. Each CHUNK = 1 HEART of vehicle HP (5 HP for battle suits specifically), one key function or weapon, ~250 lbs of mass, and costs 1,000 coin. No vehicle exceeds 5 CHUNKS.",
+      "combatRules": "Vehicles inflict DOUBLE damage against those on foot. Pedestrians do HALF damage against vehicles. When a CHUNK hits 0 HP it's destroyed — that ability/weapon is lost, and it can become a battlefield hazard or scatter as wreckage.",
+      "speedTiers": "Slow and Fast engines use 1 CHUNK; Hyperfast engines use 2 CHUNKS.",
+      "examples": [
+        { "name": "Grav Bike", "chunks": 2, "build": "Engine (Fast), Fairing (Ram for Weapon Damage)" },
+        { "name": "Hypercar", "chunks": 4, "build": "Engine (Fast), Roll Cage (Ram), Chain Gun (Gun Damage), Nitro Blower (bursts of Hyperfast)" },
+        { "name": "Dredge", "chunks": 5, "build": "Engine (Slow), Haul Crane (grapple other vehicles), Grenade Launcher (Explosive/Magical Damage), Ram (Weapon Damage), Flatbed (carries another vehicle)" },
+        { "name": "Battle Suit", "chunks": 5, "build": "Ablative Shield (+5 DEFENSE, explodes when destroyed), Bolt Gun (3-round burst, reload after 4 bursts), Repair Unit (repairs 1D6 onboard CHUNK HP/ROUND), Repulsor Shield (+3 DEFENSE, deflects projectiles within CLOSE range)" },
+        { "name": "Krell SF-4 Starfighter", "chunks": 4, "build": "Cockpit (seats 2; pilots have 1D4 ROUNDS to live if destroyed while occupied), Ion Drive (deep-space travel; crippled to taxi/thruster speed if destroyed), SR Missile Pack (D10 CHUNK damage or destroys 1D8 microfighters, 8 bursts), Chain Gun (D8 CHUNK damage or destroys 1D4 microfighters, never reloads)" }
+      ],
+      "starfighterManeuvers": ["Punch It (move to an adjacent SECTOR)", "Zero (lock onto and follow a target through a PUNCH IT)", "Engage (fire guns; a hit rolls damage on a random CHUNK)", "Break Off (stay put but elude pursuers this TURN)", "Ditch (eject; roll to escape safely or take WEAPON DAMAGE)"]
+    },
+    "horrorMode": {
+      "sourcePage": 112,
+      "description": "Optional SANITY subsystem for horror-toned sessions. All sane characters start with 1 HEART of SANITY; it erodes from witnessing horrific/supernatural events and hits 0 at complete madness (non-functional).",
+      "sanityDamageTable": [
+        { "event": "See a person dismembered, beheaded, or die terribly", "damage": "1" },
+        { "event": "Discover a corpse or scene of depravity", "damage": "1" },
+        { "event": "Stare directly at a supernatural entity/ghost/zombie", "damage": "1 (1D4 if a horde)" },
+        { "event": "Lose a limb (or drop to 1 HP from a single hit)", "damage": "1D4" },
+        { "event": "Witness an object of celestial/trans-dimensional origin", "damage": "1D4" },
+        { "event": "Gaze upon an abomination from between worlds", "damage": "1D6" },
+        { "event": "Assemble clues leading to dark, cosmos-spanning truths", "damage": "1D6" },
+        { "event": "Witness the arrival of an Elder-God-scale entity", "damage": "1D8" },
+        { "event": "Form a mind-union with an Elder God or Beyonder", "damage": "1D10" }
+      ],
+      "sanityStateOfBeing": {
+        "10": "Safe in the veil of daily normalcy",
+        "8-9": "Aghast/rationalizing, on edge, wary of unexplained sounds",
+        "6-7": "Shocked/terrified; CHA and WIS rolls HARD, cannot attack the source of fear",
+        "4-5": "All rolls HARD; must seek hiding or back away immediately",
+        "2-3": "Screaming/petrified 1D4 ROUNDS, or fleeing at max speed for 1D6 ROUNDS",
+        "1": "All rolls HARD is now permanent",
+        "0": "Catatonic, clinically mad, reliving the terror endlessly"
+      }
+    },
+    "adventureBuildingMethod": {
+      "sourcePage": 114,
+      "description": "The Index Card method for building a full adventure in 4 steps.",
+      "steps": [
+        "1. The Whole Truth: write the bird's-eye secrets/twist/villain/scenery on one card — just the facts, no polish.",
+        "2. Scenes & Bullets: break it into 5 scenes (2-4 flavor bullets each) — typically: opening hook/guardian fight, a role-play dilemma, a big setback, the climactic battle, rewards + a twist that keeps the threat alive.",
+        "3. Casting Call: one index card per NPC/enemy needed for those scenes — if it doesn't fit on a card, it's too much detail for the table.",
+        "4. Make Some Maps: rough sketches (even sideways/blueprint-style) that reinforce mood and give players something to describe and act on, not precise grid measurement."
       ]
     }
   }

@@ -100,7 +100,8 @@ Player characters (canonical, persistent — not randomly generated)
   show player <name-or-id>
   edit player <name-or-id> (same flags as add, all optional; also:
       [--add-hearts N] [--gear "Name: effect"] [--milestone "Name"]
-      [--xp N] [--add-xp N] [--coin N] [--add-coin N])
+      [--xp N] [--add-xp N] [--coin N] [--add-coin N]
+      [--award-hero-coin] [--redeem-hero-coin]   (a player holds at most 1 at a time)
   update player <name-or-id>                    (alias for edit player)
   delete player <name-or-id>
 

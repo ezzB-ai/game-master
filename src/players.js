@@ -135,6 +135,7 @@ function buildPlayer({ name, playerName, pronouns, heroType, lifeForm, faction, 
     milestones: [],
     xp: 0,
     coin: 0,
+    heroCoin: false,
     notes: notes || '',
     createdAt: now,
     updatedAt: now,
@@ -192,6 +193,11 @@ function applyPlayerEdits(player, flags) {
   if (flags['add-xp'] !== undefined) player.xp = (player.xp || 0) + Number(flags['add-xp']);
   if (flags.coin !== undefined) player.coin = Number(flags.coin);
   if (flags['add-coin'] !== undefined) player.coin = (player.coin || 0) + Number(flags['add-coin']);
+  // A player can only hold 1 HERO COIN at a time (mechanics-reference.json
+  // gmToolkit.rewards.heroCoin) — it's a boolean, not a count.
+  if (flags['award-hero-coin'] !== undefined) player.heroCoin = true;
+  if (flags['redeem-hero-coin'] !== undefined) player.heroCoin = false;
+  if (flags['hero-coin'] !== undefined) player.heroCoin = String(flags['hero-coin']).toLowerCase() === 'true';
 
   player.updatedAt = new Date().toISOString();
   return player;
