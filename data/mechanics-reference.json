@@ -517,7 +517,7 @@
         {
           "roll": 33,
           "name": "AI Module",
-          "effect": "Item, A portable personality that can perform INT, WIS, CHA checks at a locaon"
+          "effect": "Item, A portable personality that can perform INT, WIS, CHA checks at a location"
         },
         {
           "roll": 34,
@@ -537,7 +537,7 @@
         {
           "roll": 37,
           "name": "Energy Bow",
-          "effect": "Weapon, Magical, No ammo needed, choose Ice or Fire bolt properes"
+          "effect": "Weapon, Magical, No ammo needed, choose Ice or Fire bolt properties"
         },
         {
           "roll": 38,
@@ -682,7 +682,7 @@
         {
           "roll": 66,
           "name": "Tentacle Pod",
-          "effect": "Item, Acvate to summon a GIANT TENTACLE for 1D4 ROUNDS"
+          "effect": "Item, Activate to summon a GIANT TENTACLE for 1D4 ROUNDS"
         },
         {
           "roll": 67,
@@ -712,7 +712,7 @@
         {
           "roll": 72,
           "name": "EM Spool",
-          "effect": "Item, Acvate in 4 ROUNDS, electronics within FAR disabled 4 ROUNDS"
+          "effect": "Item, Activate in 4 ROUNDS, electronics within FAR disabled 4 ROUNDS"
         },
         {
           "roll": 73,
@@ -762,7 +762,7 @@
         {
           "roll": 82,
           "name": "Sonic Nullifier",
-          "effect": "Item, Nullify ALL SOUND within FAR range upon acvaon, lasts 1D4 ROUNDS"
+          "effect": "Item, Nullify ALL SOUND within FAR range upon activation, lasts 1D4 ROUNDS"
         },
         {
           "roll": 83,
@@ -909,7 +909,7 @@
         {
           "roll": 10,
           "name": "Ring of Invisibility",
-          "effect": "Item, Make a WIS check to acvate, remain invisible for 1D4 ROUNDS"
+          "effect": "Item, Make a WIS check to activate, remain invisible for 1D4 ROUNDS"
         },
         {
           "roll": 11,
@@ -924,7 +924,7 @@
         {
           "roll": 13,
           "name": "Dimension Jump",
-          "effect": "INT SPELL, Warp to any locaon you can see or can accurately remember"
+          "effect": "INT SPELL, Warp to any location you can see or can accurately remember"
         },
         {
           "roll": 14,
@@ -1158,7 +1158,7 @@
         },
         {
           "roll": 60,
-          "name": "Adamanum Armor",
+          "name": "Adamantium Armor",
           "effect": "Armor, +8 DEFENSE, Ignore any Damage below 3, Occupies 5 slots"
         },
         {
@@ -1299,7 +1299,7 @@
         {
           "roll": 88,
           "name": "Time Doorway",
-          "effect": "Item, Access ANY me at current locaon, age 10 years to go through"
+          "effect": "Item, Access ANY time at current location, age 10 years to go through"
         },
         {
           "roll": 89,
