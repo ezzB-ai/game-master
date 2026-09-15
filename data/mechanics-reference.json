@@ -699,8 +699,9 @@
         },
         {
           "roll": 68,
-          "name": "Ulity Arm",
-          "effect": "Armor, +2 DEFENSE, A compact hydraulic arm, STR checks EASY, EQUIP 12 slots"
+          "name": "Utility Arm",
+          "effect": "Armor, +2 DEFENSE, A compact hydraulic arm, STR checks EASY, EQUIP 12 slots",
+          "unverified": "The '12 slots' figure is unconfirmed — extraction consistently reads 12, but that exceeds the entire 10-slot EQUIPPED cap for a +2 DEFENSE item, which is suspicious. No image-rendering tool was available to visually check the actual page. Ruled as 2 slots for actual play pending verification against a physical/clean copy."
         },
         {
           "roll": 69,
