@@ -12,13 +12,90 @@
       ],
       "reputation": -1,
       "recentActions": [
-        { "session": 1, "action": "Sent proxies to Salvax Prime", "reputationDelta": null },
-        { "session": 1, "action": "Sent Orrax + Shift to retrieve a cache from Salvax Prime", "reputationDelta": null }
+        {
+          "session": 1,
+          "action": "Sent proxies to Salvax Prime",
+          "reputationDelta": null
+        },
+        {
+          "session": 1,
+          "action": "Sent Orrax + Shift to retrieve a cache from Salvax Prime",
+          "reputationDelta": null
+        }
       ],
       "nextActions": [
-        { "trigger": "If the crew escaped with the cache", "action": "Send a higher-tier recovery team" },
-        { "trigger": "If the crew destroyed the cache", "action": "Investigate, reassess resources" }
-      ]
+        {
+          "trigger": "If the crew escaped with the cache",
+          "action": "Send a higher-tier recovery team"
+        },
+        {
+          "trigger": "If the crew destroyed the cache",
+          "action": "Investigate, reassess resources"
+        }
+      ],
+      "currentStage": 1,
+      "arc": [
+        {
+          "stage": 1,
+          "title": "Quiet Proxy Expansion",
+          "groundTruth": "Xevos avoids direct confrontation, building the Contagion secretly, expanding influence through deniable proxies (including funding the Ashfall Remnant).",
+          "rumors": [
+            {
+              "text": "A Xevos bio-research vessel has gone dark near the Kess Reach — some say it's testing something they call the Contagion out where no one's supposed to be watching.",
+              "truth": "true"
+            },
+            {
+              "text": "Xevos bounty postings for \"Rax-marked\" individuals have tripled this month.",
+              "truth": "partial",
+              "note": "GM-only: postings are genuinely up, but bounty-hunter guilds are exaggerating the multiplier to justify demanding higher rates."
+            },
+            {
+              "text": "A supply convoy bound for a Xevos proxy garrison was intercepted and stripped clean — officially blamed on raiders, but the precision reads more like sabotage.",
+              "truth": "true"
+            }
+          ],
+          "advanceCondition": "The Contagion program reaches a visible testing/resourcing milestone — natural trigger point is Reptoids reaching Stage 3.",
+          "crossFactionTrigger": null
+        },
+        {
+          "stage": 2,
+          "title": "Contagion Nears Completion",
+          "groundTruth": "Testing intensifies, resource demands spike, draws harder on Dark Star output.",
+          "rumors": [
+            {
+              "text": "Word from a scared engineer: the Contagion isn't built for the battlefield. It's built for atmospheres — whole colonies, breathed in before anyone knows to run.",
+              "truth": "true"
+            }
+          ]
+        },
+        {
+          "stage": 3,
+          "title": "The Squeeze Tightens",
+          "groundTruth": "Fear of last-minute sabotage drives Xevos to hunt Imperium harder and crack down on Ghost Armours.",
+          "rumors": [],
+          "crossFactionTrigger": "Makes Imperium eligible to advance to Stage 3, and Zurin eligible to advance to Stage 2."
+        },
+        {
+          "stage": 4,
+          "title": "Resolution",
+          "groundTruth": "Branches: Contagion deployed (a real, dark escalation) OR stopped at the last moment.",
+          "rumors": []
+        }
+      ],
+      "contacts": {
+        "local": {
+          "name": "Ress Talvane",
+          "role": "Xevos logistics clerk",
+          "description": "Sells manifest data for coin, terrified of being caught.",
+          "reliability": "trustworthy"
+        },
+        "distant": {
+          "name": "Director Vael Ostrum",
+          "role": "Xevos bioweapons researcher, rumored Contagion architect",
+          "description": "A name spoken with dread, not casually met.",
+          "reliability": "trustworthy"
+        }
+      }
     },
     {
       "name": "Zurin",
@@ -31,8 +108,63 @@
       "reputation": 0,
       "recentActions": [],
       "nextActions": [
-        { "trigger": "If the crew opposed Xevos", "action": "Send an emissary to recruit the party" }
-      ]
+        {
+          "trigger": "If the crew opposed Xevos",
+          "action": "Send an emissary to recruit the party"
+        }
+      ],
+      "currentStage": 1,
+      "arc": [
+        {
+          "stage": 1,
+          "title": "Growing Openly",
+          "groundTruth": "Reph preaches openly, recruits, gathers intelligence on Xevos technology.",
+          "rumors": [
+            {
+              "text": "Reph gave a sermon on an open channel last week — unencrypted, unafraid. Either she's certain of her cause, or she's daring Xevos to finally silence her.",
+              "truth": "true"
+            },
+            {
+              "text": "A Zurin cell on the outer rim reportedly turned three Xevos-aligned scientists to their cause.",
+              "truth": "true"
+            },
+            {
+              "text": "There's a rumor the Zurin have started training their own pilots, not just preachers.",
+              "truth": "partial",
+              "note": "GM-only: a handful of self-defense volunteers, wildly overstated by the rumor into an implied military buildup."
+            }
+          ],
+          "advanceCondition": "Xevos reaches Stage 2-3 and starts treating Zurin's open defiance as a direct target rather than background noise.",
+          "crossFactionTrigger": null
+        },
+        {
+          "stage": 2,
+          "title": "Direct Provocation",
+          "groundTruth": "Xevos moves against Zurin directly. Forces a choice: go underground, or escalate.",
+          "rumors": []
+        },
+        {
+          "stage": 3,
+          "title": "Alliance or Break",
+          "groundTruth": "Branches: real anti-Xevos coalition with Reptoid resistance and/or Imperium remnants, OR internal fracture under pressure.",
+          "rumors": []
+        }
+      ],
+      "contacts": {
+        "local": {
+          "name": "Brother Dessen",
+          "role": "Wandering Zurin missionary",
+          "description": "Trades info/aid for genuine kindness toward the movement.",
+          "reliability": "biased",
+          "agenda": "GM-only: sincere, but frames every piece of news in the most Zurin-favorable light without realizing he's doing it."
+        },
+        "distant": {
+          "name": "The Prophet Reph",
+          "role": "Zurin leader",
+          "description": "Legendary, rarely met in person.",
+          "reliability": "trustworthy"
+        }
+      }
     },
     {
       "name": "Ghost Armours",
@@ -44,7 +176,55 @@
       ],
       "reputation": 0,
       "recentActions": [],
-      "nextActions": []
+      "nextActions": [],
+      "currentStage": 1,
+      "arc": [
+        {
+          "stage": 1,
+          "title": "Isolated Hunters",
+          "groundTruth": "Individuals and small units hunt independently, no coordination, no shared intelligence network yet beyond rumor of one.",
+          "rumors": [
+            {
+              "text": "A lone Ghost Armour tore through a Xevos listening post looking for Imperium records — left the Xevos crew alive. Word is Ghosts only kill Rax, not their captors.",
+              "truth": "partial",
+              "note": "GM-only: true in this instance, but the generalization is shakier than the rumor implies — a few Ghosts have killed collaborators too. Popular belief runs ahead of fact here."
+            },
+            {
+              "text": "A Ghost calling itself \"the Patient One\" has been spotted watching an Imperium-linked auction house for weeks without moving. Whatever it's waiting for hasn't happened yet.",
+              "truth": "true"
+            }
+          ],
+          "advanceCondition": "Imperium reaches Stage 2 — more visible Imperium activity means more independent Ghosts stumbling onto the same leads.",
+          "crossFactionTrigger": null
+        },
+        {
+          "stage": 2,
+          "title": "Crossed Paths",
+          "groundTruth": "Independent Ghosts start finding the same leads without coordinating — old grudges even among the vengeful.",
+          "rumors": []
+        },
+        {
+          "stage": 3,
+          "title": "The Choir Speaks",
+          "groundTruth": "Enough near-simultaneous success pushes the first real coordination — \"the Choir of the Bound\" becomes more than rumor.",
+          "rumors": []
+        }
+      ],
+      "contacts": {
+        "local": {
+          "name": "Vess",
+          "role": "Retired Ghost Armour",
+          "description": "Mostly given up the hunt; trades old knowledge for help with a personal loose end.",
+          "reliability": "trustworthy"
+        },
+        "distant": {
+          "name": "The Choir of the Bound",
+          "role": "Loose Ghost Armour intelligence network",
+          "description": "Contacting them means finding just one Ghost and earning trust to be introduced further.",
+          "reliability": "biased",
+          "agenda": "GM-only: individual Ghosts share real intel but each carries their own grudges and blind spots — no single Ghost has the full picture, so any one contact's info is incomplete even when sincere."
+        }
+      }
     },
     {
       "name": "Imperium",
@@ -57,7 +237,61 @@
       ],
       "reputation": 0,
       "recentActions": [],
-      "nextActions": []
+      "nextActions": [],
+      "currentStage": 1,
+      "arc": [
+        {
+          "stage": 1,
+          "title": "Scattered Survival",
+          "groundTruth": "Remnants hiding, small-scale sabotage, quietly buying back old Imperium-era tech through cutouts. Actively running counter-intelligence, including planting false leads about survivor locations.",
+          "rumors": [
+            {
+              "text": "A Xevos administrator was found dead in his own sealed office last week — no forced entry, no leads. Some say it has the mark of the old Imperium's methods.",
+              "truth": "true"
+            },
+            {
+              "text": "Rumor holds a Rax bloodline survives in hiding on a backwater world, protected by locals who owe an old debt no one talks about.",
+              "truth": "false",
+              "note": "GM-only: this is an Imperium-planted decoy rumor, meant to draw Xevos hunters toward the wrong world while the real survivors stay hidden elsewhere. Whoever repeats it may not know they're spreading disinformation."
+            },
+            {
+              "text": "Imperium loyalists are said to be buying up derelict Imperium-era tech at absurd prices, no questions asked, through a dozen cutout buyers.",
+              "truth": "true"
+            }
+          ],
+          "advanceCondition": "Xevos reaches Stage 2 (the Contagion becomes an existential threat worth open risk to stop).",
+          "crossFactionTrigger": null
+        },
+        {
+          "stage": 2,
+          "title": "Coordinated Sabotage",
+          "groundTruth": "Recognizing the Contagion as existential, remnants coordinate more openly.",
+          "rumors": []
+        },
+        {
+          "stage": 3,
+          "title": "Exposure Risk",
+          "groundTruth": "Increased visibility draws Xevos's intensified hunt and easier Ghost Armour tracking. Forces a real choice: go fully underground, or risk open action.",
+          "rumors": [],
+          "crossFactionTrigger": "Makes Ghost Armours eligible to advance to Stage 2."
+        }
+      ],
+      "contacts": {
+        "local": {
+          "name": "Kellis Vane",
+          "role": "Fixer",
+          "description": "Claims no loyalty to the old order but clearly still does favors for someone in it.",
+          "reliability": "compromised",
+          "agenda": "GM-only: genuinely works for Imperium remnants and will feed convincing disinformation (like the decoy-world rumor) to anyone he doesn't fully trust — including the party, at first."
+        },
+        "distant": {
+          "name": "The Unnamed Rax",
+          "role": "Imperium survivor, identity unconfirmed",
+          "description": "Known only by an encrypted comm-sigil left at sabotage sites.",
+          "reliability": "uninformed",
+          "agenda": "GM-only: not actually contactable as a reliable source — anyone claiming direct contact with them is probably lying or mistaken."
+        }
+      }
     },
     {
       "name": "Reptoids",
@@ -69,7 +303,65 @@
       ],
       "reputation": 0,
       "recentActions": [],
-      "nextActions": []
+      "nextActions": [],
+      "currentStage": 1,
+      "arc": [
+        {
+          "stage": 1,
+          "title": "Brewing Civil War",
+          "groundTruth": "Loyalists fuel the captured Dark Star in secret for a new superweapon program; a resistance is organizing to stop them, but open fighting hasn't started yet.",
+          "rumors": [
+            {
+              "text": "A Reptoid loyalist convoy was ambushed by its own kind near a fueling relay — resistance forces, hitting a Dark Star supply line in broad daylight. The civil war isn't hiding anymore.",
+              "truth": "true"
+            },
+            {
+              "text": "A resistance cell is reportedly offering real coin for anyone who can get them close to a Dark Star containment site — recruiting outsiders now, not just their own kind.",
+              "truth": "true"
+            },
+            {
+              "text": "Word going around a cantina circuit claims the Dark Star has already gone unstable and is going to detonate any day now.",
+              "truth": "false",
+              "note": "GM-only: baseless panic-rumor, probably started by someone trying to spike black-market prices on evacuation gear."
+            }
+          ],
+          "advanceCondition": "Resistance successfully sabotages a major supply line (openly, undeniably) OR loyalists complete a visible show of force.",
+          "crossFactionTrigger": null
+        },
+        {
+          "stage": 2,
+          "title": "Open Conflict",
+          "groundTruth": "Sabotage/retaliation becomes undeniable, sector-wide news. Civil war is now common knowledge.",
+          "rumors": []
+        },
+        {
+          "stage": 3,
+          "title": "Xevos Intervenes",
+          "groundTruth": "Xevos moves to seize the faltering Dark Star program directly rather than let it collapse. First open Reptoid-Xevos clashes.",
+          "rumors": [],
+          "crossFactionTrigger": "Makes Xevos eligible to advance to Stage 2 (Contagion nears completion)."
+        },
+        {
+          "stage": 4,
+          "title": "Resolution",
+          "groundTruth": "Branches: Dark Star destroyed/contained (Xevos loses its fuel source) OR seized by Xevos (Contagion surges forward).",
+          "rumors": []
+        }
+      ],
+      "contacts": {
+        "local": {
+          "name": "Sergeant Kressa",
+          "role": "Reptoid resistance quartermaster (Warden caste)",
+          "description": "Blunt, trusts action over words.",
+          "reliability": "trustworthy"
+        },
+        "distant": {
+          "name": "Marshal Thessrix",
+          "role": "Reptoid loyalist commander",
+          "description": "Oversees a Dark Star containment site. A name spoken with real fear.",
+          "reliability": "trustworthy"
+        }
+      }
     },
     {
       "name": "Kitt",
@@ -81,7 +373,58 @@
       ],
       "reputation": 0,
       "recentActions": [],
-      "nextActions": []
+      "nextActions": [],
+      "currentStage": 1,
+      "arc": [
+        {
+          "stage": 1,
+          "title": "Early Expansion",
+          "groundTruth": "Claim-staking, generous trade delegations, colony ships — genuinely independent of the main conflict so far, but their expansion path is drifting near contested Reptoid space, and Kitt claims are starting to encroach on Kessel Salvage Guild's traditional territory.",
+          "rumors": [
+            {
+              "text": "The Kitt planted a formal claim-flag on a moon nobody else wanted — until they showed interest. Now three other outfits are suddenly interested too.",
+              "truth": "true"
+            },
+            {
+              "text": "A Kitt trade delegation is touring independent stations, offering startlingly generous terms — buying goodwill fast, before anyone bigger notices the expansion.",
+              "truth": "true"
+            },
+            {
+              "text": "A Kitt colony ship went missing en route to a new claim — no distress call, no wreckage found yet. Bad omen for the whole expansion push.",
+              "truth": "partial",
+              "note": "GM-only: not bad luck — the ship strayed near a Dark Star-adjacent conflict zone and got caught in Reptoid-on-Reptoid crossfire. Nobody's connected the dots publicly yet."
+            }
+          ],
+          "advanceCondition": "Normal expansion friction escalates into real rivals contesting claims.",
+          "crossFactionTrigger": null
+        },
+        {
+          "stage": 2,
+          "title": "Contested Claims",
+          "groundTruth": "Real rivals push back — ordinary expansion friction, not yet the main war.",
+          "rumors": []
+        },
+        {
+          "stage": 3,
+          "title": "Caught in the Crossfire",
+          "groundTruth": "The Reptoid/Xevos conflict spills into or near a Kitt claim, forcing a real political choice.",
+          "rumors": []
+        }
+      ],
+      "contacts": {
+        "local": {
+          "name": "Fennik",
+          "role": "Kitt scout pilot (Spacer background)",
+          "description": "Young, eager, terrible at hiding what he's actually doing.",
+          "reliability": "trustworthy"
+        },
+        "distant": {
+          "name": "Matriarch Korrivane",
+          "role": "Kitt elder steering the expansion",
+          "description": "A name that carries real weight in any Kitt settlement.",
+          "reliability": "trustworthy"
+        }
+      }
     },
     {
       "name": "Free Traders",
@@ -93,11 +436,110 @@
       ],
       "reputation": 1,
       "recentActions": [
-        { "session": 1, "action": "Maye contacted the party with the Salvax Prime cache opportunity", "reputationDelta": null }
+        {
+          "session": 1,
+          "action": "Maye contacted the party with the Salvax Prime cache opportunity",
+          "reputationDelta": null
+        }
       ],
       "nextActions": [
-        { "trigger": "Session end", "action": "Maye pays the party's share, offers the next contract" }
+        {
+          "trigger": "Session end",
+          "action": "Maye pays the party's share, offers the next contract"
+        }
       ]
+    },
+    {
+      "name": "Meridian Corporate Authority",
+      "type": "merchantGuild",
+      "description": "The most outwardly respectable of the four. Bankrolls legitimate colonies, disaster relief, infrastructure — genuinely does enormous public good, which makes the rest easier to hide.",
+      "specialty": "Finance, underwriting, insurance — the \"bank\" face of the conspiracy",
+      "goals": [
+        "Out-underwrite the other three guilds until every major contract in the sector runs through Meridian credit.",
+        "Collective (shared, GM-only): Behind the competition, an unofficial council of guild heads works patiently to make every government and faction financially dependent on guild credit, guild shipping, and guild contract law — until political sovereignty is hollow and guild economic power is the only authority that actually functions. Not conquest. Erosion."
+      ],
+      "darkTruth": "Functions as the de facto bank for organized crime across multiple factions — loan-sharking and money laundering on a sector-wide scale, dressed as ordinary finance.",
+      "reputation": 0,
+      "recentActions": [],
+      "nextActions": [],
+      "contacts": {
+        "local": {
+          "name": "Underwriter Corvassa Lyne",
+          "role": "Mid-tier Meridian account officer",
+          "description": "Smooth, genuinely helpful on the surface, terrifyingly good at not-quite-lying. A plausible first thread to pull — she knows more than her rank should allow.",
+          "reliability": "compromised",
+          "agenda": "GM-only: loyal to the guild above all else; will feed just enough true information to seem trustworthy while protecting anything that actually matters."
+        }
+      }
+    },
+    {
+      "name": "Obsidian Concordat",
+      "type": "merchantGuild",
+      "description": "The sector's largest legitimate weapons supplier, openly proud of it — 'we arm those who keep the peace.'",
+      "specialty": "Arms dealing, military contracting",
+      "goals": [
+        "Become the sole approved arms supplier for every major power, public and private.",
+        "Collective (shared, GM-only): Behind the competition, an unofficial council of guild heads works patiently to make every government and faction financially dependent on guild credit, guild shipping, and guild contract law — until political sovereignty is hollow and guild economic power is the only authority that actually functions. Not conquest. Erosion."
+      ],
+      "darkTruth": "Quietly arms multiple sides of the same conflicts simultaneously — including both Reptoid loyalists and the resistance — and its 'security consultants' are functionally an assassination-for-hire operation.",
+      "reputation": 0,
+      "recentActions": [],
+      "nextActions": [],
+      "contacts": {
+        "local": {
+          "name": "Quartermaster Bregga Sol",
+          "role": "Obsidian Concordat contract broker",
+          "description": "Blunt, transactional, treats every conversation like a weapons sale — which, in a sense, it always is.",
+          "reliability": "biased",
+          "agenda": "GM-only: sincerely believes arming everyone equally is 'keeping balance,' not funding a war — a true believer in the guild's own cover story."
+        }
+      }
+    },
+    {
+      "name": "The Ferrous Compact",
+      "type": "merchantGuild",
+      "description": "Controls more cargo lanes than any single government fleet. 'If it moves, it moves through us' is practically their slogan.",
+      "specialty": "Shipping, logistics, trade routes",
+      "goals": [
+        "Own enough chokepoint routes that no rival guild can move goods without Compact tariffs.",
+        "Collective (shared, GM-only): Behind the competition, an unofficial council of guild heads works patiently to make every government and faction financially dependent on guild credit, guild shipping, and guild contract law — until political sovereignty is hollow and guild economic power is the only authority that actually functions. Not conquest. Erosion."
+      ],
+      "darkTruth": "Runs the sector's largest smuggling network through its own legitimate shipping lanes, and periodically stages 'pirate' attacks on rivals' cargo — blamed on real pirates, executed by their own people.",
+      "reputation": 0,
+      "recentActions": [],
+      "nextActions": [],
+      "contacts": {
+        "local": {
+          "name": "Dockmaster Ilyan Vosk",
+          "role": "Ferrous Compact route coordinator",
+          "description": "Overworked, underpaid, and just cynical enough to let things slip he shouldn't — if you catch him on a bad day.",
+          "reliability": "trustworthy",
+          "agenda": "GM-only: genuinely resentful of the guild, one of the few contacts who might actually want to talk if approached carefully."
+        }
+      }
+    },
+    {
+      "name": "The Covenant Exchange",
+      "type": "merchantGuild",
+      "description": "The guild that 'writes the rules' — every major trade contract in the sector uses Covenant Exchange standard terms, enforced by their own arbitrators.",
+      "specialty": "Contract law, trade agreement enforcement",
+      "goals": [
+        "Make Covenant contract law the de facto legal system, superseding local/planetary courts entirely.",
+        "Collective (shared, GM-only): Behind the competition, an unofficial council of guild heads works patiently to make every government and faction financially dependent on guild credit, guild shipping, and guild contract law — until political sovereignty is hollow and guild economic power is the only authority that actually functions. Not conquest. Erosion."
+      ],
+      "darkTruth": "Holds enormous quantities of blackmail material through 'confidential' contract terms, and enforces predatory debt clauses that amount to legalized indentured servitude — all technically within the letter of agreements people signed without reading closely enough.",
+      "reputation": 0,
+      "recentActions": [],
+      "nextActions": [],
+      "contacts": {
+        "local": {
+          "name": "Arbitrator Thess Calloway",
+          "role": "Covenant Exchange enforcement arbitrator",
+          "description": "Polite, precise, and utterly without visible remorse — everything they do is 'technically' within the contract.",
+          "reliability": "biased",
+          "agenda": "GM-only: not lying, exactly — genuinely believes contract law is a fair, neutral system, and can't or won't see the predation baked into it."
+        }
+      }
     }
   ]
 }

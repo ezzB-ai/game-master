@@ -26,7 +26,7 @@ const TWO_WORD_COMMANDS = new Set([
   'edit player', 'update player',
   'delete player',
   'session prep', 'session status', 'session end', 'session kit',
-  'check progression', 'faction status', 'campaign status',
+  'check progression', 'faction status', 'faction advance', 'campaign status',
 ]);
 
 function parseArgs(tokens) {
@@ -136,7 +136,8 @@ Session Engine (automated — full kit generation from live campaign state)
       flags for a partial-attendance session or a solo test run — party power
       level and enemy/loot scaling adjust to match who's actually included.
   check progression                              (milestones earned per player, what's left to claim)
-  faction status [FactionName]                   (reputation, goals, recent + planned actions)
+  faction status [FactionName]                   (reputation, goals, arc stage + rumors, contacts)
+  faction advance <FactionName>                  (deliberately move a faction to its next arc stage — GM call, never automatic)
   campaign status                                 (full overview: power level, crew, factions, hooks)
 
 Editing
@@ -633,7 +634,9 @@ function run(argv) {
       console.log(`Party power level: ${kit.partyPowerLevel.effectivePowerId} (score ${kit.partyPowerLevel.powerScore.toFixed(1)}, ${kit.partyPowerLevel.totalHearts} total HEARTS)${kit.partyPowerLevel.difficultyOverride ? ` — difficulty override: ${kit.partyPowerLevel.difficultyOverride}` : ''}`);
       console.log(`Locations: ${kit.locations.length} | NPCs: ${kit.npcs.length} (${kit.npcs.filter((n) => n.recurring).length} recurring) | Enemies: ${kit.enemies.lowLevel.length} low + ${kit.enemies.mediumHigh.length} medium-high | Loot: ${kit.loot.starter.length} starter + ${kit.loot.shabby.length} shabby + ${kit.loot.lowLevel.length} low + ${kit.loot.midHigh.length} mid-high`);
       console.log('\nFaction updates:');
-      Object.entries(kit.factionUpdates).forEach(([name, f]) => console.log(`  - ${name}: reputation ${f.reputation}${f.lastAction ? `, last action: "${f.lastAction}"` : ''}`));
+      Object.entries(kit.factionUpdates).forEach(([name, f]) => console.log(`  - ${name}: reputation ${f.reputation}${f.currentStage ? `, stage ${f.currentStage.number} (${f.currentStage.title})` : ''}${f.lastAction ? `, last action: "${f.lastAction}"` : ''}`));
+      console.log('\nWorld pulse (wider-universe hooks for this session):');
+      kit.worldPulse.forEach((h) => console.log(`  - [${h.faction} — ${h.topic}] ${h.text}\n      via: ${h.delivery}`));
       console.log('\nCampaign hooks:');
       kit.campaignHooks.forEach((h) => console.log(`  - ${h}`));
       console.log(`\n${kit.storyNotes}`);
@@ -683,7 +686,51 @@ function run(argv) {
           console.log('  Planned next actions:');
           f.nextActions.forEach((n) => console.log(`    - if "${n.trigger}": ${n.action}`));
         }
+        if (f.arc) {
+          const current = f.arc.find((s) => s.stage === f.currentStage) || {};
+          console.log(`  Arc: Stage ${f.currentStage} of ${f.arc.length} — "${current.title}"`);
+          console.log(`    Ground truth: ${current.groundTruth}`);
+          if (current.rumors && current.rumors.length) {
+            console.log('    Current rumors in circulation:');
+            current.rumors.forEach((r) => console.log(`      - [${r.truth}] ${r.text}${r.note ? ` (${r.note})` : ''}`));
+          }
+          if (current.advanceCondition) console.log(`    Advances when: ${current.advanceCondition}`);
+          if (current.crossFactionTrigger) console.log(`    Cross-faction trigger: ${current.crossFactionTrigger}`);
+        }
+        if (f.contacts) {
+          console.log('  Contacts:');
+          Object.entries(f.contacts).forEach(([tier, c]) => {
+            if (!c) return;
+            console.log(`    - [${tier}] ${c.name} (${c.role}) — reliability: ${c.reliability}${c.agenda ? ` — ${c.agenda}` : ''}`);
+          });
+        }
       });
+      break;
+    }
+
+    case 'faction advance': {
+      const factionData = storage.load('factionStates');
+      const faction = findFaction(factionData.factions, positional[0]);
+      if (!faction) {
+        console.log(`No faction found matching "${positional[0]}"`);
+        break;
+      }
+      if (!faction.arc) {
+        console.log(`"${faction.name}" doesn't have a tracked story arc (only the 6 main factions do).`);
+        break;
+      }
+      const currentIdx = faction.arc.findIndex((s) => s.stage === faction.currentStage);
+      const nextStage = faction.arc[currentIdx + 1];
+      if (!nextStage) {
+        console.log(`"${faction.name}" is already at its final tracked stage (${faction.currentStage}).`);
+        break;
+      }
+      faction.currentStage = nextStage.stage;
+      storage.save('factionStates', factionData);
+      console.log(`${faction.name} advanced to Stage ${nextStage.stage}: "${nextStage.title}"`);
+      console.log(`  Ground truth: ${nextStage.groundTruth}`);
+      if (nextStage.crossFactionTrigger) console.log(`  Note: ${nextStage.crossFactionTrigger}`);
+      console.log('\nThis is a deliberate GM call, not automatic — make sure it actually happened in play before locking it in.');
       break;
     }
 

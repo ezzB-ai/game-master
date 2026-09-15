@@ -8,6 +8,7 @@ const { generateLocation } = require('./locationGenerator');
 const { computePartyPowerLevel } = require('./powerLevel');
 const { generateEnemies, rollLoot } = require('./encounterEngine');
 const { findPlayerByNameOrId } = require('./players');
+const { sampleIntelHooks } = require('./worldPulse');
 const { pick } = require('./utils');
 
 const KIT_DIR = path.join(__dirname, '..', 'session-prep');
@@ -33,6 +34,7 @@ function buildSessionKit({ sessionNumber, factionFocus, difficulty, playerRefs =
   const allPlayers = storage.load('players').players;
   const campaignState = storage.load('campaignState');
   const factionStates = storage.load('factionStates');
+  const worldPulseData = storage.load('worldPulse');
 
   let players;
   if (playerRefs === null) {
@@ -106,6 +108,7 @@ function buildSessionKit({ sessionNumber, factionFocus, difficulty, playerRefs =
       goals: f.goals,
       lastAction: (f.recentActions && f.recentActions.length) ? f.recentActions[f.recentActions.length - 1].action : null,
       nextActions: f.nextActions,
+      currentStage: f.arc ? { number: f.currentStage, title: (f.arc.find((s) => s.stage === f.currentStage) || {}).title } : null,
     }])
   );
 
@@ -158,6 +161,11 @@ function buildSessionKit({ sessionNumber, factionFocus, difficulty, playerRefs =
     loot,
     factionUpdates,
     partySnapshot,
+    // 3-5 wider-universe hooks (what Xevos/Zurin/Reptoids/etc. are actually
+    // doing right now, per their tracked arc stage), each with a suggested
+    // delivery method so it reaches the table as an overheard rumor, a
+    // wanted poster, or an informer's comm — not an exposition dump.
+    worldPulse: sampleIntelHooks(factionStates.factions, worldPulseData, 4),
     campaignHooks: [...(campaignState.currentHooks || []), ...(campaignState.unresolvedThreads || [])],
     storyNotes: lastLogEntry ? `Last session (#${lastLogEntry.sessionNumber}) notes: ${lastLogEntry.notes || '(none recorded)'}` : 'No prior session logged yet.',
   };

@@ -1,0 +1,73 @@
+{
+  "designNotes": "Revision 2. Each main faction now tracks a real STAGE-based arc instead of a flat rumor pool — only the CURRENT stage's content should surface in a session, so progression is deliberate and coherent, not random. Rumors carry a 'truth' tag (true/partial/false) that is GM-ONLY — never reveal it to players; let them figure out reliability through cross-referencing multiple sources or contacts. Contacts carry a 'reliability' profile (trustworthy/biased/compromised/uninformed) and, where relevant, a GM-only 'trueLoyalty' or 'agenda' note explaining WHY they might mislead. 'crossFactionTrigger' on a stage says what it makes eligible to advance elsewhere — advancing is still always a deliberate GM call, never automatic. Only Stage 1 of each arc is fully detailed for now; later stages are sketched enough to prove the throughline is real, meant to be fleshed out further once actually reached in play, not pre-written wholesale.",
+  "otherWarpShells": {
+    "note": "No arc, no standing contacts — each sighting is a self-contained event, not an ongoing relationship.",
+    "rumors": [
+      {
+        "text": "A second WARP SHELL was sighted breaching near an uncharted system three weeks back — gone before anyone could hail it.",
+        "truth": "true"
+      },
+      {
+        "text": "Survivors of a Xevos outpost swear a WARP SHELL tore straight through their perimeter without firing a shot, took nothing, and vanished.",
+        "truth": "true"
+      },
+      {
+        "text": "A trader swears he traded supplies with a WARP SHELL crew who called their ship \"Hellbound\" — then panicked mid-story and refused to say more.",
+        "truth": "true",
+        "note": "GM-only: this one's real, and worth taking seriously — Hellbound is established, dangerous, and reality-warping."
+      }
+    ]
+  },
+  "otherNotableGroups": {
+    "note": "Default assumption for minor factions is OPPORTUNISTIC — no fixed loyalty, works for whoever pays, can switch sides or double-cross between sessions — unless their own established backstory makes that unrealistic (a group physically caught in a warzone isn't 'choosing' anything, that's SQUEEZED instead). A few are AGENTS OF CHAOS: not economically motivated at all, don't respond to payment or persuasion the way the others do, just destabilize whatever they touch. 'currentClient'/'currentJob' on an opportunistic group is a snapshot, not a permanent tie — expected to drift over time, GM's call when it's interesting to shift. (Meridian Corporate Authority moved to faction-states.json as a full merchant guild; Free Traders is also tracked there directly — both omitted here to avoid duplication.)",
+    "groups": [
+      {
+        "name": "Ashfall Remnant",
+        "disposition": "opportunistic",
+        "currentClient": "Xevos",
+        "groundTruth": "Mercenary company currently under a well-paying, deniable Xevos contract — but they've worked for others before and will again. No real loyalty here, just whoever's cutting checks this season.",
+        "rumor": {
+          "text": "The Ashfall Remnant took a contract nobody expected them to survive — and came back with more ships than they left with. Someone's funding them well.",
+          "truth": "partial",
+          "note": "GM-only: true that they're well-funded, but the public doesn't know it's Xevos money — and it won't stay that way if a better offer comes along."
+        }
+      },
+      {
+        "name": "The Quiet Ledger",
+        "disposition": "opportunistic",
+        "currentClient": "none — sells to whoever pays",
+        "groundTruth": "Information brokers (this is Elowen Steelgrave's faction). No fixed allegiance by design or philosophy — Elowen herself put it best: 'I don't deal in prayers. I deal in everything prayers are usually about.' Will sell the same secret to two different buyers if neither finds out.",
+        "rumor": {
+          "text": "A Quiet Ledger broker reportedly sold the same intelligence to two rival buyers inside a week — and both are furious, and both are still paying customers.",
+          "truth": "true"
+        }
+      },
+      {
+        "name": "The Hollow Star Cult",
+        "disposition": "chaosAgent",
+        "groundTruth": "Not economically motivated and not reliably negotiable — a cosmic-horror-adjacent cult pursuing its own inscrutable agenda around something called the Hollow Star. Will strike Xevos, Zurin, the players, or each other, seemingly at random, for reasons that don't map onto normal faction politics.",
+        "rumor": {
+          "text": "Hollow Star cultists hit a Xevos research outpost AND a Zurin way-station in the same week, for no reason anyone's found — no ransom demand, no manifesto, nothing taken that makes obvious sense.",
+          "truth": "true"
+        }
+      },
+      {
+        "name": "Rust Choir",
+        "disposition": "squeezed",
+        "squeezedBy": "Reptoids",
+        "groundTruth": "Their best salvage territory is becoming too dangerous to work as Dark Star-related fighting spreads, pushing them toward riskier, more desperate jobs. This is circumstance, not a loyalty question.",
+        "rumor": {
+          "text": "A scavenger crew flying under the Rust Choir banner cracked open a wreck everyone else had given up on — whatever they found, they're not selling it.",
+          "truth": "true"
+        }
+      },
+      {
+        "name": "Kessel Salvage Guild",
+        "disposition": "squeezed",
+        "squeezedBy": "Kitt",
+        "groundTruth": "Kitt's aggressive claim-staking is encroaching on the Guild's traditional salvage territory, creating real friction that hasn't gone public yet. Also circumstance, not choice.",
+        "rumor": null
+      }
+    ]
+  }
+}

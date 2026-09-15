@@ -11,6 +11,7 @@ const FILES = {
   campaignState: path.join(DATA_DIR, 'campaign-state.json'),
   players: path.join(DATA_DIR, 'players.json'),
   factionStates: path.join(DATA_DIR, 'faction-states.json'),
+  worldPulse: path.join(DATA_DIR, 'world-pulse.json'),
 };
 
 const DEFAULTS = {
@@ -26,6 +27,7 @@ const DEFAULTS = {
   },
   players: { players: [] },
   factionStates: { factions: [] },
+  worldPulse: { otherWarpShells: { rumors: [] }, otherNotableGroups: { groups: [] } },
 };
 
 function ensureDataDir() {
