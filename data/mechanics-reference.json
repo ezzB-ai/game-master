@@ -68,6 +68,21 @@
     "carriedVsEquipped": "CARRIED items must be EQUIPPED to offer any benefit or be used — something sitting in your pack (not actively worn/wielded) is inert until you swap it into an EQUIPPED slot, which may mean swapping something else out.",
     "note": "Individual LOOT items can state their own slot cost (e.g. Adamantium Armor occupies 5 slots, a Blaster occupies none) — that cost applies to whichever pool (CARRIED or EQUIPPED) the item is currently placed in."
   },
+  "naturalVsModified": {
+    "sourcePage": 27,
+    "rule": "NATURAL means just the number rolled on the die. MODIFIED means the total after bonuses are added. \"Natural 20\" (ULTIMATE EFFORT, MASTERY points) specifically means the raw die showed 20 — reaching 20 via bonuses does not count."
+  },
+  "abilities": {
+    "sourcePage": 27,
+    "definition": "An ABILITY is an intrinsic feature of a character — once gained, it can never be lost or removed. Gained at character creation (1 from your TYPE) and again at MILESTONES.",
+    "synergy": "Some abilities interact with each other in powerful ways when combined — the rulebook calls this \"synergy\" and treats it as something worth noticing and building toward, not an accident."
+  },
+  "mastery": {
+    "sourcePage": 27,
+    "rule": "Every time a player rolls a NATURAL 20 on a D20 roll (any roll, not just ATTEMPTs), mark 1 MASTERY point. At 20 MASTERY points, the character has mastered an element of themselves.",
+    "onMastering": "Clear all MASTERY points, then choose the MASTERY ABILITY for your TYPE (see warpShellRoles[type].mastery, keyed to whichever starting ability you picked). If that mastery ability calls for a specific STARTING LOOT item, gain it instantly.",
+    "repeatable": "This can happen up to 3 times per character (i.e. up to 60 natural 20s total across a character's lifetime)."
+  },
   "defense": {
     "sourcePage": 26,
     "formula": "DEFENSE = your CON STAT bonus + all DEFENSE bonuses granted by LOOT (armor, shields, etc.)",
@@ -355,6 +370,12 @@
         "priceCoins": "1 per day"
       }
     ]
+  },
+  "spellTaggedLootResolution": {
+    "sourcePage": 318,
+    "rule": "Loot items tagged \"INT SPELL\" or \"WIS Spell\" (common throughout the Sci-Fi and Epic tables — Mutate, Drain, Hack, Freeze, Lifegiver, etc.) resolve with the CORE system's basic ATTEMPT rule: roll d20 + the named STAT against the current TARGET, then apply the item's stated effect on success. No separate resource is spent beyond the item itself.",
+    "notApplicable": "The book's full Magic chapter (SPELL TYPES of HOLY/INFERNAL/ARCANE, an SP resource economy, spell levels, a separate spellcasting MASTERY track, ROLL-vs-BURN casting) is a distinct, optional subsystem built for a dedicated Mage archetype (primarily Alfheim's Mage Creation) — it does not govern how these tagged Warp Shell loot items work, and isn't needed for standard Warp Shell play.",
+    "commonTurnExample": "\"Call upon magic power to cast a SPELL\" is explicitly listed as a valid ACTION-ONLY turn (no move required) in the core Turns examples — casting one of these tagged items is a normal action, same as attacking or investigating."
   },
   "lootTables": {
     "sciFi": {
@@ -1921,6 +1942,29 @@
           { "name": "Tightrope", "target": 14, "description": "Crossing a narrow elevated walkway above a pit of monsters — failure means a fall into danger, not just a miss." },
           { "name": "Duel", "target": 18, "description": "The prime enemy hides behind stalwart guardians/healers who can't be talked down, only physically cleared — then a final concealed threat is revealed. Kite and Ambush combined." },
           { "name": "Ally Kite", "target": 10, "description": "A bare one-way room with straightforward enemies — best used as a change of pace, a story beat, or a rest between more complex encounters, not the centerpiece." }
+        ]
+      }
+    },
+    "dynamicDice": {
+      "sourcePage": 87,
+      "description": "Optional GM tools where a player tracks their own status with a small die near their sheet, modifying future rolls. Opt-in per table/player, not automatically active.",
+      "battleFury": {
+        "description": "Counters a run of bad luck. Place a d6 (start at 1) near the player's sheet. Each missed roll increases it by 1; that amount is added to the player's next d20 roll until a success lands, then it resets to 1. Caps the bad-streak bonus at +6."
+      },
+      "spellBurn": {
+        "description": "For casters who cast constantly. Place a d4 (start at 1). Each spell cast increases it by 1. At 4, the caster must make an INT or WIS CHECK against the current TARGET to keep casting — success resets the die to 1; failure means rolling the Spell Burn die and being unable to cast SPELLS for that many ROUNDS."
+      },
+      "theBlunder": {
+        "description": "On a natural 1 on a CHECK or ATTEMPT, the GM may call for a second roll (\"roll for a blunder\"). A second natural 1 triggers a real complication, not just a miss.",
+        "examples": [
+          "Magic effects have the opposite of their intended effect",
+          "Melee attacks backfire, damaging the attacker",
+          "Ranged attacks ricochet and hit an ally",
+          "Strength fails, a joint pops, an injury is sustained",
+          "A climb attempt results in a long fall",
+          "A deception becomes a bald-faced, obvious lie",
+          "A lock is fused, melted, or ruined rather than picked",
+          "Ranged weapons jam, explode, or come up totally empty"
         ]
       }
     },
