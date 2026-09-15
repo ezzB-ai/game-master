@@ -1868,6 +1868,13 @@
         "cadence": "A player should be earning one of these roughly every other session — not a hard rule, a pacing guideline."
       }
     },
+    "turnOrder": {
+      "sourcePage": 85,
+      "default": "ICRPG's default is CLOCKWISE TURNS, board-game style, not a rolled initiative — the GM takes a turn to run monsters/hazards, players take turns in seating order around the table. No roll is required by default.",
+      "optionalInitiativeRoll": "If a table prefers rolled initiative, roll a D20, unmodified, to see who starts the sequence when the action kicks in. Worth using deliberately: if the GM wins that roll, things escalate fast.",
+      "seatingStrategy": "Players can use seating order tactically — e.g. seating the party's healer to the GM's right guarantees a heal lands right before the GM's turn; seating a tank first puts them in front of the action.",
+      "surpriseNote": "The GM narrating who acts first based on the fiction (an ambush, a guard rounding a corner) is a normal, RAW-consistent GM call under the default clockwise system — it isn't a substitute for a formal roll-off unless the table has opted into rolled initiative."
+    },
     "sessionPacing": {
       "sourcePage": 81,
       "sessionEndRoll": {
