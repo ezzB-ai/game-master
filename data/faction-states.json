@@ -6,7 +6,9 @@
       "goals": [
         "Acquire bio-samples from Salvax Prime",
         "Eliminate Ghost Armour threats",
-        "Expand influence via proxies rather than direct confrontation"
+        "Expand influence via proxies rather than direct confrontation",
+        "Complete development of the Contagion",
+        "Hunt down remaining Imperium (Rax) remnants"
       ],
       "reputation": -1,
       "recentActions": [
@@ -34,11 +36,48 @@
     },
     {
       "name": "Ghost Armours",
-      "description": "Consciousness-transfer victims seeking vengeance on their Rax creators, and liberation from a form of immortal torture.",
+      "description": "Consciousness-transfer victims seeking vengeance on the Rax — the ruling caste of the old Imperium — and liberation from a form of immortal torture. Typically act alone or in small fighting units rather than as a unified faction; every Ghost Armour, without exception, wants the Imperium hunted down.",
       "goals": [
-        "Hunt remaining Rax survivors",
+        "Hunt remaining Rax/Imperium survivors",
         "Destroy consciousness-transfer technology",
         "Free other Ghosts still bound to armor"
+      ],
+      "reputation": 0,
+      "recentActions": [],
+      "nextActions": []
+    },
+    {
+      "name": "Imperium",
+      "description": "The old ruling order, crushed but not extinguished — Rax remnants and loyalists operating covertly, squeezed between Xevos (who hunts them for sport and resources) and the Ghost Armours (who hunt them for vengeance).",
+      "goals": [
+        "Undermine Xevos from within",
+        "Preserve/recover lost Imperium technology and knowledge",
+        "Avoid detection by Xevos and Ghost Armours alike",
+        "Rebuild influence through proxies and old debts"
+      ],
+      "reputation": 0,
+      "recentActions": [],
+      "nextActions": []
+    },
+    {
+      "name": "Reptoids",
+      "description": "A species in open civil war over a captured Dark Star being used to fuel new Xevos-adjacent superweapons. Splintered between loyalists still fueling the Dark Star program, an emerging resistance trying to stop them, and factions now in direct skirmishes with Xevos itself.",
+      "goals": [
+        "Resistance: destroy or nullify the Dark Star program",
+        "Loyalists: complete the Dark Star weapon before it's stopped",
+        "Both: avoid becoming fully absorbed as Xevos proxies"
+      ],
+      "reputation": 0,
+      "recentActions": [],
+      "nextActions": []
+    },
+    {
+      "name": "Kitt",
+      "description": "A newly-expanding species pushing to establish a genuine multi-planetary presence for the first time, leveraging their renowned quickness as pilots and gunfighters to stake claims faster than rivals can contest them.",
+      "goals": [
+        "Establish colonies/claims on additional worlds",
+        "Build alliances that legitimize their expansion",
+        "Avoid provoking a faction with the power to crush the effort early"
       ],
       "reputation": 0,
       "recentActions": [],
