@@ -1868,6 +1868,16 @@
         "cadence": "A player should be earning one of these roughly every other session — not a hard rule, a pacing guideline."
       }
     },
+    "movementAndDistance": {
+      "sourcePage": 13,
+      "description": "ICRPG uses 4 loose bands instead of measured distance: CLOSE, NEAR, FAR, or OUT OF RANGE. Not exact measurement — it's about what's thematically within reach.",
+      "bands": {
+        "close": "Fingertip reach, standing still. No move needed to use or interact with CLOSE things.",
+        "near": "A few hurried steps. How far you can move in a TURN and still have time left for an ACTION.",
+        "far": "Several seconds to run — a bowshot, a thrown baseball, a hard pistol shot. Moving FAR on your TURN takes the ENTIRE turn (normally no action left after).",
+        "outOfRange": "Beyond FAR — can't be reached in one TURN of movement, and no effect can reach it. Allies OUT OF RANGE of each other can't help one another."
+      }
+    },
     "turnOrder": {
       "sourcePage": 85,
       "default": "ICRPG's default is CLOCKWISE TURNS, board-game style, not a rolled initiative — the GM takes a turn to run monsters/hazards, players take turns in seating order around the table. No roll is required by default.",

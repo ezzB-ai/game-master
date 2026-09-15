@@ -36,8 +36,8 @@
       },
       "gear": [
         {
-          "name": "Warp Shell Move x2",
-          "effect": ""
+          "name": "Jump Pack",
+          "effect": "Miniaturized ion thruster backpack. Move twice on your TURN, even when taking an action or attacking."
         },
         {
           "name": "Medical Kit",
