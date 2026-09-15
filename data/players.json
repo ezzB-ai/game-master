@@ -25,7 +25,7 @@
         "magicAndEnergy": 0,
         "ultimate": 0
       },
-      "defense": 3,
+      "defense": 8,
       "startingAbility": {
         "name": "Energy Star",
         "effect": "CON roll to harvest 1D10 ENERGY from a NEAR source, delivered as healing EFFORT or a bonus on your next roll."
@@ -54,6 +54,26 @@
         {
           "name": "Away Team Pack",
           "effect": "hand lamp, micro cutting torch, reel of cable, leak sealant slap-patch x3, 10-minute air canister x2, emergency locator beacon."
+        },
+        {
+          "name": "Eye of Idimmu",
+          "effect": "Item, Amulet, +6 Magical Effort. Traded from Elowen Steelgrave for the Adamantium Armor found in the Halcyon Berth vault."
+        },
+        {
+          "name": "Duranium Hammer",
+          "effect": "Weapon, Indestructible, Magnetics, do MAGIC when thrown, returns. Found in the Halcyon Berth vault."
+        },
+        {
+          "name": "Xill Armor",
+          "effect": "Armor, +3 DEFENSE, +1 DEFENSE per failed attack against you, null once hit. Found in the Halcyon Berth vault."
+        },
+        {
+          "name": "Grav Chute",
+          "effect": "Item, Cradle of dense blue energy, Slow the fall of all NEAR objects or ALLIES. Found in the Halcyon Berth vault."
+        },
+        {
+          "name": "Utility Arm",
+          "effect": "Armor, +2 DEFENSE, A compact hydraulic arm, STR checks EASY. Found in the Halcyon Berth vault."
         }
       ],
       "milestones": [],
