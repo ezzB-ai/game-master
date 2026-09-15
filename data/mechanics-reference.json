@@ -55,7 +55,13 @@
       "basePointsToAssign": 6,
       "arrayNote": "Freely distributed across the 6 STATS at character creation (e.g. all 6 in one STAT, or 1 in each).",
       "effortBonusPointsToAssign": 4,
-      "effortBonusCategories": ["basic", "weaponsAndTools", "guns", "magicAndEnergy", "ultimate"],
+      "effortBonusCategories": [
+        "basic",
+        "weaponsAndTools",
+        "guns",
+        "magicAndEnergy",
+        "ultimate"
+      ],
       "maxStatBonus": 10,
       "maxStatBonusNote": "No STAT can ever exceed +10, regardless of source (base points, LIFE FORM, LOOT)."
     }
@@ -1509,11 +1515,6 @@
         "diceType": "d100",
         "theme": "Fantasy ruins/dungeon treasure (Alfheim)."
       },
-      "shabbyLoot": {
-        "sourcePage": 386,
-        "diceType": "d100",
-        "theme": "Low-value, junky finds (10-50 coin band)."
-      },
       "cursedLoot": {
         "sourcePage": 388,
         "diceType": "d100",
@@ -1534,6 +1535,513 @@
         "diceType": "d100",
         "theme": "Spellcaster-focused magic items."
       }
+    },
+    "shabby": {
+      "sourcePage": 386,
+      "diceType": "d100",
+      "note": "Low-value, junky finds (10-50 coin band per lootEconomy pricing). A mix of setting-neutral items (food, coin, generic gear) and a few fantasy-flavored ones (swords, holy symbols) — reflavor the latter narratively for Warp Shell (a Common Sword becomes a molecular blade, a Runestone becomes a data shard, etc.) rather than skipping them; the mechanical effect is what matters. Added specifically to support abundant low-tier loot distribution — every explored space should have something to find.",
+      "items": [
+        {
+          "roll": 1,
+          "name": "Soldier's Rations",
+          "effect": "Food, Heal 1D4 HP"
+        },
+        {
+          "roll": 2,
+          "name": "Captain's Rations",
+          "effect": "Food, Heal 1D6 HP"
+        },
+        {
+          "roll": 3,
+          "name": "Coin Pouch",
+          "effect": "1D10 Coin"
+        },
+        {
+          "roll": 4,
+          "name": "Coin Satchel",
+          "effect": "2D10 Coin"
+        },
+        {
+          "roll": 5,
+          "name": "Common Sword",
+          "effect": "Weapon, Standard Steel blade with heavy use"
+        },
+        {
+          "roll": 6,
+          "name": "Used Shield",
+          "effect": "Armor, +2 DEFENSE, Heavily worn, will break on 3rd hit"
+        },
+        {
+          "roll": 7,
+          "name": "Mechanic's tools",
+          "effect": "Item, Hammer, spanner, roll EASY checks on mechanical tasks"
+        },
+        {
+          "roll": 8,
+          "name": "Common Helmet",
+          "effect": "Armor, +1 DEFENSE"
+        },
+        {
+          "roll": 9,
+          "name": "Worker's Clothes",
+          "effect": "Armor, +1 DEFENSE, Durable coveralls, gloves and hat"
+        },
+        {
+          "roll": 10,
+          "name": "Coin Box",
+          "effect": "3D12 Coin"
+        },
+        {
+          "roll": 11,
+          "name": "Lantern",
+          "effect": "Item, Easy-light box lantern, lights all within NEAR range"
+        },
+        {
+          "roll": 12,
+          "name": "Climber's Spikes",
+          "effect": "Item, Climb a route as normal. Any who follow roll EASY"
+        },
+        {
+          "roll": 13,
+          "name": "50' Rope",
+          "effect": "Item, 50 feet of sturdy fiber rope coiled up"
+        },
+        {
+          "roll": 14,
+          "name": "Pry Bar",
+          "effect": "Item, A 3 foot iron bar with one hooked end, roll EASY when forcing doors"
+        },
+        {
+          "roll": 15,
+          "name": "First Aid Kit",
+          "effect": "Item, Bandages for field dressing, consume to give a dying ally 1 HP"
+        },
+        {
+          "roll": 16,
+          "name": "Ladder",
+          "effect": "Item, A wooden ladder with 12 rungs, 12 feet high"
+        },
+        {
+          "roll": 17,
+          "name": "Wool Cloak",
+          "effect": "Armor, +1 DEFENSE, A typical hooded cape for winter wear"
+        },
+        {
+          "roll": 18,
+          "name": "Skin of Stale Gar",
+          "effect": "Food, Consume to make your next roll EASY"
+        },
+        {
+          "roll": 19,
+          "name": "Hunng Snare",
+          "effect": "Item, Reusable spring-loaded trap, will immobilize, do 1 damage"
+        },
+        {
+          "roll": 20,
+          "name": "Dusty Gem",
+          "effect": "Worth 1D100 Coin"
+        },
+        {
+          "roll": 21,
+          "name": "Torch",
+          "effect": "Item, An oil soaked sck wrapped in cloth, illuminates NEAR for D8 ROUNDS"
+        },
+        {
+          "roll": 22,
+          "name": "Rivet Kit",
+          "effect": "Item, A small hammer and awl to press rivets through leather or wood"
+        },
+        {
+          "roll": 23,
+          "name": "Smoke Canister",
+          "effect": "Item, Create a cloud of smoke with NEAR radius for 1D4 ROUNDS"
+        },
+        {
+          "roll": 24,
+          "name": "Turkey Leg",
+          "effect": "Food, Heal 1D10 HP"
+        },
+        {
+          "roll": 25,
+          "name": "Smulant Elixir",
+          "effect": "Food, On your next turn move FAR as if it was NEAR"
+        },
+        {
+          "roll": 26,
+          "name": "Blank Book",
+          "effect": "Item, A blank journal-style book with sheathed pen"
+        },
+        {
+          "roll": 27,
+          "name": "Metal Cutters",
+          "effect": "Item, A snip for cutting bars, roll ULTIMATE Effort when doing so"
+        },
+        {
+          "roll": 28,
+          "name": "Small Tent",
+          "effect": "Item, Houses 3 individuals, packs into small bundle"
+        },
+        {
+          "roll": 29,
+          "name": "Canvas Tarp",
+          "effect": "Item, A durable cloth square NEAR long on each side"
+        },
+        {
+          "roll": 30,
+          "name": "Worn Parachute",
+          "effect": "Item, Deploy when falling to nullify damage, 1% chance of failure"
+        },
+        {
+          "roll": 31,
+          "name": "Coin Stash",
+          "effect": "2D100 Coin"
+        },
+        {
+          "roll": 32,
+          "name": "Worn Long Bow",
+          "effect": "Weapon, Has 10% chance of breaking when used"
+        },
+        {
+          "roll": 33,
+          "name": "Common Ammo",
+          "effect": "Standard ammunion, 10 count, roll for type"
+        },
+        {
+          "roll": 34,
+          "name": "Common Dagger",
+          "effect": "Weapon, Thrown, Piercing, Fast"
+        },
+        {
+          "roll": 35,
+          "name": "Pikeman's Spear",
+          "effect": "Weapon, Has NEAR reach, cannot be thrown"
+        },
+        {
+          "roll": 36,
+          "name": "Ferry Pole",
+          "effect": "Item, A sturdy pole that can reach FAR, very difficult to carry"
+        },
+        {
+          "roll": 37,
+          "name": "Fishing Gear",
+          "effect": "Item, Standard low-cost fishing tackle and rod"
+        },
+        {
+          "roll": 38,
+          "name": "Cooking Set",
+          "effect": "Item, Pot, plates, spices. Heal 5 HP OVER HEART max when camping"
+        },
+        {
+          "roll": 39,
+          "name": "Large Magnet",
+          "effect": "Item, Powerful magnet that can hold 100 pounds"
+        },
+        {
+          "roll": 40,
+          "name": "Hacksaw",
+          "effect": "Item, used to very slowly cut metal or wood with precision"
+        },
+        {
+          "roll": 41,
+          "name": "Traveler's Meal",
+          "effect": "Food, Heal up to 5 people for 1 HEART"
+        },
+        {
+          "roll": 42,
+          "name": "Fur-lined Coat",
+          "effect": "Armor, +1 DEFENSE, Disregard negave effects of extreme cold"
+        },
+        {
+          "roll": 43,
+          "name": "Corrosion-Proof Gloves",
+          "effect": "Armor, +1 DEFENSE, Leather immune to Acid or corrosion"
+        },
+        {
+          "roll": 44,
+          "name": "War Banner",
+          "effect": "Item, A canvas banner mounted on a 10 foot pole, unmarked"
+        },
+        {
+          "roll": 45,
+          "name": "Anchor",
+          "effect": "Item, An iron anchor and 50 foot chain used on medium sized boats"
+        },
+        {
+          "roll": 46,
+          "name": "Highborn Clothes",
+          "effect": "Armor, +1 DEFENSE, One set of high-end, tailored formal wear"
+        },
+        {
+          "roll": 47,
+          "name": "Jug of Junk Oil",
+          "effect": "Item, Leovers from mechanical work, highly flammable, slick"
+        },
+        {
+          "roll": 48,
+          "name": "Bullhorn",
+          "effect": "Item, A conical horn with pistol grip, transmit a yell to DOUBLE FAR range"
+        },
+        {
+          "roll": 49,
+          "name": "Ratchet Winch",
+          "effect": "Item, A chain bisected by a lever, pull VERY HEAVY objects"
+        },
+        {
+          "roll": 50,
+          "name": "Armor Spike Kit",
+          "effect": "Item, Add spikes to any armor, attackers take 1 HP when hitting"
+        },
+        {
+          "roll": 51,
+          "name": "Mastercra Arrows",
+          "effect": "Item, Double Weapon Effort on a hit, 3 count"
+        },
+        {
+          "roll": 52,
+          "name": "Jug of Flies",
+          "effect": "Item, A large glass jug filled with flies, remnant of science work"
+        },
+        {
+          "roll": 53,
+          "name": "Side of Beef, Roasted",
+          "effect": "Food, Heal 3 people 1D12"
+        },
+        {
+          "roll": 54,
+          "name": "Deformed Skull",
+          "effect": "Item, A weird arfact kept by some oddball"
+        },
+        {
+          "roll": 55,
+          "name": "Wheeled Dolly",
+          "effect": "Item, A metal plaorm with four small wheels, used to truck cargo"
+        },
+        {
+          "roll": 56,
+          "name": "Carved Tankard",
+          "effect": "Item, a uniquely craed drinking mug, huge"
+        },
+        {
+          "roll": 57,
+          "name": "Luminous Gem",
+          "effect": "Worth 3D100 Coin"
+        },
+        {
+          "roll": 58,
+          "name": "Forgeman's Boots",
+          "effect": "Armor, +1 DEFENSE, Immune to fire or hot surfaces walked on"
+        },
+        {
+          "roll": 59,
+          "name": "Signal Flare",
+          "effect": "Item, A magnesium flare that burns bright yellow, even under water"
+        },
+        {
+          "roll": 60,
+          "name": "Signal Horn",
+          "effect": "Item, When sounded can be heard for 1 mile"
+        },
+        {
+          "roll": 61,
+          "name": "Hard Gar Cider",
+          "effect": "Food, Ignore the next 10 Damage done to you"
+        },
+        {
+          "roll": 62,
+          "name": "Glass Scope",
+          "effect": "Item, Attach to one ranged weapon, +1 DEX when using that weapon"
+        },
+        {
+          "roll": 63,
+          "name": "Huge Cargo Pulley",
+          "effect": "Item, Used with rope to easily hoist huge objects"
+        },
+        {
+          "roll": 64,
+          "name": "Lode Stone",
+          "effect": "Item, An incredibly heavy cube of solid iron with a hoop on top"
+        },
+        {
+          "roll": 65,
+          "name": "Steel Rod",
+          "effect": "Item, Leover from some machine, 3 feet long, almost unbreakable"
+        },
+        {
+          "roll": 66,
+          "name": "Frogman Gear",
+          "effect": "Item, Mask, fins, and air bladder, 4 ROUNDS underwater, reusable"
+        },
+        {
+          "roll": 67,
+          "name": "Mining Tools",
+          "effect": "Item, Make EASY rolls when excavang"
+        },
+        {
+          "roll": 68,
+          "name": "Gold Chain",
+          "effect": "Item, Once worn by the wealthy, worth 1D100 x 5 Coin"
+        },
+        {
+          "roll": 69,
+          "name": "Cask of Golden Gar",
+          "effect": "Food, 2 HP for up to 50 people, once tapped sours in 1 day"
+        },
+        {
+          "roll": 70,
+          "name": "Bird Suit",
+          "effect": "Armor, +1 DEFENSE, A theatrical feather-suit and mask for fesve occasions"
+        },
+        {
+          "roll": 71,
+          "name": "Shovel",
+          "effect": "Item, A sturdy steel and wood shovel"
+        },
+        {
+          "roll": 72,
+          "name": "Padlock and Key",
+          "effect": "Item, Reinforced steel lock"
+        },
+        {
+          "roll": 73,
+          "name": "Gilly Cloak",
+          "effect": "Armor, +1 DEFENSE, A leafy cape, Roll EASY stealth in natural surrounds"
+        },
+        {
+          "roll": 74,
+          "name": "Rapid Crossbow",
+          "effect": "Weapon, Has 10% chance of firing a second BOLT when fired"
+        },
+        {
+          "roll": 75,
+          "name": "Phial of Acid",
+          "effect": "Item, A few ounces of concentrated hydrochloric acid"
+        },
+        {
+          "roll": 76,
+          "name": "Scout's Pouch Harness",
+          "effect": "Armor, +1 DEFENSE, Extend carry capacity to 12 LOOT"
+        },
+        {
+          "roll": 77,
+          "name": "Hunter's Bait",
+          "effect": "Item, A non-perishable gunk that draws wildlife for up to 1 mile"
+        },
+        {
+          "roll": 78,
+          "name": "Forgeman's Bellows",
+          "effect": "Item, Huge, bellows to stoke a fire to incredible temperatures"
+        },
+        {
+          "roll": 79,
+          "name": "Pouch of Ball Bearings",
+          "effect": "Item, A small sack of stainless steel spheres ranging in size"
+        },
+        {
+          "roll": 80,
+          "name": "Goat Bell",
+          "effect": "Item, A leather collar with iron bell, adjustable size"
+        },
+        {
+          "roll": 81,
+          "name": "Medic Stretcher",
+          "effect": "Item, Carry a fallen ally with no STR checks"
+        },
+        {
+          "roll": 82,
+          "name": "Arming Jacket",
+          "effect": "Armor, +1 DEFENSE, Increase maximum wearable Armor to 11"
+        },
+        {
+          "roll": 83,
+          "name": "A Fine Steak",
+          "effect": "Food, Heal to full HP"
+        },
+        {
+          "roll": 84,
+          "name": "Float Vest",
+          "effect": "Item, Used to avoid swimming fague or drowning in rough water"
+        },
+        {
+          "roll": 85,
+          "name": "Deck of Cards",
+          "effect": "Item, Play numerous games or perform parlor tricks"
+        },
+        {
+          "roll": 86,
+          "name": "Butchery Kit",
+          "effect": "Item, A rolled cloth with numerous knives, hooks, and cleavers"
+        },
+        {
+          "roll": 87,
+          "name": "Farmer's Bug Sprayer",
+          "effect": "Item, A hand operated pump filled with vinegar mixture"
+        },
+        {
+          "roll": 88,
+          "name": "Riding Tack",
+          "effect": "Item, Leather harnesses, saddle for any number of beast-mounts"
+        },
+        {
+          "roll": 89,
+          "name": "Armor Repair Kit",
+          "effect": "Item, Reusable supplies and tools to fix any armor"
+        },
+        {
+          "roll": 90,
+          "name": "Navigaon Gear",
+          "effect": "Item, Scopes and charts for navigang, EASY navigaon rolls"
+        },
+        {
+          "roll": 91,
+          "name": "Holy Silver Amulet",
+          "effect": "Item, Silver properties, an inspiring symbol of the good"
+        },
+        {
+          "roll": 92,
+          "name": "Cosmic Gem",
+          "effect": "Worth 1000 Coin"
+        },
+        {
+          "roll": 93,
+          "name": "Elemental Elixir",
+          "effect": "Food, When enchanng, consume to add an elemental property"
+        },
+        {
+          "roll": 94,
+          "name": "Maral Arts Manual",
+          "effect": "Item, When fighng with bare hands, do Weapon Damage"
+        },
+        {
+          "roll": 95,
+          "name": "Locale Map",
+          "effect": "Item, Glean all pernent locaons in a 25 mile radius"
+        },
+        {
+          "roll": 96,
+          "name": "Phial of Resolve",
+          "effect": "Food, Drink to add ULTIMATE Effort to your next successful Attempt"
+        },
+        {
+          "roll": 97,
+          "name": "Alchemist's Kit",
+          "effect": "Item, Do 1 HEART of effort to produce a random 1-use Potion"
+        },
+        {
+          "roll": 98,
+          "name": "Imperium Signet",
+          "effect": "Armor, +1 DEFENSE, The sign of a ranking member of cosmic order"
+        },
+        {
+          "roll": 99,
+          "name": "Runestone",
+          "effect": "Item, If you are killed in battle, return from Asgard...but how?"
+        },
+        {
+          "roll": 100,
+          "name": "Light of the Gods",
+          "effect": "Item, Destroy this gem to raise a DYING ally to full HP"
+        }
+      ]
     }
   },
   "warpShellRoles": {
@@ -1958,16 +2466,56 @@
         "sourcePage": 97,
         "note": "TARGET values are loose suggestions based on complexity, meant to be adjusted, not fixed.",
         "archetypes": [
-          { "name": "Barrier", "target": 10, "description": "A wall/chasm/barricade stands between the party and the exit. Can be as simple as jumping a crack, or as involved as a combination-locked energy field with pursuers closing in." },
-          { "name": "Tangle", "target": 12, "description": "Grabby/grappling hazards sit at the corners of the room with a safe zone in the middle; doors are offset to increase the risk of getting caught." },
-          { "name": "Lock", "target": 10, "description": "Players must search off-path for a key or release mechanism to a locked door, rather than simply smashing through." },
-          { "name": "Kite", "target": 16, "description": "An enemy is flanked by healers that make brute-force damage useless — players must lure the healers out of their healing zone." },
-          { "name": "Pinch", "target": 14, "description": "A narrow space (canyon, rift) where a few players must hold off a large enemy force — a funneling chokepoint fight." },
-          { "name": "Ambush", "target": 12, "description": "A visible first enemy draws players in while a larger hidden force waits to pounce from behind cover." },
-          { "name": "Siege", "target": 12, "description": "Attackers face a dug-in, higher-ground fortification; direct assault is near-impossible, forcing diversions or trickery." },
-          { "name": "Tightrope", "target": 14, "description": "Crossing a narrow elevated walkway above a pit of monsters — failure means a fall into danger, not just a miss." },
-          { "name": "Duel", "target": 18, "description": "The prime enemy hides behind stalwart guardians/healers who can't be talked down, only physically cleared — then a final concealed threat is revealed. Kite and Ambush combined." },
-          { "name": "Ally Kite", "target": 10, "description": "A bare one-way room with straightforward enemies — best used as a change of pace, a story beat, or a rest between more complex encounters, not the centerpiece." }
+          {
+            "name": "Barrier",
+            "target": 10,
+            "description": "A wall/chasm/barricade stands between the party and the exit. Can be as simple as jumping a crack, or as involved as a combination-locked energy field with pursuers closing in."
+          },
+          {
+            "name": "Tangle",
+            "target": 12,
+            "description": "Grabby/grappling hazards sit at the corners of the room with a safe zone in the middle; doors are offset to increase the risk of getting caught."
+          },
+          {
+            "name": "Lock",
+            "target": 10,
+            "description": "Players must search off-path for a key or release mechanism to a locked door, rather than simply smashing through."
+          },
+          {
+            "name": "Kite",
+            "target": 16,
+            "description": "An enemy is flanked by healers that make brute-force damage useless — players must lure the healers out of their healing zone."
+          },
+          {
+            "name": "Pinch",
+            "target": 14,
+            "description": "A narrow space (canyon, rift) where a few players must hold off a large enemy force — a funneling chokepoint fight."
+          },
+          {
+            "name": "Ambush",
+            "target": 12,
+            "description": "A visible first enemy draws players in while a larger hidden force waits to pounce from behind cover."
+          },
+          {
+            "name": "Siege",
+            "target": 12,
+            "description": "Attackers face a dug-in, higher-ground fortification; direct assault is near-impossible, forcing diversions or trickery."
+          },
+          {
+            "name": "Tightrope",
+            "target": 14,
+            "description": "Crossing a narrow elevated walkway above a pit of monsters — failure means a fall into danger, not just a miss."
+          },
+          {
+            "name": "Duel",
+            "target": 18,
+            "description": "The prime enemy hides behind stalwart guardians/healers who can't be talked down, only physically cleared — then a final concealed threat is revealed. Kite and Ambush combined."
+          },
+          {
+            "name": "Ally Kite",
+            "target": 10,
+            "description": "A bare one-way room with straightforward enemies — best used as a change of pace, a story beat, or a rest between more complex encounters, not the centerpiece."
+          }
         ]
       }
     },
@@ -2019,36 +2567,89 @@
       "combatRules": "Vehicles inflict DOUBLE damage against those on foot. Pedestrians do HALF damage against vehicles. When a CHUNK hits 0 HP it's destroyed — that ability/weapon is lost, and it can become a battlefield hazard or scatter as wreckage.",
       "speedTiers": "Slow and Fast engines use 1 CHUNK; Hyperfast engines use 2 CHUNKS.",
       "examples": [
-        { "name": "Grav Bike", "chunks": 2, "build": "Engine (Fast), Fairing (Ram for Weapon Damage)" },
-        { "name": "Hypercar", "chunks": 4, "build": "Engine (Fast), Roll Cage (Ram), Chain Gun (Gun Damage), Nitro Blower (bursts of Hyperfast)" },
-        { "name": "Dredge", "chunks": 5, "build": "Engine (Slow), Haul Crane (grapple other vehicles), Grenade Launcher (Explosive/Magical Damage), Ram (Weapon Damage), Flatbed (carries another vehicle)" },
-        { "name": "Battle Suit", "chunks": 5, "build": "Ablative Shield (+5 DEFENSE, explodes when destroyed), Bolt Gun (3-round burst, reload after 4 bursts), Repair Unit (repairs 1D6 onboard CHUNK HP/ROUND), Repulsor Shield (+3 DEFENSE, deflects projectiles within CLOSE range)" },
-        { "name": "Krell SF-4 Starfighter", "chunks": 4, "build": "Cockpit (seats 2; pilots have 1D4 ROUNDS to live if destroyed while occupied), Ion Drive (deep-space travel; crippled to taxi/thruster speed if destroyed), SR Missile Pack (D10 CHUNK damage or destroys 1D8 microfighters, 8 bursts), Chain Gun (D8 CHUNK damage or destroys 1D4 microfighters, never reloads)" }
+        {
+          "name": "Grav Bike",
+          "chunks": 2,
+          "build": "Engine (Fast), Fairing (Ram for Weapon Damage)"
+        },
+        {
+          "name": "Hypercar",
+          "chunks": 4,
+          "build": "Engine (Fast), Roll Cage (Ram), Chain Gun (Gun Damage), Nitro Blower (bursts of Hyperfast)"
+        },
+        {
+          "name": "Dredge",
+          "chunks": 5,
+          "build": "Engine (Slow), Haul Crane (grapple other vehicles), Grenade Launcher (Explosive/Magical Damage), Ram (Weapon Damage), Flatbed (carries another vehicle)"
+        },
+        {
+          "name": "Battle Suit",
+          "chunks": 5,
+          "build": "Ablative Shield (+5 DEFENSE, explodes when destroyed), Bolt Gun (3-round burst, reload after 4 bursts), Repair Unit (repairs 1D6 onboard CHUNK HP/ROUND), Repulsor Shield (+3 DEFENSE, deflects projectiles within CLOSE range)"
+        },
+        {
+          "name": "Krell SF-4 Starfighter",
+          "chunks": 4,
+          "build": "Cockpit (seats 2; pilots have 1D4 ROUNDS to live if destroyed while occupied), Ion Drive (deep-space travel; crippled to taxi/thruster speed if destroyed), SR Missile Pack (D10 CHUNK damage or destroys 1D8 microfighters, 8 bursts), Chain Gun (D8 CHUNK damage or destroys 1D4 microfighters, never reloads)"
+        }
       ],
-      "starfighterManeuvers": ["Punch It (move to an adjacent SECTOR)", "Zero (lock onto and follow a target through a PUNCH IT)", "Engage (fire guns; a hit rolls damage on a random CHUNK)", "Break Off (stay put but elude pursuers this TURN)", "Ditch (eject; roll to escape safely or take WEAPON DAMAGE)"]
+      "starfighterManeuvers": [
+        "Punch It (move to an adjacent SECTOR)",
+        "Zero (lock onto and follow a target through a PUNCH IT)",
+        "Engage (fire guns; a hit rolls damage on a random CHUNK)",
+        "Break Off (stay put but elude pursuers this TURN)",
+        "Ditch (eject; roll to escape safely or take WEAPON DAMAGE)"
+      ]
     },
     "horrorMode": {
       "sourcePage": 112,
       "description": "Optional SANITY subsystem for horror-toned sessions. All sane characters start with 1 HEART of SANITY; it erodes from witnessing horrific/supernatural events and hits 0 at complete madness (non-functional).",
       "sanityDamageTable": [
-        { "event": "See a person dismembered, beheaded, or die terribly", "damage": "1" },
-        { "event": "Discover a corpse or scene of depravity", "damage": "1" },
-        { "event": "Stare directly at a supernatural entity/ghost/zombie", "damage": "1 (1D4 if a horde)" },
-        { "event": "Lose a limb (or drop to 1 HP from a single hit)", "damage": "1D4" },
-        { "event": "Witness an object of celestial/trans-dimensional origin", "damage": "1D4" },
-        { "event": "Gaze upon an abomination from between worlds", "damage": "1D6" },
-        { "event": "Assemble clues leading to dark, cosmos-spanning truths", "damage": "1D6" },
-        { "event": "Witness the arrival of an Elder-God-scale entity", "damage": "1D8" },
-        { "event": "Form a mind-union with an Elder God or Beyonder", "damage": "1D10" }
+        {
+          "event": "See a person dismembered, beheaded, or die terribly",
+          "damage": "1"
+        },
+        {
+          "event": "Discover a corpse or scene of depravity",
+          "damage": "1"
+        },
+        {
+          "event": "Stare directly at a supernatural entity/ghost/zombie",
+          "damage": "1 (1D4 if a horde)"
+        },
+        {
+          "event": "Lose a limb (or drop to 1 HP from a single hit)",
+          "damage": "1D4"
+        },
+        {
+          "event": "Witness an object of celestial/trans-dimensional origin",
+          "damage": "1D4"
+        },
+        {
+          "event": "Gaze upon an abomination from between worlds",
+          "damage": "1D6"
+        },
+        {
+          "event": "Assemble clues leading to dark, cosmos-spanning truths",
+          "damage": "1D6"
+        },
+        {
+          "event": "Witness the arrival of an Elder-God-scale entity",
+          "damage": "1D8"
+        },
+        {
+          "event": "Form a mind-union with an Elder God or Beyonder",
+          "damage": "1D10"
+        }
       ],
       "sanityStateOfBeing": {
+        "0": "Catatonic, clinically mad, reliving the terror endlessly",
+        "1": "All rolls HARD is now permanent",
         "10": "Safe in the veil of daily normalcy",
         "8-9": "Aghast/rationalizing, on edge, wary of unexplained sounds",
         "6-7": "Shocked/terrified; CHA and WIS rolls HARD, cannot attack the source of fear",
         "4-5": "All rolls HARD; must seek hiding or back away immediately",
-        "2-3": "Screaming/petrified 1D4 ROUNDS, or fleeing at max speed for 1D6 ROUNDS",
-        "1": "All rolls HARD is now permanent",
-        "0": "Catatonic, clinically mad, reliving the terror endlessly"
+        "2-3": "Screaming/petrified 1D4 ROUNDS, or fleeing at max speed for 1D6 ROUNDS"
       }
     },
     "adventureBuildingMethod": {
