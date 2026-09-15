@@ -60,6 +60,14 @@
       "maxStatBonusNote": "No STAT can ever exceed +10, regardless of source (base points, LIFE FORM, LOOT)."
     }
   },
+  "inventory": {
+    "sourcePage": 29,
+    "carriedLimit": 10,
+    "equippedLimit": 10,
+    "rule": "Inventory is limited to 10 CARRIED items and 10 EQUIPPED items — two separate pools, not one shared total.",
+    "carriedVsEquipped": "CARRIED items must be EQUIPPED to offer any benefit or be used — something sitting in your pack (not actively worn/wielded) is inert until you swap it into an EQUIPPED slot, which may mean swapping something else out.",
+    "note": "Individual LOOT items can state their own slot cost (e.g. Adamantium Armor occupies 5 slots, a Blaster occupies none) — that cost applies to whichever pool (CARRIED or EQUIPPED) the item is currently placed in."
+  },
   "defense": {
     "sourcePage": 26,
     "formula": "DEFENSE = your CON STAT bonus + all DEFENSE bonuses granted by LOOT (armor, shields, etc.)",
