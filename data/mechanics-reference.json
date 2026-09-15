@@ -1899,6 +1899,32 @@
         "outOfRange": "Beyond FAR — can't be reached in one TURN of movement, and no effect can reach it. Allies OUT OF RANGE of each other can't help one another."
       }
     },
+    "gettingStarted": {
+      "sourcePage": 79,
+      "description": "The GM's answer to a blank page: any game/session/adventure genesis reduces to 3 questions, which can be seeded almost at random and still produce something workable.",
+      "threeQuestions": [
+        "1. Where are the heroes? (LOCATION)",
+        "2. What is their goal? (GOAL)",
+        "3. What stands between the two? (OBSTACLE)"
+      ],
+      "approaches": {
+        "narrative": "Write it as a hook/scene ('Rescue miners from living rock creatures as the mines collapse') — easy and fun, but can leave mechanical gaps at the table about exactly what happens.",
+        "mechanical": "List the specific challenge TYPES the session will exercise (climb, search, break, repair, fight...), or even the STAT sequence (STR, DEX, DEX, Combat, INT...) — shows which players will shine and which will struggle, and gets past the blank page even when nothing else comes to mind."
+      }
+    },
+    "storyArchitecture": {
+      "sourcePage": 89,
+      "description": "A 9-beat index-card structure for laying out a full session, used as a loose scaffold, not a rigid script — if players go out of order, just rearrange the remaining beats rather than force them back on track (\"no content left behind\").",
+      "beats": [
+        "1. The Stakes or Setup: open with a bang — 'if we don't X, then Y (very bad) happens.'",
+        "2. Get There: travel to the location, described briefly and vividly.",
+        "3. Meet the Enemy: the first fight or obstacle — give it teeth.",
+        "4-5. Skill Checks: climb/dig/hack/swim toward the heart of the problem.",
+        "6-7. Escalation: more resistance reveals how dangerous this really is — a good spot for a genuinely tough fight.",
+        "8. Resolution: reveal everything, confront the big threat, tie up loose ends.",
+        "9. Return: the reward, the adoration, the ride home — or the hook into what's next."
+      ]
+    },
     "turnOrder": {
       "sourcePage": 85,
       "default": "ICRPG's default is CLOCKWISE TURNS, board-game style, not a rolled initiative — the GM takes a turn to run monsters/hazards, players take turns in seating order around the table. No roll is required by default.",
@@ -1980,6 +2006,12 @@
         "effortSubstitute": "For a long task after an initial success, just announce a flat TIMER (\"D4 ROUNDS to decode the password\") instead of tracking EFFORT point-by-point.",
         "timerDamage": "Players can delay or hasten a TIMER with actions/LOOT, same idea as TARGET DAMAGE — e.g. fighting a fire delays a burn-timer by 1 ROUND per TURN spent, or pulling power cables on a charging mech delays its activation."
       }
+    },
+    "cardsAsDice": {
+      "sourcePage": 102,
+      "description": "A full optional alternate resolution method — an entire session can run on a 52-card poker deck (+2 jokers) instead of dice. Not relevant to how this tool runs sessions (no physical cards involved), noted for completeness only.",
+      "core": "Draw 2 cards, add the appropriate STAT, meet or beat the TARGET (face cards = 10, Ace = 11, a Joker is an auto-fail).",
+      "effortDraws": "Basic: draw 1, halve it. Weapon: draw 1, redraw on a face card. Guns/Magic: draw 1. Ultimate: draw 2."
     },
     "vehiclesAndChunks": {
       "sourcePage": 110,
