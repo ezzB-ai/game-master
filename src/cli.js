@@ -128,7 +128,7 @@ Session Engine (automated — full kit generation from live campaign state)
   session kit [--session N] [--faction-focus FactionName] [--difficulty EASY|MEDIUM|HARD]
       [--player "Name" ...]
       Generates 5 locations, 15 NPCs, 8 enemies (Tier I-IV, weighted to party
-      power level), 35 loot items (20 Shabby + 10 Sci-Fi + 5 Epic, all cited), current
+      power level), 50 loot items (15 Starter + 20 Shabby + 10 Sci-Fi + 5 Epic, all cited), current
       faction state, a party snapshot, and campaign hooks — written to
       session-prep/session-N-kit.json. New NPCs/locations are saved to the
       normal registries, same as running "generate npc"/"generate location".
@@ -631,7 +631,7 @@ function run(argv) {
       console.log(`\nSession ${kit.sessionNumber} kit generated.`);
       console.log(`Roster: ${kit.roster.present.join(', ')}${kit.roster.absent.length ? ` (absent: ${kit.roster.absent.join(', ')})` : ''}`);
       console.log(`Party power level: ${kit.partyPowerLevel.effectivePowerId} (score ${kit.partyPowerLevel.powerScore.toFixed(1)}, ${kit.partyPowerLevel.totalHearts} total HEARTS)${kit.partyPowerLevel.difficultyOverride ? ` — difficulty override: ${kit.partyPowerLevel.difficultyOverride}` : ''}`);
-      console.log(`Locations: ${kit.locations.length} | NPCs: ${kit.npcs.length} (${kit.npcs.filter((n) => n.recurring).length} recurring) | Enemies: ${kit.enemies.lowLevel.length} low + ${kit.enemies.mediumHigh.length} medium-high | Loot: ${kit.loot.shabby.length} shabby + ${kit.loot.lowLevel.length} low + ${kit.loot.midHigh.length} mid-high`);
+      console.log(`Locations: ${kit.locations.length} | NPCs: ${kit.npcs.length} (${kit.npcs.filter((n) => n.recurring).length} recurring) | Enemies: ${kit.enemies.lowLevel.length} low + ${kit.enemies.mediumHigh.length} medium-high | Loot: ${kit.loot.starter.length} starter + ${kit.loot.shabby.length} shabby + ${kit.loot.lowLevel.length} low + ${kit.loot.midHigh.length} mid-high`);
       console.log('\nFaction updates:');
       Object.entries(kit.factionUpdates).forEach(([name, f]) => console.log(`  - ${name}: reputation ${f.reputation}${f.lastAction ? `, last action: "${f.lastAction}"` : ''}`));
       console.log('\nCampaign hooks:');

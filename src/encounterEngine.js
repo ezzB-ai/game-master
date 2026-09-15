@@ -75,7 +75,11 @@ function generateEnemies(count, powerId, { excludeTiers = [] } = {}) {
  * Roll `count` distinct items from a real loot table (sciFi or epic),
  * citing the table and roll number so nothing is invented.
  */
-const LOOT_TABLE_LABELS = { sciFi: 'Sci-Fi Loot', epic: 'Epic Loot', shabby: 'Shabby Loot' };
+// Ordered lowest to highest rarity/power, per explicit direction: Starter is
+// below Shabby, Epic is the top. sciFi doubles as Warp Shell's "Basic Loot"
+// equivalent (each ICRPG world has its own themed mid-tier table).
+const LOOT_TABLE_LABELS = { starter: 'Starter Loot', shabby: 'Shabby Loot', sciFi: 'Sci-Fi Loot', epic: 'Epic Loot' };
+const LOOT_TIER_ORDER = ['starter', 'shabby', 'sciFi', 'epic'];
 
 function rollLoot(tableName, count) {
   const ref = loadMechanicsRef();
@@ -88,13 +92,17 @@ function rollLoot(tableName, count) {
   for (let i = 0; i < n; i++) {
     const idx = Math.floor(Math.random() * pool.length);
     const item = pool.splice(idx, 1)[0];
+    // The starter table isn't a d100 table from the book (it's compiled from
+    // each hero type's 3 starting-loot picks), so cite by hero type instead
+    // of a roll number.
+    const citation = item.roll !== undefined ? `#${item.roll}` : `(${item.heroType})`;
     results.push({
       name: item.name,
       effect: item.effect,
-      source: `${label} #${item.roll}`,
+      source: `${label} ${citation}`,
     });
   }
   return results;
 }
 
-module.exports = { generateEnemies, rollLoot, pickWeightedTier, TIER_WEIGHTS_BY_POWER };
+module.exports = { generateEnemies, rollLoot, pickWeightedTier, TIER_WEIGHTS_BY_POWER, LOOT_TIER_ORDER, LOOT_TABLE_LABELS };

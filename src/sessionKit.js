@@ -90,10 +90,11 @@ function buildSessionKit({ sessionNumber, factionFocus, difficulty, playerRefs =
   };
 
   // Loot should be abundant — every explored space should turn up something,
-  // not just the rare macguffin. Shabby is the bulk of it (cheap, plentiful,
-  // including plenty of purely-cool flavor collectibles with no mechanical
-  // effect); Epic stays deliberately rare, not inflated by the abundance goal.
+  // not just the rare macguffin. Tier ordering (lowest to highest):
+  // Starter < Shabby < Sci-Fi < Epic. Starter/Shabby carry the abundance;
+  // Epic stays deliberately rare, not inflated by the abundance goal.
   const loot = {
+    starter: rollLoot('starter', 15),
     shabby: rollLoot('shabby', 20),
     lowLevel: rollLoot('sciFi', 10),
     midHigh: rollLoot('epic', 5),

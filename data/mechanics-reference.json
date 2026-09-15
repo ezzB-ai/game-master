@@ -2042,6 +2042,102 @@
           "effect": "Item, Destroy this gem to raise a DYING ally to full HP"
         }
       ]
+    },
+    "starter": {
+      "sourceNote": "Not a d100 table in the book — compiled from each Warp Shell hero type's 3 character-creation STARTING LOOT options (warpShellRoles[type].startingLoot), for use as a loot-generation tier. This is the entry-level gear a fresh crew member starts with.",
+      "tierOrder": "Per explicit direction: Epic > Sci-Fi > Shabby > Starter (Starter is the lowest/most basic tier, below Shabby).",
+      "items": [
+        {
+          "name": "Hot Rod",
+          "effect": "A super-compact starship seating up to 6; no weapons or shields, just tiny and fast.",
+          "heroType": "Pilot"
+        },
+        {
+          "name": "Speed Holster",
+          "effect": "If an enemy attacks you for the first time, roll 1 free pistol attack against them first.",
+          "heroType": "Pilot"
+        },
+        {
+          "name": "HUD Goggles",
+          "effect": "Hypertech optics track a designated target across vast distance, even across time, until redesignated.",
+          "heroType": "Pilot"
+        },
+        {
+          "name": "Burst Module",
+          "effect": "Attack rolls of modified 15+ earn another attack.",
+          "heroType": "Gunner"
+        },
+        {
+          "name": "Reflex Bipod",
+          "effect": "Aimed shots only miss on a natural 1.",
+          "heroType": "Gunner"
+        },
+        {
+          "name": "Explosives Kit",
+          "effect": "Modify a gun so its shots explode on contact, damaging a NEAR radius; re-modify a new gun (1 ROUND) if the old one is lost.",
+          "heroType": "Gunner"
+        },
+        {
+          "name": "Omnitool",
+          "effect": "Arc-welder that repairs any machine using ENERGY EFFORT.",
+          "heroType": "Mechanic"
+        },
+        {
+          "name": "Lil Bob",
+          "effect": "Twin-stick controller + camera drone; use its location as yours for repair/tune/jerry-rig actions.",
+          "heroType": "Mechanic"
+        },
+        {
+          "name": "Diagnostic Computer",
+          "effect": "INT roll to access lock codes, camera footage, computer files, magstripe codes, etc.",
+          "heroType": "Mechanic"
+        },
+        {
+          "name": "Xevosian Starmap",
+          "effect": "Wrist megacomputer; cuts all deep-space travel time in half, even at dogfight scale.",
+          "heroType": "Navigator"
+        },
+        {
+          "name": "Boost Helmet",
+          "effect": "Focus your will to use any STAT as STR.",
+          "heroType": "Navigator"
+        },
+        {
+          "name": "Psionic Knives",
+          "effect": "Thought-formed ENERGY melee weapon; can never be lost, detected, or damaged; usable by you or your telekinetic presence.",
+          "heroType": "Navigator"
+        },
+        {
+          "name": "Advanced Scan Unit",
+          "effect": "1 TURN to \"run a scan,\" reducing the current TARGET by 1D4 for you and allies.",
+          "heroType": "Scientist"
+        },
+        {
+          "name": "Extra Limb",
+          "effect": "A third arm; non-damage EFFORT on machinery/repairs/building always rolls ULTIMATE.",
+          "heroType": "Scientist"
+        },
+        {
+          "name": "Genome Taser",
+          "effect": "NEAR electrical weapon, biological targets only; always ULTIMATE, but at 0 HP the target is stunned, not dead.",
+          "heroType": "Scientist"
+        },
+        {
+          "name": "Divider Unit",
+          "effect": "When changing forms, split in half; both halves can move and act (1 main action shared per turn).",
+          "heroType": "Echo"
+        },
+        {
+          "name": "Pocket Door",
+          "effect": "Moving creates a tiny wormhole other creatures can use to copy your move for 1 ROUND.",
+          "heroType": "Echo"
+        },
+        {
+          "name": "Relay Ray",
+          "effect": "Using a starting ability stores 1D8 ENERGY.",
+          "heroType": "Echo"
+        }
+      ]
     }
   },
   "warpShellRoles": {
