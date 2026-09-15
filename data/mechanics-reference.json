@@ -1793,7 +1793,7 @@
         },
         {
           "roll": 51,
-          "name": "Mastercra Arrows",
+          "name": "Mastercraft Arrows",
           "effect": "Item, Double Weapon Effort on a hit, 3 count"
         },
         {
@@ -1819,7 +1819,7 @@
         {
           "roll": 56,
           "name": "Carved Tankard",
-          "effect": "Item, a uniquely craed drinking mug, huge"
+          "effect": "Item, a uniquely crafted drinking mug, huge"
         },
         {
           "roll": 57,
@@ -2008,7 +2008,7 @@
         },
         {
           "roll": 94,
-          "name": "Maral Arts Manual",
+          "name": "Martial Arts Manual",
           "effect": "Item, When fighng with bare hands, do Weapon Damage"
         },
         {

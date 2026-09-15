@@ -75,10 +75,13 @@ function generateEnemies(count, powerId, { excludeTiers = [] } = {}) {
  * Roll `count` distinct items from a real loot table (sciFi or epic),
  * citing the table and roll number so nothing is invented.
  */
+const LOOT_TABLE_LABELS = { sciFi: 'Sci-Fi Loot', epic: 'Epic Loot', shabby: 'Shabby Loot' };
+
 function rollLoot(tableName, count) {
   const ref = loadMechanicsRef();
   const table = ref.lootTables[tableName];
-  if (!table) throw new Error(`Unknown loot table "${tableName}". Valid: sciFi, epic`);
+  if (!table) throw new Error(`Unknown loot table "${tableName}". Valid: ${Object.keys(LOOT_TABLE_LABELS).join(', ')}`);
+  const label = LOOT_TABLE_LABELS[tableName] || tableName;
   const pool = [...table.items];
   const results = [];
   const n = Math.min(count, pool.length);
@@ -88,7 +91,7 @@ function rollLoot(tableName, count) {
     results.push({
       name: item.name,
       effect: item.effect,
-      source: `${tableName === 'sciFi' ? 'Sci-Fi Loot' : 'Epic Loot'} #${item.roll}`,
+      source: `${label} #${item.roll}`,
     });
   }
   return results;

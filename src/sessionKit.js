@@ -89,7 +89,12 @@ function buildSessionKit({ sessionNumber, factionFocus, difficulty, playerRefs =
     mediumHigh: generateEnemies(3, powerId, { excludeTiers: ['I'] }),
   };
 
+  // Loot should be abundant — every explored space should turn up something,
+  // not just the rare macguffin. Shabby is the bulk of it (cheap, plentiful,
+  // including plenty of purely-cool flavor collectibles with no mechanical
+  // effect); Epic stays deliberately rare, not inflated by the abundance goal.
   const loot = {
+    shabby: rollLoot('shabby', 20),
     lowLevel: rollLoot('sciFi', 10),
     midHigh: rollLoot('epic', 5),
   };
